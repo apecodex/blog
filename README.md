@@ -173,7 +173,7 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 
 ## 部署教程
 
-
+**博客部署教程：**[https://codeape.cn/article/da02991d5130234a](https://codeape.cn/article/da02991d5130234a)
 
 ## 开发总结
 
