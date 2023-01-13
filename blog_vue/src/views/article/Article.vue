@@ -241,12 +241,6 @@ const previewImageHandle = (image: string, pictureName: string) => {
                                                                                       href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
                                                                                       target="_blank">CC BY-NC-SA 4.0 </a> 许可协议。转载请注明出处！</span>
                 </div>
-                <div class="flex">
-                  <span class="block w-70px text-right">反馈群：</span>
-                  <span><a target="_blank"
-                           href="https://qm.qq.com/cgi-bin/qm/qr?k=ku9siodSZDhCWtK_7ZlH6pKdVs9DiKyp&jump_from=webapi&authKey=xBWOF9XWv5kl0FWfU+Y+m7zWqGYXX5535lLRYKjrgMldnMCW2KWAmr2VYYdzXq2A"
-                           title="博客交流🤤" class="hover:(text-$hover-color2)">660213531</a></span>
-                </div>
               </div>
               <span class="flex justify-start items-center my-10px">
                 <router-link :to="`/tags/${tag.id}`" v-for="tag of article.tags"

@@ -25,8 +25,9 @@
     </a>
 </p>
 <p align="center">
-  <a href="#在线体验">在线体验</a> | <a href="#技术介绍">技术介绍</a> | <a href="#项目特点">项目特点</a> | <a href="#目录结构">目录结构</a> | <a href="#运行环境">运行环境</a> | <a href="#开发环境">开发环境</a> | <a href="#项目截图">项目截图</a> | <a href="#部署教程">部署教程</a> | <a href="#开发总结">开发总结</a> | <a href="#待开发功能">待开发功能</a> | <a href="#交流群">交流群</a>   
+  <a href="#在线体验">在线体验</a> | <a href="#技术介绍">技术介绍</a> | <a href="#项目特点">项目特点</a> | <a href="#目录结构">目录结构</a> | <a href="#运行环境">运行环境</a> | <a href="#开发环境">开发环境</a> | <a href="#项目截图">项目截图</a> | <a href="#部署教程">部署教程</a> | <a href="#开发总结">开发总结</a> | <a href="#待开发功能">待开发功能</a>
 </p>
+
 
 ## 在线体验
 
@@ -184,13 +185,3 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 - 音乐播放器
 
 * 右键菜单功能
-
-
-
-## 交流群
-
-![交流群](https://static.oss.codeape.cn/config/BlogCommunicationGroup.png)
-
-
-
-<p align="center"><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=40qwYLlFWKqFceA-ztCL61tk8AYvjrxc&jump_from=webapi&authKey=xlQaIxcJboG1cmAvgnFUKIJyGohaAnYgsCmdO7IzkgGrOQ545IlV43HPy8s/3KOO"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="博客交流🤤" title="博客交流🤤"></a></p>
