@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.blog.mapper.UserAuthMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.blog.entity.UserAuth">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="userInfoId" property="userInfoId"/>
+        <result column="loginType" property="loginType"/>
+        <result column="ipAddress" property="ipAddress"/>
+        <result column="ipSource" property="ipSource"/>
+        <result column="rectangle" property="rectangle"/>
+        <result column="browser" property="browser"/>
+        <result column="os" property="os"/>
+        <result column="lastLoginTime" property="lastLoginTime"/>
+        <result column="enable" property="enable"/>
+        <result column="isDelete" property="isDelete"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="UserInfoBackDto" type="cn.apecode.blog.dto.UserInfoBackDto">
+        <id column="id" property="userAuthId"/>
+        <result column="uid" property="uid"/>
+        <result column="userInfoId" property="userInfoId"/>
+        <result column="nickname" property="nickname"/>
+        <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
+        <result column="intro" property="intro"/>
+        <result column="webSite" property="webSite"/>
+        <result column="isEmailNotice" property="isEmailNotice"/>
+        <result column="bindQQ" property="bindQQ"/>
+        <result column="createTime" property="createTime"/>
+        <result column="enable" property="enable"/>
+        <result column="loginType" property="loginType"/>
+        <result column="ipAddress" property="ipAddress"/>
+        <result column="ipSource" property="ipSource"/>
+        <result column="rectangle" property="rectangle"/>
+        <result column="lastLoginTime" property="lastLoginTime"/>
+        <collection property="roleList" ofType="cn.apecode.blog.dto.UserRoleDto">
+            <id column="roleId" property="id"/>
+            <result column="roleDesc" property="roleDesc"/>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, password, userInfoId, loginType, ipAddress, ipSource, browser, os, lastLoginTime, enable, isDelete, createTime, updateTime
+    </sql>
+    <!-- 获取后台用户数量 -->
+    <select id="userCount" resultType="java.lang.Integer">
+        select count(1) as count
+        from t_user_auth ua
+        left join t_user_info ui on ua.userInfoId = ui.id
+        <where>
+            <if test="conditionVo.keywords != null">
+                ui.nickname like concat('%', #{conditionVo.keywords}, '%')
+            </if>
+            <if test="conditionVo.email != null">
+                and ui.email = #{conditionVo.email}
+            </if>
+        </where>
+    </select>
+    <!-- 获取后台用户列表 -->
+    <select id="listUsers" resultMap="UserInfoBackDto">
+        select ui.id,
+        ui.uid,
+        ui.userInfoId,
+        ui.nickname,
+        ui.email,
+        ui.avatar,
+        ui.intro,
+        ui.webSite,
+        ui.isEmailNotice,
+        ui.bindQQ,
+        ui.createTime,
+        ui.enable,
+        ui.loginType,
+        ui.ipAddress,
+        ui.ipSource,
+        ui.rectangle,
+        ui.browser,
+        ui.os,
+        ui.lastLoginTime,
+        ur.roleId,
+        r.roleDesc
+        from (select ua.id,
+        uid,
+        ui.id as userInfoId,
+        nickname,
+        email,
+        avatar,
+        intro,
+        webSite,
+        isEmailNotice,
+        bindQQ,
+        ua.createTime,
+        enable,
+        loginType,
+        ipAddress,
+        ipSource,
+        rectangle,
+        browser,
+        os,
+        lastLoginTime
+        from t_user_info ui
+        left join t_user_auth ua on ui.id = ua.userInfoId
+        <where>
+            <if test="condition.email != null">
+                ui.email = #{condition.email}
+            </if>
+            <if test="condition.keywords != null">
+                and ui.nickname like concat('%',#{condition.keywords},'%')
+            </if>
+        </where>
+        limit #{current}, #{size}
+        ) as ui
+        left join t_user_role ur on ur.userId = ui.id
+        left join t_role r on r.id = ur.roleId
+    </select>
+
+</mapper>

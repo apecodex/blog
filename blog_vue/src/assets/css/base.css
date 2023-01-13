@@ -1,0 +1,267 @@
+@charset "UTF-8";
+
+:root {
+  --hover-color: rgb(255, 165, 2);
+  --hover-color2: rgb(255, 99, 72);
+  --hover-color3: rgb(30, 144, 255);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s !important;
+  --theme-transition: color var(--transition), background-color var(--transition) !important;
+  --theme-transition-color: color var(--transition) !important;
+  --theme-transition-bg: background-color var(--transition) !important;
+  --theme-transition-shadow: box-shadow var(--transition) !important;
+  --theme-transition-fill: fill var(--transition) !important;
+}
+
+@font-face {
+  font-family: 'tzy';
+  /* 字体名自定义即可 */
+  src: url('../fonts/ZhuZiAWan.woff2');
+  /* 字体文件路径 */
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-bg-reverse), var(--theme-bg);
+}
+
+html, body {
+  @apply 'text-shadow-sm font-mono';
+  font-family: tzy, Times, serif, Arial, Helvetica, sans-serif !important;
+  cursor: url('https://apecode.oss-cn-chengdu.aliyuncs.com/config/mouse/x1.cur'), auto !important;
+  font-size: var(--font-size);
+  color: var(--text-color);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+img {
+  /*图片不可拖动*/
+  -webkit-user-drag: none;
+}
+
+a,
+img,
+button,
+.cursor-pointer {
+  cursor: url('https://apecode.oss-cn-chengdu.aliyuncs.com/config/mouse/x2.cur'), auto !important;
+}
+
+.cursor-default {
+  cursor: url('https://apecode.oss-cn-chengdu.aliyuncs.com/config/mouse/x1.cur'), auto !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: var(--theme-bg);
+  transition: var(--theme-transition-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-bg-reverse);
+  border-radius: 5px;
+  transition: var(--theme-transition-bg);
+}
+
+/*头像旋转*/
+.avatar {
+  transition: transform .3s ease-out;
+  object-fit: cover
+}
+
+.avatar:hover {
+  transform: rotateZ(360deg)
+}
+
+.shadow, .shadow-hover {
+  box-shadow: var(--theme-shadow) !important;
+  transition: var(--theme-transition-shadow);
+}
+
+.shadow-hover:hover {
+  box-shadow: var(--theme-shadow-inset) !important;
+}
+
+.shadow-inset, .shadow-inset-hover {
+  box-shadow: var(--theme-shadow-inset) !important;
+  transition: var(--theme-transition-shadow);
+}
+
+.shadow-inset-hover:hover {
+  box-shadow: var(--theme-shadow) !important;
+}
+
+/* 鼠标滑入缩放图片 */
+.zoomImg {
+  transition: transform .3s ease-in-out;
+}
+
+.zoomImg:hover {
+  transform: scale(1.2);
+}
+
+/* shake! */
+.shake:hover {
+  animation: shake 0.3s linear infinite both;
+}
+
+/*斜纹分隔线*/
+.hr-twill {
+  margin: 5px 0;
+  border: 0;
+  padding: 3px;
+  background: repeating-linear-gradient(135deg, var(--theme-bg-reverse) 0px, var(--theme-bg-reverse) 1px, transparent 1px, transparent 6px);
+  transition: background-color var(--transition);
+}
+
+/*两头虚的分隔线*/
+.hr-edge-weak {
+  border: 0;
+  padding-top: 1px;
+  background: linear-gradient(to right, transparent, var(--theme-bg-reverse), transparent);
+  transition: var(--theme-transition-bg);
+}
+
+/*向下滑动动画*/
+.down-effect-animate {
+  animation: header-effect .5s ease-in;
+}
+
+/* 只shake一次 */
+.justshake:focus {
+  animation: justshake 0.3s forwards;
+}
+
+@keyframes down-effect {
+  0% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+}
+
+@keyframes right-effect {
+  0% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateX(0);
+  }
+}
+
+@keyframes flipInX {
+  0% {
+    -webkit-transform: perspective(400px) rotateX(90deg);
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  40% {
+    -webkit-transform: perspective(400px) rotateX(-10deg);
+    transform: perspective(400px) rotateX(-10deg);
+  }
+  70% {
+    -webkit-transform: perspective(400px) rotateX(10deg);
+    transform: perspective(400px) rotateX(10deg);
+  }
+  100% {
+    -webkit-transform: perspective(400px) rotateX(0deg);
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes flipOutX {
+  0% {
+    -webkit-transform: perspective(400px) rotateX(0deg);
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: perspective(400px) rotateX(90deg);
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+
+/* 只shake一次*/
+@keyframes justshake {
+  25% {
+    transform: translateX(5px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* 上下移动（显示密码光束动画）*/
+@keyframes beam-animate {
+  0% {
+    transform: translateY(-50%) rotate(3deg);
+  }
+  25% {
+    transform: translateY(-50%) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-50%) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-50%) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+}

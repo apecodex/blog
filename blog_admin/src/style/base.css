@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'tzy';
+    /* 字体名自定义即可 */
+    src: url('../assets/fonts/ZhuZiAWan.woff2') format("woff2");
+    /* 字体文件路径 */
+    font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*滚动条样式*/
+*::-webkit-scrollbar {
+    right: 4px;
+    top: 2px;
+    bottom: 2px;
+    width: var(--n-scrollbar-width);
+}
+
+*::-webkit-scrollbar-thumb {
+    width: var(--n-scrollbar-width);
+    border-radius: var(--n-scrollbar-border-radius);
+    bottom: 0;
+    background-color: var(--n-scrollbar-color-hover);
+}
+
+html, body {
+    font-family: tzy !important;
+    cursor: url('https://static.oss.codeape.cn/config/mouse/x1.cur'), auto !important;
+}
+
+a,
+img,
+.n-tag,
+.i-icon,
+.md-icon,
+.n-button,
+.n-base-icon,
+.n-switch__rail,
+.n-checkbox,
+.n-checkbox-box,
+.n-upload-dragger,
+.n-menu-item-content,
+.n-base-select-option,
+.n-base-selection-input,
+.n-breadcrumb-item__link,
+.n-scrollbar-rail__scrollbar,
+.n-tree-node-content
+{
+    cursor: url('https://static.oss.codeape.cn/config/mouse/x1.cur'), auto !important;
+}
+
+.n-button--disabled {
+    cursor: not-allowed !important;
+}

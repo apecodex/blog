@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.blog.mapper.PhotoAlbumMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.blog.entity.PhotoAlbum">
+        <id column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="albumName" property="albumName"/>
+        <result column="albumDesc" property="albumDesc"/>
+        <result column="albumCover" property="albumCover"/>
+        <result column="status" property="status"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="PhotoAlbumBackDto" type="cn.apecode.blog.dto.PhotoAlbumBackDto">
+        <id column="id" property="id"/>
+        <result column="albumName" property="albumName"/>
+        <result column="albumDesc" property="albumDesc"/>
+        <result column="albumCover" property="albumCover"/>
+        <result column="status" property="status"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="pictureCount" property="pictureCount"/>
+        <collection property="user" ofType="cn.apecode.blog.dto.SimpleUserInfoDto">
+            <result column="nickname" property="nickname"/>
+            <result column="uid" property="uid"/>
+            <result column="avatar" property="avatar"/>
+            <result column="intro" property="intro" />
+            <result column="webSite" property="webSite" />
+        </collection>
+    </resultMap>
+    
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userId, albumName, albumDesc, albumCover, status, createTime, updateTime
+    </sql>
+    <!-- 获取后台相册列表 -->
+    <select id="listPhotoAlbumBack" resultMap="PhotoAlbumBackDto">
+        select tpa.id,
+               tpa.albumName,
+               tpa.albumDesc,
+               tpa.albumCover,
+               tpa.status,
+               tpa.isDelete,
+               tpa.createTime,
+               tpa.updateTime,
+               ui.nickname,
+               ui.uid,
+               ui.avatar,
+               ui.intro,
+               ui.webSite,
+               count(tp.id) as pictureCount
+        from (select id,
+                     userId,
+                     albumName,
+                     albumDesc,
+                     albumCover,
+                     status,
+                     isDelete,
+                     createTime,
+                     updateTime
+              from t_photo_album
+              where isDelete = 0
+                <if test="condition.keywords != null">
+                    and albumName like concat('%', #{condition.keywords}, '%')
+                </if>
+              order by id desc) tpa
+                 left join (select id, albumId from t_picture where isDelete = 0) tp on tpa.id = tp.albumId
+                 left join t_user_info ui on tpa.userId = ui.id
+        group by tpa.id
+    </select>
+    <!-- 获取相册列表 -->
+    <select id="listPhotoAlbumFront" resultType="cn.apecode.blog.dto.PhotoAlbumFrontDto">
+        select tpa.id,
+               tpa.albumName,
+               tpa.albumCover,
+               tpa.updateTime,
+               count(tp.id) pictureCount
+        from (select id, albumName, albumCover, updateTime
+              from t_photo_album
+              where isDelete = 0
+                and status = 1
+              limit #{current}, #{size}) tpa
+                 left join (select id, albumId from t_picture where isDelete = 0) tp on tpa.id = tp.albumId
+        group by tpa.id;
+    </select>
+
+</mapper>

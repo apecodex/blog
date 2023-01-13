@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.blog.mapper.FriendLinkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.blog.entity.FriendLink">
+        <id column="id" property="id" />
+        <result column="userId" property="userId" />
+        <result column="linkName" property="linkName" />
+        <result column="linkAvatar" property="linkAvatar" />
+        <result column="linkIntro" property="linkIntro" />
+        <result column="linkUrl" property="linkUrl" />
+        <result column="isReview" property="isReview" />
+        <result column="remark" property="remark" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="FriendLinkBackDto" type="cn.apecode.blog.dto.FriendLinkBackDto">
+        <id column="id" property="id" />
+        <result column="linkName" property="linkName" />
+        <result column="linkAvatar" property="linkAvatar" />
+        <result column="linkIntro" property="linkIntro" />
+        <result column="linkUrl" property="linkUrl" />
+        <result column="isReview" property="isReview" />
+        <result column="remark" property="remark" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <collection property="user" ofType="cn.apecode.blog.dto.SimpleUserInfoDto">
+            <result column="uid" property="uid"/>
+            <result column="nickname" property="nickname"/>
+            <result column="avatar" property="avatar"/>
+            <result column="intro" property="intro" />
+            <result column="webSite" property="webSite" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="FriendLinkFrontDto" type="cn.apecode.blog.dto.FriendLinkFrontDto">
+        <result column="linkName" property="linkName" />
+        <result column="linkAvatar" property="linkAvatar" />
+        <result column="linkIntro" property="linkIntro" />
+        <result column="linkUrl" property="linkUrl" />
+        <result column="createTime" property="createTime" />
+        <collection property="user" ofType="cn.apecode.blog.dto.SimpleUserInfoDto">
+            <result column="uid" property="uid"/>
+            <result column="nickname" property="nickname"/>
+            <result column="avatar" property="avatar"/>
+            <result column="intro" property="intro" />
+            <result column="webSite" property="webSite" />
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userId, linkName, linkAvatar, linkIntro, linkUrl, isReview, remark, createTime, updateTime
+    </sql>
+    <!-- 获取后台友链列表 -->
+    <select id="listFriendLinkBack" resultMap="FriendLinkBackDto">
+        select tfl.id,
+               linkName,
+               linkAvatar,
+               linkIntro,
+               linkUrl,
+               isReview,
+               remark,
+               tfl.createTime,
+               tfl.updateTime,
+               tui.uid,
+               tui.nickname,
+               tui.avatar,
+               tui.intro,
+               tui.webSite
+        from t_friend_link tfl
+                 left join t_user_info tui on tfl.userId = tui.id
+        <where>
+            <if test="condition.keywords != null">
+                tfl.linkName like concat('%', #{condition.keywords}, '%')
+            </if>
+            <if test="condition.isReview != null">
+                and tfl.isReview = #{condition.isReview}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取友链列表 -->
+    <select id="listFriendLinkFront" resultMap="FriendLinkFrontDto">
+        select linkName,
+               linkAvatar,
+               linkIntro,
+               linkUrl,
+               tfl.createTime,
+               tui.uid,
+               tui.nickname,
+               tui.avatar,
+               tui.intro,
+               tui.webSite
+        from t_friend_link tfl
+                 left join t_user_info tui on tfl.userId = tui.id
+        where tfl.isReview = 0
+    </select>
+
+</mapper>

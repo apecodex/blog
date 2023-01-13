@@ -1,0 +1,24 @@
+:root.dark {
+    --font-size: 14px;
+    --theme-bg: rgb(30, 32, 32);
+    --theme-bg2: rgb(47, 50, 52);
+    --theme-translucent: rgb(30, 32, 32, 0.6);
+    --theme-translucent-reverse: rgb(224, 224, 224, 0.6);
+    --theme-bg-reverse: rgb(224, 224, 224);
+    --text-color: rgb(255, 255, 255);
+    --text-color-reverse: rgb(30, 32, 32);
+    --text-color2: rgb(206, 214, 224);
+
+    /*.wares style*/
+    --parallax-1: rgba(30, 32, 32, 0.7);
+    --parallax-2: rgba(30, 32, 32, 0.5);
+    --parallax-3: rgba(30, 32, 32, 0.3);
+    --parallax-4: rgba(30, 32, 32, 1);
+
+    --theme-shadow: 3px 3px 7px #141515,
+    -4px -4px 7px #2F3234;
+
+    --theme-shadow-inset: 2px 2px 6px #141515 inset,
+    -2px -2px 6px #2F3234 inset;
+
+}

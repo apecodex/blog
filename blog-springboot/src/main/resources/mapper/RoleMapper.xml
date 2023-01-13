@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.blog.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.blog.entity.Role">
+        <id column="id" property="id"/>
+        <result column="roleAuth" property="roleAuth"/>
+        <result column="roleDesc" property="roleDesc"/>
+        <result column="isEnable" property="isEnable"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="RolePermissionMap" type="cn.apecode.blog.dto.RoleResourceDto">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="requestMethod" property="requestMethod"/>
+        <collection property="roleList" ofType="java.lang.String">
+            <constructor>
+                <arg column="roleAuth"/>
+            </constructor>
+        </collection>
+    </resultMap>
+
+    <resultMap id="RoleDtoMap" type="cn.apecode.blog.dto.RoleDto">
+        <id column="id" property="id"/>
+        <result column="roleAuth" property="roleAuth"/>
+        <result column="roleDesc" property="roleDesc"/>
+        <result column="createTime" property="createTime"/>
+        <result column="isEnable" property="isEnable"/>
+        <collection property="resourceIdList" ofType="java.lang.String">
+            <constructor>
+                <arg column="resourceId"/>
+            </constructor>
+        </collection>
+        <collection property="menuIdList" ofType="java.lang.String">
+            <constructor>
+                <arg column="menuId"/>
+            </constructor>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, roleAuth, roleDesc, isEnable, createTime, updateTime
+    </sql>
+    <!-- 查询账号角色 -->
+    <select id="ListRoleByUserId" resultType="java.lang.String">
+        select roleAuth
+        from t_role as r,
+             t_user_role as ur
+        where r.id = ur.roleId
+          and ur.userId = #{id};
+    </select>
+    <!-- 加载资源角色信息 -->
+    <select id="listRoleResource" resultMap="RolePermissionMap">
+        select re.id as id,
+               url,
+               requestMethod,
+               roleAuth
+        from t_resource re
+                 left join t_role_resource rep on re.id = rep.resourceId
+                 left join t_role r on rep.roleId = r.id
+        where parentId is not null
+          and isAnonymous = 0;
+    </select>
+    <!-- 查询角色列表 -->
+    <select id="listRole" resultMap="RoleDtoMap">
+        select r.id, r.roleAuth, r.roleDesc, r.createTime, r.isEnable, rr.resourceId, rm.menuId
+        from (
+            select id, roleAuth, roleDesc, isEnable, createTime
+            from t_role
+                <where>
+                    <if test="condition.keywords != null">
+                        roleDesc like concat('%', #{condition.keywords}, '%')
+                    </if>
+                </where>
+            ) as r
+        left join t_role_resource rr on r.id = rr.roleId
+        left join t_role_menu rm on r.id = rm.roleId
+        order by r.id
+    </select>
+
+
+</mapper>
