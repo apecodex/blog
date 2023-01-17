@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import {computed, ref, onMounted, Ref} from "vue";
+import {computed, onMounted} from "vue";
 import {ToTop, Search, SettingTwo, Theme} from '@icon-park/vue-next'
 import {useSettingStore, useWebsiteInfoStore} from "@/store";
 import {storeToRefs} from "pinia";
@@ -16,27 +16,16 @@ import NavPc from './NavPc.vue'
 import NavSmall from './NavSmall.vue'
 
 const settingStore = useSettingStore()
-const {globalTheme, searchFlag, articleThemeFlag} = storeToRefs(settingStore)
+const {globalTheme, searchFlag, articleThemeFlag, theme} = storeToRefs(settingStore)
 
-const themeComp = computed({
-  get: () => globalTheme.value === "darkTheme" ? 'dark' : '',
-  set: (v: any) => {
-    globalTheme.value = v
-    document.documentElement.className = themeComp.value
-  }
-}) as any
 
 const websiteInfoStore = useWebsiteInfoStore()
 const {websiteInfo} = storeToRefs(websiteInfoStore)
 
-const themeValue = ref(globalTheme.value !== "darkTheme")
+const themeValue = computed(() => globalTheme.value !== "darkTheme")
 
 // 初始化主题
-document.documentElement.className = themeComp.value
-
-const changeTheme = () => {
-  themeValue.value ? themeComp.value = 'darkTheme' : themeComp.value = 'lightTheme'
-}
+document.documentElement.className = theme.value
 
 onMounted(() => {
   navScrollHandle()
@@ -53,8 +42,8 @@ onMounted(() => {
       </div>
       <div class="flex justify-center items-center gap-5px">
         <div
-            class="nav-search flex justify-center items-center gap-5px p-5px hover:(bg-$theme-bg-reverse text-$text-color-reverse rounded-4px)"
-            @click="searchFlag = true">
+          class="nav-search flex justify-center items-center gap-5px p-5px hover:(bg-$theme-bg-reverse text-$text-color-reverse rounded-4px)"
+          @click="searchFlag = true">
           <Search size="20"/>
           搜索
         </div>
@@ -87,29 +76,34 @@ onMounted(() => {
       <SettingTwo size="24"/>
     </div>
     <label class="text-12px relative inline-block w-41px h-22px rounded-30px">
-      <input class="theme-checkbox opacity-0 w-0 h-0" type="checkbox" v-model="themeValue" @click="changeTheme">
+      <input class="theme-checkbox opacity-0 w-0 h-0" type="checkbox" v-model="themeValue"
+             @click="settingStore.changeTheme">
       <span
-          class="theme-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-$theme-bg rounded-30px duration-500 cursor-pointer"></span>
+        class="theme-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-$theme-bg rounded-30px duration-500 cursor-pointer"></span>
     </label>
     <!-- 侧边设置 -->
-    <div class="website-side-wrapper active fixed bottom-45px -left-full" :class="websiteClassActive" style="border-radius: 0 17px 17px 0;">
+    <div class="website-side-wrapper active fixed bottom-45px -left-full" :class="websiteClassActive"
+         style="border-radius: 0 17px 17px 0;">
       <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"
            class="effect1config normal">
         <path id="Trazado_200" data-name="Trazado 200" d="M0-10,150,0l10,150S137.643,80.734,100.143,43.234,0-10,0-10Z"
               transform="translate(0 10)"></path>
       </svg>
-      <ul class="bg-$theme-bg2 py-8px px-5px flex flex-col gap-8px z-5" style="border-radius: 0 17px 17px 0;transition: var(--theme-transition-bg)">
+      <ul class="bg-$theme-bg2 py-8px px-5px flex flex-col gap-8px z-5"
+          style="border-radius: 0 17px 17px 0;transition: var(--theme-transition-bg)">
         <li class="setting-item flex justify-center items-center relative" @click="scrollUp">
           <div class="p-3px rounded-full text-$text-color">
             <ToTop size="22"/>
           </div>
-          <span class="setting-tips -z-1 absolute -left-2/1 whitespace-nowrap bg-$text-color text-$text-color-reverse py-2px px-5px rounded-6px w-auto w-max">滚动到顶部</span>
+          <span
+            class="setting-tips -z-1 absolute -left-2/1 whitespace-nowrap bg-$text-color text-$text-color-reverse py-2px px-5px rounded-6px w-auto w-max">滚动到顶部</span>
         </li>
         <li class="setting-item flex justify-center items-center relative" @click="articleThemeFlag = true">
           <div class="p-3px rounded-full text-$text-color">
             <Theme size="22"/>
           </div>
-          <span class="setting-tips -z-1 absolute -left-2/1 whitespace-nowrap bg-$text-color text-$text-color-reverse py-2px px-5px rounded-6px w-auto w-max">修改文章预览主题</span>
+          <span
+            class="setting-tips -z-1 absolute -left-2/1 whitespace-nowrap bg-$text-color text-$text-color-reverse py-2px px-5px rounded-6px w-auto w-max">修改文章预览主题</span>
         </li>
       </ul>
       <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"
@@ -189,6 +183,7 @@ onMounted(() => {
   @apply '-left-full';
 
 }
+
 .nav-effect1config-right.effect-fixed {
   @apply '-right-full';
 }
@@ -256,6 +251,7 @@ onMounted(() => {
 .website-side-wrapper ul li.setting-item div {
   transition: var(--theme-transition-shadow), var(--theme-transition);
 }
+
 .website-side-wrapper ul li.setting-item div:hover {
   @apply 'bg-$text-color text-$text-color-reverse';
 }
@@ -274,6 +270,7 @@ onMounted(() => {
   border-bottom: 10px solid transparent;
   transform: translateY(-50%);
 }
+
 .setting-item:hover .setting-tips {
   @apply 'left-60px';
   animation: justshake 0.5s forwards;
@@ -302,9 +299,10 @@ onMounted(() => {
 }
 
 
-.website-container.website-fixed{
+.website-container.website-fixed {
   @apply 'left-0';
 }
+
 /* 到达顶部时隐藏 */
 .website-container.website-sticky {
   @apply '-left-full';

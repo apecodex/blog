@@ -182,6 +182,6 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 
 ## 待开发功能
 
-- 音乐播放器
+- [ ] 音乐播放器
 
-* 右键菜单功能
+- [x] 右键菜单功能

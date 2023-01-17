@@ -96,6 +96,24 @@ button,
   box-shadow: var(--theme-shadow) !important;
 }
 
+/* 反色 */
+.shadow-reverse, .shadow-hover-reverse {
+  box-shadow: var(--theme-shadow-reverse) !important;
+}
+
+.shadow-hover-reverse:hover {
+  box-shadow: var(--theme-shadow-inset-reverse) !important;
+}
+
+.shadow-inset-reverse, .shadow-inset-hover-reverse {
+  box-shadow: var(--theme-shadow-inset-reverse) !important;
+  transition: var(--theme-transition-shadow);
+}
+
+.shadow-inset-hover-reverse:hover {
+  box-shadow: var(--theme-shadow-reverse) !important;
+}
+
 /* 鼠标滑入缩放图片 */
 .zoomImg {
   transition: transform .3s ease-in-out;

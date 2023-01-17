@@ -20,4 +20,10 @@
 
     --theme-shadow-inset: 2px 2px 6px #c5c5c5 inset,
     -3px -3px 8px #ffffff inset;
+
+    --theme-shadow-reverse: 3px 3px 7px #141515,
+    -4px -4px 7px #2F3234;
+
+    --theme-shadow-inset-reverse: 2px 2px 6px #141515 inset,
+    -2px -2px 6px #2F3234 inset;
 }

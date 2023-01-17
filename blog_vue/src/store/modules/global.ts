@@ -6,6 +6,7 @@ import {nextTick, ref} from "vue";
 export const useGlobalStore = defineStore(Names.GLOBAL, () => {
   let isRouterAlive: Ref<boolean> = ref<boolean>(true)
 
+
   // 刷新局部组件
   const reload = async () => {
     isRouterAlive.value = false

@@ -1,4 +1,5 @@
 import {computed, ref, Ref} from "vue";
+import {rightMenu} from "@/components/rightMenu/rightMenuHooks"
 
 const navAreaRef: Ref<HTMLElement | null> = ref(null)
 // 右下角位置设置
@@ -46,7 +47,9 @@ const navScrollHandle = () => {
             effect1configClassComp.value = "effect-top"
             websiteClassComp.value = "website-top"
         }
-        lastScrollTop = scrollTop
+        lastScrollTop = scrollTop;
+        // 关闭右键菜单
+        rightMenu.value.flag = false;
     })
 }
 

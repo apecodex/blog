@@ -17,9 +17,17 @@ export const useSettingStore = defineStore(Names.SETTING, () => {
         document.body.style.overflow = 'visible';
     }
 
+    // 获取当前主题
     const theme = computed(() => {
         return setting.globalTheme === "darkTheme" ? "dark" : "";
     })
+
+    // 修改主题
+    const changeTheme = () => {
+        let t = {"": "darkTheme", "dark": "lightTheme"}
+        setting.globalTheme = t[theme.value] as 'darkTheme' | 'lightTheme';
+        document.documentElement.className = theme.value
+    }
 
     // 倒计时
     const countDown: Ref<{ countDownTime: number, timer: NodeJS.Timer | null, countDownIng: boolean, startTime: null | number }> = ref({
@@ -57,7 +65,8 @@ export const useSettingStore = defineStore(Names.SETTING, () => {
         closeModal,
         theme,
         countDown,
-        countDownHandle
+        countDownHandle,
+        changeTheme
     }
 
 }, {persist: {storage: localStorage}})
