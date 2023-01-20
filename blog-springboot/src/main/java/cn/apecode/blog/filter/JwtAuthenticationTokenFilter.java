@@ -6,6 +6,8 @@ import cn.apecode.blog.service.RedisService;
 import cn.apecode.blog.service.impl.UserDetailsServicesImpl;
 import cn.apecode.blog.utils.IpUtils;
 import cn.apecode.blog.utils.JwtUtils;
+import cn.apecode.blog.vo.ResponseCode;
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Objects;
 
+import static cn.apecode.blog.constant.CommonConst.APPLICATION_JSON;
 import static cn.apecode.blog.constant.RedisPrefixConst.DAY_VISITOR;
 import static cn.apecode.blog.constant.RedisPrefixConst.UNIQUE_VISITOR;
 import static cn.apecode.blog.constant.RedisPrefixConst.VISITOR_AREA;
@@ -67,7 +71,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetailsDto, null, userDetailsDto.getAuthorities());
                     emptyContext.setAuthentication(usernamePasswordAuthenticationToken);
                     SecurityContextHolder.setContext(emptyContext);
-                } else throw new BizException(EXPIRATION);
+                } else {
+                    // 登录状态失效
+                    response.setContentType(APPLICATION_JSON);
+                    PrintWriter writer = response.getWriter();
+                    writer.write(JSON.toJSONString(ResponseCode.customize(EXPIRATION)));
+                    writer.flush();
+                    writer.close();
+                    return;
+                }
             }
         }
         report(request);
