@@ -13,7 +13,7 @@ const rightMenu: Ref<{
   pluginMode: boolean
   copyText: string,
   href: string,
-  imgSrc: string
+  imgSrc: string,
 }> = ref({
   flag: false,
   menuWidth: 0,
@@ -23,7 +23,7 @@ const rightMenu: Ref<{
   pluginMode: false,
   copyText: "",
   href: "",
-  imgSrc: ""
+  imgSrc: "",
 });
 
 // 选中的文本
@@ -49,8 +49,7 @@ const searchBaidu = () => {
   notify({
     text: "即将跳转到百度搜索",
   })
-  window.open('https://www.baidu.com/s?wd=' + rightMenu.value.copyText, "_blank");
-  rightMenu.value.flag = false;
+  openNewLink('https://www.baidu.com/s?wd=' + rightMenu.value.copyText);
 }
 
 // 复制页面url
@@ -97,6 +96,11 @@ const pauseText = () => {
   rightMenu.value.flag = false;
 }
 
+// 新窗口打开链接
+const openNewLink = (url: string) => {
+  window.open(url, "_blank");
+  rightMenu.value.flag = false;
+}
 export {
   rightMenu,
   selectText,
@@ -105,5 +109,6 @@ export {
   copyPageUrl,
   changeTheme,
   closeRightMenu,
-  pauseText
+  pauseText,
+  openNewLink
 }

@@ -3,7 +3,7 @@ import XmlRequest from "./config";
 let base = "/api/";
 
 const request = new XmlRequest({
-  timeout: 4000,
+  timeout: 10000,
   baseURL: `${base}`,
   headers: {
     'X-Requested-With': 'XMLHttpRequest',

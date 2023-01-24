@@ -75,7 +75,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     // 登录状态失效
                     response.setContentType(APPLICATION_JSON);
                     PrintWriter writer = response.getWriter();
-                    writer.write(JSON.toJSONString(ResponseCode.customize(EXPIRATION)));
+                    writer.write(JSON.toJSONString(ResponseCode.customize(false, EXPIRATION)));
                     writer.flush();
                     writer.close();
                     return;

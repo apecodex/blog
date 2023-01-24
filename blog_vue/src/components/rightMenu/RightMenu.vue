@@ -13,7 +13,8 @@ import {
   CopyOne,
   Clipboard,
   Search,
-  CopyLink
+  CopyLink,
+  Browser
 } from "@icon-park/vue-next"
 import Mask from "@/components/Mask.vue";
 import {onMounted, ref} from "vue";
@@ -24,7 +25,8 @@ import {
   copyPageUrl,
   changeTheme,
   closeRightMenu,
-  pauseText
+  pauseText,
+  openNewLink
 } from "@/components/rightMenu/rightMenuHooks"
 import {useRouter} from "vue-router"
 import {scrollUp} from "@/utils/utils";
@@ -76,14 +78,26 @@ onMounted(() => {
           <CopyOne/>
           <span class="ml-6px">复制选中文本</span>
         </div>
-        <div class="menu-item mb-5px" @click="copyText(rightMenu.href)" v-if="rightMenu.href.length !== 0">
-          <CopyLink/>
-          <span class="ml-6px">复制链接</span>
-        </div>
-        <div class="menu-item mb-5px" @click="copyText(rightMenu.imgSrc)" v-if="rightMenu.imgSrc.length !== 0">
-          <CopyLink/>
-          <span class="ml-6px">复制图片链接</span>
-        </div>
+        <template v-if="rightMenu.href.length !== 0">
+          <div class="menu-item mb-5px" @click="copyText(rightMenu.href)">
+            <CopyLink/>
+            <span class="ml-6px">复制链接</span>
+          </div>
+          <div class="menu-item mb-5px" @click="openNewLink(rightMenu.href)">
+            <Browser/>
+            <span class="ml-6px">新窗口打开链接</span>
+          </div>
+        </template>
+        <template v-if="rightMenu.imgSrc.length !== 0">
+          <div class="menu-item mb-5px" @click="copyText(rightMenu.imgSrc)" v-if="rightMenu.imgSrc.length !== 0">
+            <CopyLink/>
+            <span class="ml-6px">复制图片链接</span>
+          </div>
+          <div class="menu-item mb-5px" @click="openNewLink(rightMenu.imgSrc)">
+            <Browser/>
+            <span class="ml-6px">新窗口打开链接</span>
+          </div>
+        </template>
         <div class="menu-item" @click="searchBaidu">
           <Search/>
           <span class="ml-6px">百度搜索</span>

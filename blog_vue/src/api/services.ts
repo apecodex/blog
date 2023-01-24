@@ -3,7 +3,7 @@ import BlogXmlRequest from "@/api/config";
 let blogBase = '/api'
 
 const request = new BlogXmlRequest({
-    timeout: 6000,
+    timeout: 10000,
     baseURL: `${blogBase}`,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
