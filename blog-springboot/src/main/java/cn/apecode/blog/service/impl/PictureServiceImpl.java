@@ -20,8 +20,8 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,17 +39,14 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture> implements PictureService {
 
-    @Autowired
-    private PictureMapper pictureMapper;
-    @Autowired
-    private PhotoAlbumMapper photoAlbumMapper;
-    @Autowired
-    private PhotoAlbumService photoAlbumService;
-    @Autowired
-    private UploadFileStrategyContext uploadFileStrategyContext;
+    private final PictureMapper pictureMapper;
+    private final PhotoAlbumMapper photoAlbumMapper;
+    private final PhotoAlbumService photoAlbumService;
+    private final UploadFileStrategyContext uploadFileStrategyContext;
 
     /**
      * @param condition

@@ -9,12 +9,12 @@ import cn.apecode.blog.utils.UserUtils;
 import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -29,11 +29,11 @@ import java.util.Objects;
  * @date: 2022-07-09 23:03
  **/
 @Aspect
+@RequiredArgsConstructor
 @Component
 public class OptLogAspect {
 
-    @Autowired
-    private OperationLogMapper operationLogMapper;
+    private final OperationLogMapper operationLogMapper;
 
     /**
      * @description: 设置操作日志切入点，记录操作日志，在注解的位置切入代码

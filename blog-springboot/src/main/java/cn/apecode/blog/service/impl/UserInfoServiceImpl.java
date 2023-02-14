@@ -22,7 +22,7 @@ import cn.apecode.blog.vo.UserRoleVo;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,27 +42,19 @@ import static cn.apecode.blog.constant.RedisPrefixConst.USER_CODE_KEY;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
 
-    @Autowired
-    private UserRoleService userRoleService;
-    @Autowired
-    private UserAuthMapper userAuthMapper;
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private UploadFileStrategyContext uploadFileStrategyContext;
-    @Autowired
-    private AnjiCaptchaUtils anjiCaptchaUtils;
-    @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private LoginQqMapper loginQqMapper;
-    @Autowired
-    private QQTokenUtils qqTokenUtils;
+    private final UserRoleService userRoleService;
+    private final UserAuthMapper userAuthMapper;
+    private final UserInfoMapper userInfoMapper;
+    private final RedisService redisService;
+    private final UploadFileStrategyContext uploadFileStrategyContext;
+    private final AnjiCaptchaUtils anjiCaptchaUtils;
+    private final JwtUtils jwtUtils;
+    private final LoginQqMapper loginQqMapper;
+    private final QQTokenUtils qqTokenUtils;
 
     /**
      * @param userRole

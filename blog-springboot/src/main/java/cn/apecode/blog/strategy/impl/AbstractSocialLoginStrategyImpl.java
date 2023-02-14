@@ -12,7 +12,6 @@ import cn.apecode.blog.strategy.SocialLoginStrategy;
 import cn.apecode.blog.utils.*;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import eu.bitwalker.useragentutils.UserAgent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
@@ -35,23 +35,23 @@ import static cn.apecode.blog.constant.RedisPrefixConst.USER_CACHE;
 @Service
 public abstract class AbstractSocialLoginStrategyImpl implements SocialLoginStrategy {
 
-    @Autowired
+    @Resource
     private LoginQqMapper loginQqMapper;
-    @Autowired
+    @Resource
     private UserAuthMapper userAuthMapper;
-    @Autowired
+    @Resource
     private UserInfoMapper userInfoMapper;
-    @Autowired
+    @Resource
     private UserRoleMapper userRoleMapper;
-    @Autowired
+    @Resource
     private LoginLogMapper loginLogMapper;
-    @Autowired
+    @Resource
     private UserDetailsServicesImpl userDetailsService;
-    @Autowired
+    @Resource
     private RedisService redisService;
-    @Autowired
+    @Resource
     private HttpServletRequest request;
-    @Autowired
+    @Resource
     private JwtUtils jwtUtils;
     @Value("${jwt.tokenHead}")
     private String tokenHead;

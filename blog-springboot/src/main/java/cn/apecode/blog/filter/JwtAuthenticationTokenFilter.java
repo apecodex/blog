@@ -1,16 +1,15 @@
 package cn.apecode.blog.filter;
 
 import cn.apecode.blog.dto.UserDetailsDto;
-import cn.apecode.blog.exception.BizException;
 import cn.apecode.blog.service.RedisService;
 import cn.apecode.blog.service.impl.UserDetailsServicesImpl;
 import cn.apecode.blog.utils.IpUtils;
 import cn.apecode.blog.utils.JwtUtils;
 import cn.apecode.blog.vo.ResponseCode;
 import com.alibaba.fastjson.JSON;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,6 +39,7 @@ import static cn.apecode.blog.enums.StatusCodeEnum.EXPIRATION;
  * @author: apecode
  * @date: 2022-05-28 21:32
  **/
+@RequiredArgsConstructor
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
@@ -47,12 +47,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
-    @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private UserDetailsServicesImpl userDetailsServices;
-    @Autowired
-    private RedisService redisService;
+    private final JwtUtils jwtUtils;
+    private final UserDetailsServicesImpl userDetailsServices;
+    private final RedisService redisService;
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {

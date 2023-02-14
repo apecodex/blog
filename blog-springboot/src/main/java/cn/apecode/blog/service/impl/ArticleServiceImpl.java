@@ -16,6 +16,8 @@ import cn.apecode.blog.vo.*;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,29 +45,20 @@ import static cn.apecode.blog.enums.ArticleTypeEnum.getArticleTypeEnum;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-    @Autowired
-    private ArticleMapper articleMapper;
-    @Autowired
-    private CategoryMapper categoryMapper;
-    @Autowired
-    private ArticleTagMapper articleTagMapper;
-    @Autowired
-    private ArticleTagService articleTagService;
-    @Autowired
-    private TagService tagService;
-    @Autowired
-    private TagMapper tagMapper;
-    @Autowired
-    private CommentMapper commentMapper;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private UploadFileStrategyContext uploadFileStrategyContext;
-    @Autowired
-    private HttpServletRequest request;
+    private final ArticleMapper articleMapper;
+    private final CategoryMapper categoryMapper;
+    private final ArticleTagMapper articleTagMapper;
+    private final ArticleTagService articleTagService;
+    private final TagService tagService;
+    private final TagMapper tagMapper;
+    private final CommentMapper commentMapper;
+    private final RedisService redisService;
+    private final UploadFileStrategyContext uploadFileStrategyContext;
+    private final HttpServletRequest request;
 
     /**
      * @param article

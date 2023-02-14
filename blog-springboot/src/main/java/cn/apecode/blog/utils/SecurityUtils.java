@@ -18,7 +18,7 @@ import java.security.SecureRandom;
 public class SecurityUtils {
 
     // 原始密匙,自己设置，必须为8位，使得你加密的密码是通过这8位加密的
-    private static final String KEY = "blog-des";
+    private static final String KEY = "apecode-blog-des";
     private final static String DES = "DES";
 
     /**

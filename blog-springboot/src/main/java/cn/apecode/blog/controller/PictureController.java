@@ -10,7 +10,7 @@ import cn.apecode.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +29,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "图片模块")
+@RequiredArgsConstructor
 @RestController
 public class PictureController {
 
-    @Autowired
-    private PictureService pictureService;
+    private final PictureService pictureService;
 
     @ApiOperation(value = "根据相册路径获取图片列表（后台）", httpMethod = "GET")
     @GetMapping("/admin/pictures")

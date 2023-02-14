@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,31 +39,21 @@ import static cn.apecode.blog.enums.FilePathEnum.CONFIG;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class WebsiteServiceImpl extends ServiceImpl<WebsiteMapper, Website> implements WebsiteService {
 
-    @Autowired
-    private ArticleMapper articleMapper;
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-    @Autowired
-    private MessageMapper messageMapper;
-    @Autowired
-    private CategoryMapper categoryMapper;
-    @Autowired
-    private TagMapper tagMapper;
-    @Autowired
-    private TalkMapper talkMapper;
-    @Autowired
-    private DailyVisitMapper dailyVisitMapper;
-    @Autowired
-    private WebsiteMapper websiteMapper;
-    @Autowired
-    private NoticeMapper noticeMapper;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private UploadFileStrategyContext uploadFileStrategyContext;
+    private final ArticleMapper articleMapper;
+    private final UserInfoMapper userInfoMapper;
+    private final MessageMapper messageMapper;
+    private final CategoryMapper categoryMapper;
+    private final TagMapper tagMapper;
+    private final TalkMapper talkMapper;
+    private final DailyVisitMapper dailyVisitMapper;
+    private final WebsiteMapper websiteMapper;
+    private final NoticeMapper noticeMapper;
+    private final RedisService redisService;
+    private final UploadFileStrategyContext uploadFileStrategyContext;
 
     /**
      * @return {@link BlogBackInfoDto}

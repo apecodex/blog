@@ -6,7 +6,7 @@ import cn.apecode.blog.dto.QQTokenDto;
 import cn.apecode.blog.exception.BizException;
 import cn.apecode.blog.vo.QQLoginVo;
 import com.alibaba.fastjson2.JSON;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,13 +20,12 @@ import static cn.apecode.blog.enums.StatusCodeEnum.QQ_LOGIN_ERROR;
  * @author: apecode
  * @date: 2023-01-05 15:35
  **/
+@RequiredArgsConstructor
 @Component
 public class QQTokenUtils {
 
-    @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
-    private QQConfigYml qqConfigYml;
+    private final RestTemplate restTemplate;
+    private final QQConfigYml qqConfigYml;
 
     /**
      * @param qqLoginVo

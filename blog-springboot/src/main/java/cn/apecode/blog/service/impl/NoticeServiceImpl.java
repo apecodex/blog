@@ -17,8 +17,8 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +34,12 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
 
-    @Autowired
-    private NoticeMapper noticeMapper;
-    @Autowired
-    private UserInfoMapper userInfoMapper;
+    private final NoticeMapper noticeMapper;
+    private final UserInfoMapper userInfoMapper;
 
     /**
      * @param noticeVo

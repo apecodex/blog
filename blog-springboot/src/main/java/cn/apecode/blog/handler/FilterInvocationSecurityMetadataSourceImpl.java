@@ -2,7 +2,7 @@ package cn.apecode.blog.handler;
 
 import cn.apecode.blog.dto.RoleResourceDto;
 import cn.apecode.blog.mapper.RoleMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -20,13 +20,13 @@ import java.util.List;
  * @author: apecode
  * @date: 2022-05-28 19:30
  **/
+@RequiredArgsConstructor
 @Component
 public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocationSecurityMetadataSource {
 
     private static List<RoleResourceDto> roleResourceDtoList;
 
-    @Autowired
-    private RoleMapper roleMapper;
+    private final RoleMapper roleMapper;
 
     /**
      * @description: 加载资源角色信息

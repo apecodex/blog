@@ -14,8 +14,7 @@ import cn.apecode.blog.utils.IpUtils;
 import cn.apecode.blog.utils.UserUtils;
 import cn.apecode.blog.vo.ResponseCode;
 import com.alibaba.fastjson.JSON;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -35,16 +34,13 @@ import static cn.apecode.blog.constant.RedisPrefixConst.USER_CACHE;
  * @author: apecode
  * @date: 2022-05-28 15:59
  **/
-@Slf4j
+@RequiredArgsConstructor
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private UserAuthMapper userAuthMapper;
-    @Autowired
-    private LoginLogMapper loginLogMapper;
-    @Autowired
-    private RedisService redisService;
+    private final UserAuthMapper userAuthMapper;
+    private final LoginLogMapper loginLogMapper;
+    private final RedisService redisService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {

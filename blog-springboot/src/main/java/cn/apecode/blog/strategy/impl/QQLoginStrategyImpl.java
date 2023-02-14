@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -30,12 +31,13 @@ import static cn.apecode.blog.constant.SocialLoginConst.OAUTH_CONSUMER_KEY;
 @Service("qqLoginStrategyImpl")
 public class QQLoginStrategyImpl extends AbstractSocialLoginStrategyImpl{
 
-    @Autowired
+    @Resource
     private QQConfigYml qqConfigYml;
-    @Autowired
+    @Resource
     private RestTemplate restTemplate;
-    @Autowired
+    @Resource
     private QQTokenUtils qqTokenUtils;
+
     @Override
     public SocialTokenDto getSocialToken(String data) {
         QQLoginVo qqLoginVo = JSON.parseObject(data, QQLoginVo.class);

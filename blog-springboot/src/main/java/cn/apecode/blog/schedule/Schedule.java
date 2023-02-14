@@ -3,7 +3,7 @@ package cn.apecode.blog.schedule;
 import cn.apecode.blog.entity.DailyVisit;
 import cn.apecode.blog.mapper.DailyVisitMapper;
 import cn.apecode.blog.service.RedisService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,12 +21,11 @@ import static cn.apecode.blog.enums.ZoneEnum.SHANGHAI;
  **/
 @Component
 @EnableScheduling
+@RequiredArgsConstructor
 public class Schedule {
 
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private DailyVisitMapper dailyVisitMapper;
+    private final RedisService redisService;
+    private final DailyVisitMapper dailyVisitMapper;
 
     /**
      * @description: 每晚零点保存当日访问数

@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
@@ -58,27 +59,19 @@ import static cn.apecode.blog.enums.LoginTypeEnum.EMAIL;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> implements UserAuthService {
 
-    @Autowired
-    private UserAuthMapper userAuthMapper;
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-    @Autowired
-    private UserRoleMapper userRoleMapper;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private WebsiteService websiteService;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-    @Autowired
-    private HttpServletRequest request;
-    @Autowired
-    private AnjiCaptchaUtils anjiCaptchaUtils;
-    @Autowired
-    private SocialLoginStrategyContext socialLoginStrategyContext;
+    private final UserAuthMapper userAuthMapper;
+    private final UserInfoMapper userInfoMapper;
+    private final UserRoleMapper userRoleMapper;
+    private final RedisService redisService;
+    private final WebsiteService websiteService;
+    private final RabbitTemplate rabbitTemplate;
+    private final HttpServletRequest request;
+    private final AnjiCaptchaUtils anjiCaptchaUtils;
+    private final SocialLoginStrategyContext socialLoginStrategyContext;
 
     /**
      * @param conditionVo

@@ -10,7 +10,7 @@ import cn.apecode.blog.vo.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +27,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "资源模块")
+@RequiredArgsConstructor
 @RestController
 public class ResourceController {
 
-    @Autowired
-    private ResourceService resourceService;
+    private final ResourceService resourceService;
 
     @ApiOperation(value = "获取资源列表", httpMethod = "GET")
     @GetMapping(value = "/admin/resources")

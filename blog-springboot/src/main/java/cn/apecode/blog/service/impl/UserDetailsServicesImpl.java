@@ -14,8 +14,8 @@ import cn.apecode.blog.utils.SecurityUtils;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,19 +35,15 @@ import static cn.apecode.blog.constant.RedisPrefixConst.*;
  * @author: apecode
  * @date: 2022-05-27 00:59
  **/
+@RequiredArgsConstructor
 @Service
 public class UserDetailsServicesImpl implements UserDetailsService {
 
-    @Autowired
-    private UserAuthMapper userAuthMapper;
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private RedisServiceImpl redisService;
-    @Autowired
-    private HttpServletRequest request;
+    private final UserAuthMapper userAuthMapper;
+    private final UserInfoMapper userInfoMapper;
+    private final RoleMapper roleMapper;
+    private final RedisServiceImpl redisService;
+    private final HttpServletRequest request;
     private UserCacheDto userCacheDto = null;
 
     @Override

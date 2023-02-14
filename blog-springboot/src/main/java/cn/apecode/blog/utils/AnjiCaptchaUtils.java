@@ -4,8 +4,8 @@ import cn.apecode.blog.exception.BizException;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
  * @author: apecode
  * @date: 2023-01-05 23:35
  **/
+@RequiredArgsConstructor
 @Component
 public class AnjiCaptchaUtils {
 
-    @Autowired
-    private CaptchaService captchaService;
+    private final CaptchaService captchaService;
 
     /**
      * @description: 检查滑动验证码是否通过

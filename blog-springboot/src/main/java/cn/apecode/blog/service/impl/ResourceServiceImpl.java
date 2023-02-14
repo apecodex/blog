@@ -17,8 +17,8 @@ import cn.apecode.blog.vo.ResourceVo;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,15 +36,13 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> implements ResourceService {
 
-    @Autowired
-    private ResourceMapper resourceMapper;
-    @Autowired
-    private RoleResourceMapper roleResourceMapper;
-    @Autowired
-    private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+    private final ResourceMapper resourceMapper;
+    private final RoleResourceMapper roleResourceMapper;
+    private final FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
 
     /**
      * @param condition

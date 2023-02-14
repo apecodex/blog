@@ -15,7 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,11 +32,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-27
  */
 @Api(tags = "评论模块")
+@RequiredArgsConstructor
 @RestController
 public class CommentController {
 
-    @Autowired
-    private CommentService commentService;
+    private final CommentService commentService;
 
     @AccessLimit(seconds = 30, maxCount = 10)
     @OptLog(optType = COMMENT)

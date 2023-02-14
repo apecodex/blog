@@ -3,7 +3,6 @@ package cn.apecode.blog.service.impl;
 import cn.apecode.blog.dto.MailLogBackDto;
 import cn.apecode.blog.entity.MailLog;
 import cn.apecode.blog.enums.EmailTypeEnum;
-import cn.apecode.blog.exception.BizException;
 import cn.apecode.blog.mapper.MailLogMapper;
 import cn.apecode.blog.service.MailLogService;
 import cn.apecode.blog.utils.PageUtils;
@@ -13,7 +12,7 @@ import cn.apecode.blog.vo.DeleteVo;
 import cn.apecode.blog.vo.PageResult;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +27,11 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class MailLogServiceImpl extends ServiceImpl<MailLogMapper, MailLog> implements MailLogService {
 
-    @Autowired
-    private MailLogMapper mailLogMapper;
+    private final MailLogMapper mailLogMapper;
 
     /**
      * @description: 获取邮件日志

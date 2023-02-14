@@ -4,7 +4,7 @@ import cn.apecode.blog.dto.UserDetailsDto;
 import cn.apecode.blog.service.impl.UserDetailsServicesImpl;
 import cn.apecode.blog.utils.AnjiCaptchaUtils;
 import cn.apecode.blog.utils.JwtUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -20,21 +20,17 @@ import java.util.Objects;
  * @author: apecode
  * @date: 2022-05-28 00:22
  **/
+@RequiredArgsConstructor
 @Component
 public class UserAuthenticationProviderImpl implements AuthenticationProvider {
 
-    @Autowired
-    private HttpServletRequest request;
-    @Autowired
-    private UserDetailsServicesImpl userDetailsServices;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtUtils jwtUtils;
+    private final HttpServletRequest request;
+    private final UserDetailsServicesImpl userDetailsServices;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
-    @Autowired
-    private AnjiCaptchaUtils anjiCaptchaUtils;
+    private final AnjiCaptchaUtils anjiCaptchaUtils;
 
     /**
      * @param authentication

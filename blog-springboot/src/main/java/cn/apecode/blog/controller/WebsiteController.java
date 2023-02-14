@@ -10,7 +10,7 @@ import cn.apecode.blog.vo.WebsiteConfigVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +26,11 @@ import static cn.apecode.blog.constant.OptTypeConst.UPDATE;
  * @since 2022-05-26
  */
 @Api(tags = "博客信息模块")
+@RequiredArgsConstructor
 @RestController
 public class WebsiteController {
 
-    @Autowired
-    private WebsiteService websiteService;
+    private final WebsiteService websiteService;
 
     @ApiOperation(value = "获取后台信息", httpMethod = "GET")
     @GetMapping("/admin")

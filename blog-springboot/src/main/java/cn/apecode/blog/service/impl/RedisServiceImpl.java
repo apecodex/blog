@@ -1,7 +1,7 @@
 package cn.apecode.blog.service.impl;
 
 import cn.apecode.blog.service.RedisService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
  * @auther apecode
  * @date 2022/5/29 18:56
 */
+@RequiredArgsConstructor
 @Service
 public class RedisServiceImpl implements RedisService {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public void set(String key, Object value, long time) {

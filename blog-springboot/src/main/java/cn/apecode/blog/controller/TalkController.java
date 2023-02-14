@@ -10,13 +10,12 @@ import cn.apecode.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import static cn.apecode.blog.constant.OptTypeConst.*;
 
 /**
@@ -28,11 +27,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-27
  */
 @RestController
+@RequiredArgsConstructor
 @Api(tags = "说说模块")
 public class TalkController {
 
-    @Autowired
-    private TalkService talkService;
+    private final TalkService talkService;
 
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或修改说说", httpMethod = "POST")

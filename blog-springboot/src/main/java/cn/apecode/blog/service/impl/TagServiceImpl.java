@@ -10,7 +10,6 @@ import cn.apecode.blog.mapper.ArticleTagMapper;
 import cn.apecode.blog.mapper.CommentMapper;
 import cn.apecode.blog.mapper.TagMapper;
 import cn.apecode.blog.service.TagService;
-import cn.apecode.blog.utils.BeanCopyUtils;
 import cn.apecode.blog.utils.CommonUtils;
 import cn.apecode.blog.utils.PageUtils;
 import cn.apecode.blog.utils.SecurityUtils;
@@ -21,8 +20,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,17 +39,14 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
 
-    @Autowired
-    private TagMapper tagMapper;
-    @Autowired
-    private ArticleTagMapper articleTagMapper;
-    @Autowired
-    private ArticleMapper articleMapper;
-    @Autowired
-    private CommentMapper commentMapper;
+    private final TagMapper tagMapper;
+    private final ArticleTagMapper articleTagMapper;
+    private final ArticleMapper articleMapper;
+    private final CommentMapper commentMapper;
 
     /**
      * @param tagsName

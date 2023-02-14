@@ -16,10 +16,10 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,19 +46,15 @@ import static cn.apecode.blog.constant.RabbitMQPrefixConst.EMAIL_ROUTING_KEY_NAM
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> implements MessageService {
 
-    @Autowired
-    private MessageMapper messageMapper;
-    @Autowired
-    private WebsiteService websiteService;
-    @Autowired
-    private NoticeMapper noticeMapper;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-    @Autowired
-    private HttpServletRequest request;
+    private final MessageMapper messageMapper;
+    private final WebsiteService websiteService;
+    private final NoticeMapper noticeMapper;
+    private final RabbitTemplate rabbitTemplate;
+    private final HttpServletRequest request;
 
     /**
      * @param condition

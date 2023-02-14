@@ -18,11 +18,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,17 +43,14 @@ import static cn.apecode.blog.constant.RabbitMQPrefixConst.EMAIL_ROUTING_KEY_NAM
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkMapper, FriendLink> implements FriendLinkService {
 
-    @Autowired
-    private FriendLinkMapper friendLinkMapper;
-    @Autowired
-    private NoticeService noticeService;
-    @Autowired
-    private WebsiteService websiteService;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final FriendLinkMapper friendLinkMapper;
+    private final NoticeService noticeService;
+    private final WebsiteService websiteService;
+    private final RabbitTemplate rabbitTemplate;
 
     /**
      * @param friendLink
@@ -212,7 +209,7 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkMapper, FriendL
         if (Objects.isNull(friendLink)) {
             throw new BizException("友链不存在");
         }
-        if (friendLink.getUserId() != UserUtils.getLoginUser().getUserInfoId()) {
+        if (!Objects.equals(friendLink.getUserId(), UserUtils.getLoginUser().getUserInfoId())) {
             throw new BizException("删除失败，无权限删除其他友链");
         }
         friendLinkMapper.deleteById(id);

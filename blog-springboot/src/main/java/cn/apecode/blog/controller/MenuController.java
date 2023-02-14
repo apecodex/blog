@@ -9,7 +9,7 @@ import cn.apecode.blog.vo.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +27,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "菜单模块")
+@RequiredArgsConstructor
 @RestController
 public class MenuController {
 
-    @Autowired
-    private MenuService menuService;
+    private final MenuService menuService;
 
     @ApiOperation(value = "获取当前用户菜单", httpMethod = "GET")
     @GetMapping("/admin/user/menus")

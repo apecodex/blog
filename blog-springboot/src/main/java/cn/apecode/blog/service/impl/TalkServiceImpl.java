@@ -20,8 +20,8 @@ import cn.apecode.blog.vo.TopVo;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,23 +42,17 @@ import static cn.apecode.blog.constant.RedisPrefixConst.TALK_LIKE_COUNT;
  * @author apecode
  * @since 2022-05-27
  */
+@RequiredArgsConstructor
 @Service
 public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk> implements TalkService {
 
-    @Autowired
-    private UploadFileStrategyContext uploadFileStrategyContext;
-    @Autowired
-    private TalkMapper talkMapper;
-    @Autowired
-    private TalkPictureVideoMapper talkPictureVideoMapper;
-    @Autowired
-    private TalkPictureVideoService talkPictureVideoService;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private HttpServletRequest request;
-    @Autowired
-    private CommentMapper commentMapper;
+    private final UploadFileStrategyContext uploadFileStrategyContext;
+    private final TalkMapper talkMapper;
+    private final TalkPictureVideoMapper talkPictureVideoMapper;
+    private final TalkPictureVideoService talkPictureVideoService;
+    private final RedisService redisService;
+    private final HttpServletRequest request;
+    private final CommentMapper commentMapper;
 
     /**
      * @param talkVo

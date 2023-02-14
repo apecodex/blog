@@ -9,7 +9,7 @@ import cn.apecode.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +28,11 @@ import static cn.apecode.blog.constant.OptTypeConst.REMOVE;
  * @since 2022-05-26
  */
 @Api(tags = "用户信息模块")
+@RequiredArgsConstructor
 @RestController
 public class UserInfoController {
 
-    @Autowired
-    private UserInfoService userInfoService;
+    private final UserInfoService userInfoService;
 
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改用户角色", httpMethod = "PUT")

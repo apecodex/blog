@@ -11,7 +11,7 @@ import cn.apecode.blog.vo.DeleteVo;
 import cn.apecode.blog.vo.PageResult;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +26,11 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> implements LoginLogService {
 
-    @Autowired
-    private LoginLogMapper loginLogMapper;
+    private final LoginLogMapper loginLogMapper;
 
     /**
      * @description: 获取登录日志

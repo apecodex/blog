@@ -9,7 +9,7 @@ import cn.apecode.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,11 +32,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "友链模块")
+@RequiredArgsConstructor
 @RestController
 public class FriendLinkController {
 
-    @Autowired
-    private FriendLinkService friendLinkService;
+    private final FriendLinkService friendLinkService;
 
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或修改友链", httpMethod = "POST")

@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +27,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "文章模块")
+@RequiredArgsConstructor
 @RestController
 public class ArticleController {
 
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "添加或修改文章", httpMethod = "POST")

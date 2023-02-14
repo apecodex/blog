@@ -41,10 +41,10 @@ public class LocalUploadFileStrategyImpl extends AbstractUploadFileStrategyImpl 
                 bos.write(bytes, 0, length);
             }
             bos.flush();
+            inputStream.close();
             bis.close();
             bos.close();
         }
-        inputStream.close();
     }
 
     @Override

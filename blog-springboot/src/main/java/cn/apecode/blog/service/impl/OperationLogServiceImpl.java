@@ -11,7 +11,7 @@ import cn.apecode.blog.vo.DeleteVo;
 import cn.apecode.blog.vo.PageResult;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +26,11 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class OperationLogServiceImpl extends ServiceImpl<OperationLogMapper, OperationLog> implements OperationLogService {
 
-    @Autowired
-    private OperationLogMapper operationLogMapper;
+    private final OperationLogMapper operationLogMapper;
 
     /**
      * @description: 获取操作日志

@@ -21,8 +21,8 @@ import cn.apecode.blog.vo.PageResult;
 import cn.apecode.blog.vo.RoleVo;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,19 +38,15 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private RoleResourceService roleResourceService;
-    @Autowired
-    private RoleMenuService roleMenuService;
-    @Autowired
-    private UserRoleMapper userRoleMapper;
-    @Autowired
-    private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+    private final RoleMapper roleMapper;
+    private final RoleResourceService roleResourceService;
+    private final RoleMenuService roleMenuService;
+    private final UserRoleMapper userRoleMapper;
+    private final FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
 
     /**
      * @description: 保存或更新角色
@@ -131,8 +127,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         List<RoleDto> roleDtoList = roleMapper.listRole(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
         roleDtoList.stream().peek(role -> {
             role.setId(SecurityUtils.encrypt(role.getId()));
-            List<String> resourceIds = role.getResourceIdList().stream().map((resourceId) -> SecurityUtils.encrypt(resourceId)).collect(Collectors.toList());
-            List<String> menuIds = role.getMenuIdList().stream().map((menuId) -> SecurityUtils.encrypt(menuId)).collect(Collectors.toList());
+            List<String> resourceIds = role.getResourceIdList().stream().map(SecurityUtils::encrypt).collect(Collectors.toList());
+            List<String> menuIds = role.getMenuIdList().stream().map(SecurityUtils::encrypt).collect(Collectors.toList());
             role.setResourceIdList(resourceIds);
             role.setMenuIdList(menuIds);
         }).collect(Collectors.toList());

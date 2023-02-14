@@ -15,7 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +32,12 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "相册模块")
+@RequiredArgsConstructor
 @RestController
 public class PhotoAlbumController {
 
-    @Autowired
-    private PhotoAlbumService photoAlbumService;
-    @Autowired
-    private UploadFileStrategyContext uploadFileStrategyContext;
+    private final PhotoAlbumService photoAlbumService;
+    private final UploadFileStrategyContext uploadFileStrategyContext;
 
     @ApiOperation(value = "获取后台相册列表", httpMethod = "GET")
     @GetMapping("/admin/albums")

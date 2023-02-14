@@ -7,7 +7,7 @@ import cn.apecode.blog.dto.MessageFrontDto;
 import cn.apecode.blog.service.MessageService;
 import cn.apecode.blog.vo.*;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +24,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "留言模块")
+@RequiredArgsConstructor
 @RestController
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @ApiOperation(value = "获取后台留言列表", httpMethod = "GET")
     @GetMapping("/admin/messages")

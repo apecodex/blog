@@ -11,7 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +26,11 @@ import java.util.List;
  * @since 2022-05-26
  */
 @Api(tags = "消息通知模块")
+@RequiredArgsConstructor
 @RestController
 public class NoticeController {
 
-    @Autowired
-    private NoticeService noticeService;
+    private final NoticeService noticeService;
 
     @ApiOperation(value = "发送通知", httpMethod = "POST")
     @PostMapping("/admin/notice")

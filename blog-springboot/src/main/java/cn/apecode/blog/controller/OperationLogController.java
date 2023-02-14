@@ -13,7 +13,7 @@ import cn.apecode.blog.vo.PageResult;
 import cn.apecode.blog.vo.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,15 +31,13 @@ import static cn.apecode.blog.constant.OptTypeConst.REMOVE;
  * @since 2022-05-26
  */
 @Api(tags = "日志模块")
+@RequiredArgsConstructor
 @RestController
 public class OperationLogController {
 
-    @Autowired
-    private OperationLogService operationLogService;
-    @Autowired
-    private LoginLogService loginLogService;
-    @Autowired
-    private MailLogService mailLogService;
+    private final OperationLogService operationLogService;
+    private final LoginLogService loginLogService;
+    private final MailLogService mailLogService;
 
     @ApiOperation(value = "获取操作日志", httpMethod = "GET")
     @GetMapping("/admin/operation/logs")

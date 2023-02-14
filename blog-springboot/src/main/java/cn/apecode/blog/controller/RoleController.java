@@ -10,7 +10,7 @@ import cn.apecode.blog.vo.ResponseCode;
 import cn.apecode.blog.vo.RoleVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +27,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "角色模块")
+@RequiredArgsConstructor
 @RestController
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新角色", httpMethod = "POST")

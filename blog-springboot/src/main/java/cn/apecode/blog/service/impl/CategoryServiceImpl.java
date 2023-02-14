@@ -15,12 +15,10 @@ import cn.apecode.blog.utils.SecurityUtils;
 import cn.apecode.blog.vo.CategoryVo;
 import cn.apecode.blog.vo.ConditionVo;
 import cn.apecode.blog.vo.PageResult;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,15 +36,13 @@ import java.util.stream.Collectors;
  * @author apecode
  * @since 2022-05-26
  */
+@RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
-    @Autowired
-    private CategoryMapper categoryMapper;
-    @Autowired
-    private ArticleMapper articleMapper;
-    @Autowired
-    private CommentMapper commentMapper;
+    private final CategoryMapper categoryMapper;
+    private final ArticleMapper articleMapper;
+    private final CommentMapper commentMapper;
 
     /**
      * @description: 添加或修改分类

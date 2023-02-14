@@ -5,11 +5,11 @@ import cn.apecode.blog.service.RedisService;
 import cn.apecode.blog.utils.IpUtils;
 import cn.apecode.blog.vo.ResponseCode;
 import com.alibaba.fastjson.JSON;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,7 +26,7 @@ import static cn.apecode.blog.enums.StatusCodeEnum.ACCESS_LIMIT;
  **/
 public class RequestAccessLimit implements HandlerInterceptor {
 
-    @Autowired
+    @Resource
     private RedisService redisService;
 
     @Override

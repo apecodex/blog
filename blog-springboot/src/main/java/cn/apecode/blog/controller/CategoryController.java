@@ -11,7 +11,7 @@ import cn.apecode.blog.vo.PageResult;
 import cn.apecode.blog.vo.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,11 +31,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "分类模块")
+@RequiredArgsConstructor
 @RestController
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "添加或修改分类", httpMethod = "POST")

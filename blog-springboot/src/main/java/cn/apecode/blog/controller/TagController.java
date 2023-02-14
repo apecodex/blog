@@ -12,7 +12,7 @@ import cn.apecode.blog.vo.TagVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +30,11 @@ import static cn.apecode.blog.constant.OptTypeConst.*;
  * @since 2022-05-26
  */
 @Api(tags = "标签模块")
+@RequiredArgsConstructor
 @RestController
 public class TagController {
 
-    @Autowired
-    private TagService tagService;
+    private final TagService tagService;
 
     @OptLog(optType = SAVE)
     @ApiOperation(value = "添加标签", httpMethod = "POST")

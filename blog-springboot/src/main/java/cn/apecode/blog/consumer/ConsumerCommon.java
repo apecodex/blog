@@ -4,8 +4,8 @@ import cn.apecode.blog.dto.EmailDto;
 import cn.apecode.blog.entity.MailLog;
 import cn.apecode.blog.mapper.MailLogMapper;
 import cn.apecode.blog.utils.CommonUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.MessageProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,15 +21,13 @@ import java.util.Date;
  * @author: apecode
  * @date: 2022-06-09 20:50
  **/
+@RequiredArgsConstructor
 @Component
 public class ConsumerCommon {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
-    @Autowired
-    private MailProperties mailProperties;
-    @Autowired
-    private MailLogMapper mailLogMapper;
+    private final JavaMailSender javaMailSender;
+    private final MailProperties mailProperties;
+    private final MailLogMapper mailLogMapper;
 
     @Async
     public void sendEmail(EmailDto emailDto, MessageProperties messageProperties) throws MessagingException {

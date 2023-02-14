@@ -9,7 +9,7 @@ import cn.apecode.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +24,11 @@ import static cn.apecode.blog.constant.OptTypeConst.UPDATE;
  * @since 2022-05-26
  */
 @Api(tags = "用户账号模块")
+@RequiredArgsConstructor
 @RestController
 public class UserAuthController {
 
-    @Autowired
-    private UserAuthService userAuthService;
+    private final UserAuthService userAuthService;
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
