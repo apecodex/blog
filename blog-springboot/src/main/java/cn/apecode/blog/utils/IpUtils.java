@@ -187,7 +187,7 @@ public class IpUtils implements EnvironmentAware {
 
     public static String getLocation(String ipAddress) {
         IpSourceDto ipSourceFromAmap = getIpSourceFromAmap(ipAddress);
-        if (Objects.nonNull(ipSourceFromAmap) && !ipSourceFromAmap.getLocation().split(",")[0].equals("null")) {
+        if (Objects.nonNull(ipSourceFromAmap) && StringUtils.isNotBlank(ipSourceFromAmap.getLocation()) && !ipSourceFromAmap.getLocation().split(",")[0].equals("null")) {
             return ipSourceFromAmap.getLocation();
         }
         return null;
