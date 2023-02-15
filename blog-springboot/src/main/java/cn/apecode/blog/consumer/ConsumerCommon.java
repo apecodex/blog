@@ -32,6 +32,8 @@ public class ConsumerCommon {
     @Async
     public void sendEmail(EmailDto emailDto, MessageProperties messageProperties) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        // 防止成为垃圾邮件
+        mimeMessage.addHeader("X-Mailer", "Microsoft Outlook Express 6.00.2900.2869");
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
         helper.setFrom(mailProperties.getUsername());
         helper.setTo(emailDto.getEmail());

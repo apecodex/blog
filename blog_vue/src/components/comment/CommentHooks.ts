@@ -119,7 +119,7 @@ const updateReplyCommentHandle = (parentId: string) => {
 
 // 保存评论
 const saveCommentHandle = async ({commentText, topicId, type}: any) => {
-    if (commentText.value.length === 0) {
+    if (commentText.value.trim().length === 0) {
         notify({
             text: "评论内容不能为空",
             type: "warn"
