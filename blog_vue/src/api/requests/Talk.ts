@@ -1,7 +1,6 @@
 import {request} from "@/api/services"
 import {useWebsiteInfoStore} from "@/store";
 import {storeToRefs} from "pinia";
-const {rectangle} = storeToRefs(useWebsiteInfoStore());
 
 /**
  * 获取说说列表
@@ -20,6 +19,7 @@ export function getTalk({size, current}: ConditionParams): Promise<PageResult<Ar
  * @param talkId
  */
 export function getTalkByTalkId(talkId: string): Promise<ResultObject<TalkEntity>> {
+    const {rectangle} = storeToRefs(useWebsiteInfoStore());
     return request.get({
         headers: {
             "rectangle": rectangle.value

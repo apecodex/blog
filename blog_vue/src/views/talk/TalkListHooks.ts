@@ -23,9 +23,7 @@ const talksDataHandle = (talks: Array<TalkEntity>) => {
         if (!talk.likeCount) {
             talk.likeCount = 0;
         } else {
-            if (userInfo.value?.talkLikeSet.indexOf(talk.id) !== -1) {
-                talk.isLike = true;
-            } else talk.isLike = false;
+            talk.isLike = userInfoStore.isLogin && userInfo.value?.talkLikeSet.indexOf(talk.id) !== -1;
         }
         if (!talk.commentCount) {
             talk.commentCount = 0;

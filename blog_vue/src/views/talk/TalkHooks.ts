@@ -73,12 +73,7 @@ const prevHandle = () => {
 
 // 判断是否已经点赞
 const isLikeComp = computed(() => {
-    if (userInfoStore.isLogin) {
-        if (userInfo.value?.talkLikeSet.indexOf(talkData.value!.id) !== -1) {
-            return true;
-        }
-    }
-    return false;
+    return userInfoStore.isLogin && userInfo.value?.talkLikeSet.indexOf(talkData.value!.id) !== -1;
 })
 
 // 说说点赞

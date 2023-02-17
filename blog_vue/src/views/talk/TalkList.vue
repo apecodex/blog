@@ -55,7 +55,7 @@ onMounted(() => {
                  v-if="talk.src.length !== 0">共{{ talk.src.length }}张
             </div>
             <router-link title="查看说说评论" :to="`/talk/${talk.id}`" class="flex items-center gap-5px cursor-pointer">
-              <Like :theme="talk.isLike ? 'filled':''" :class="{'text-red-600': talk.isLike}"/>
+              <Like :theme="talk.isLike ? 'filled':''" :class="[talk.isLike ? 'text-red-600': '']"/>
               <span class="text-12px">{{ talk.likeCount }}</span></router-link>
             <router-link title="查看说说评论" :to="`/talk/${talk.id}`" class="flex items-center gap-5px">
               <Comments/>
@@ -67,8 +67,8 @@ onMounted(() => {
         <hr class="hr-twill">
         <div class="flex justify-center">
           <button
-              class=" py-3px px-6px outline-none rounded-6px mt-8px shadow bg-$theme-bg hover:(bg-$theme-bg-reverse text-$theme-bg)"
-              style="transition: var(--theme-transition-shadow), var(--theme-transition-bg)" @click="moreTalkHandle">
+            class=" py-3px px-6px outline-none rounded-6px mt-8px shadow bg-$theme-bg hover:(bg-$theme-bg-reverse text-$theme-bg)"
+            style="transition: var(--theme-transition-shadow), var(--theme-transition-bg)" @click="moreTalkHandle">
             查看剩余的{{ talksData.count - talksData.recordList.length }}条
           </button>
         </div>
