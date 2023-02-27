@@ -80,6 +80,8 @@ public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk> implements Ta
             talk.setUpdateTime(CommonUtils.getLocalDateTime());
         }
         this.saveOrUpdate(talk);
+        // 删除所有配图
+        talkPictureVideoMapper.delete(Wrappers.<TalkPictureVideo>lambdaQuery().eq(TalkPictureVideo::getTalkId, talk.getId()));
         // 保存配图
         if (CollectionUtils.isNotEmpty(talkVo.getFiles())) {
             saveTalkPictureVideo(talk.getId(), talkVo.getFiles());
