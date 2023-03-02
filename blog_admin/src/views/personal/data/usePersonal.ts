@@ -72,15 +72,15 @@ const updateUserAvatarHandle = async ({file, onFinish, onError,}: UploadCustomRe
 
 // 更新用户信息处理
 const updateUserInfoHandle = async () => {
-    const form = new FormData()
-    form.append('nickname', userInfoData.value?.nickname as string)
-    form.append('intro', userInfoData.value?.intro as string)
-    form.append('webSite', userInfoData.value?.webSite as string)
-    form.append('isEmailNotice', userInfoData.value?.isEmailNotice as any)
     let tipMessage = (window as any).$message.create("保存中...", {
         type: 'loading'
     });
-    await updateUserInfo(form).then((resp: ResultObject<null>) => {
+    await updateUserInfo({
+        nickname: userInfoData.value!.nickname,
+        intro: userInfoData.value!.intro,
+        webSite: userInfoData.value!.webSite,
+        isEmailNotice: userInfoData.value!.isEmailNotice,
+    }).then((resp: ResultObject<null>) => {
         if (resp.status) {
             (<UserInfoModel>userInfo).nickname = userInfoData.value?.nickname as string
             userInfoStore.saveUserInfo(userInfo as UserInfoModel)

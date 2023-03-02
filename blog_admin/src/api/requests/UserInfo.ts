@@ -38,7 +38,7 @@ export function updateUserAvatar(file: any): Promise<ResultObject<UploadFileInfo
  * 更新用户信息
  * @param data
  */
-export function updateUserInfo(data: FormData): Promise<ResultObject<null>> {
+export function updateUserInfo(data: UpdateUserInfo): Promise<ResultObject<null>> {
     return request.put({
         url: '/user/info',
         data

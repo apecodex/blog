@@ -49,7 +49,7 @@ export function sendEmail(data: {email: string}): Promise<ResultObject<null>> {
  * 修改用户密码
  * @param data
  */
-export function updateUserPassword(data: FormData): Promise<ResultObject<null>> {
+export function updateUserPassword(data: UpdatePassword): Promise<ResultObject<null>> {
   return request.put({
     url: '/user/password',
     data

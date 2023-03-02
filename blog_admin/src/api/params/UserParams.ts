@@ -16,3 +16,13 @@ declare type UpdatePassword = {
   code: string | null
   captchaVerification: string
 }
+
+/**
+ * 更新用户信息
+ */
+declare type UpdateUserInfo = {
+  nickname: string | null
+  intro: string | null
+  webSite: string | null
+  isEmailNotice: boolean | null
+}
