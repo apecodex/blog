@@ -44,13 +44,15 @@ public class UserAuthController {
         return ResponseCode.ok(userAuthService.listUserInfoBack(conditionVo));
     }
 
+    @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改密码", httpMethod = "PUT")
     @PutMapping("/user/password")
-    public ResponseCode<?> updatePassword(@Validated PasswordVo password) {
+    public ResponseCode<?> updatePassword(@Validated @RequestBody PasswordVo password) {
         userAuthService.updatePassword(password);
         return ResponseCode.ok("新密码修改成功");
     }
 
+    @OptLog(optType = UPDATE)
     @ApiOperation(value = "找回密码", httpMethod = "PUT")
     @PutMapping("/findPassword")
     public ResponseCode<?> findPassword(@Validated @RequestBody FindPasswordVo findPassword) {

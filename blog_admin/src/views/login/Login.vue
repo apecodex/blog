@@ -11,7 +11,7 @@ const { monsterCurrentImg, userLoginInfo, onShow, handleSuccess, loginDivRef, us
     <div class="login">
       <img :src="monsterCurrentImg" alt="">
       <Verify @success="handleSuccess" mode="pop" captchaType="blockPuzzle" ref="verify"/>
-      <form class="form-main" @submit.prevent="onShow('blockPuzzle')">
+      <form class="form-main" @submit.prevent="onShow">
         <label for="username">用户名</label>
         <input type="text" placeholder="用户名" v-model="userLoginInfo.username" autocomplete="off" ref="usernameInputRef">
         <label for="password">密码</label>

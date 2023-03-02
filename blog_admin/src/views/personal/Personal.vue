@@ -7,16 +7,8 @@ import {
   updateUserAvatarHandle,
   updateUserInfoHandle,
   updateIntro,
-  userInfoStore
 } from './data/usePersonal'
-import {updateUserPassword} from '~/api/requests/UserAuth'
-import {
-  model,
-  rules,
-  startCount,
-  renderCountdown,
-  sendEmailCodeHandle
-} from './data/usePassword'
+import {usePassword} from "./data/usePassword"
 import {
   NSpace,
   NCard,
@@ -35,13 +27,23 @@ import {
   NCountdown
 } from "naive-ui";
 import CommentComp from "~/components/comment/CommentComp.vue"
-import {FormInst, FormItemInst} from "naive-ui";
-import {StatusCode} from "~/api/enum/statusCode";
 import {onBeforeRouteLeave} from "vue-router";
-import {computed, onMounted, ref} from "vue";
+import {onMounted} from "vue";
+import Verify from "~/components/verifition/Verify.vue";
 
-const formRef = ref<FormInst | null>(null)
-const rPasswordFormItemRef = ref<FormItemInst | null>(null)
+const {
+  passwordData,
+  verify,
+  formRef,
+  rules,
+  startCount,
+  loginType,
+  renderCountdown,
+  handlePasswordInput,
+  sendEmailCodeHandle,
+  showCaptcha,
+  handleValidate
+} = usePassword();
 
 onMounted(() => {
   getUserInfoData()
@@ -49,66 +51,11 @@ onMounted(() => {
 
 // 离开前清空表单
 onBeforeRouteLeave(() => {
-  model.value.code = ""
-  model.value.oldPassword = ""
-  model.value.newPassword = ""
-  model.value.reenteredPassword = ""
+  passwordData.value.code = ""
+  passwordData.value.oldPassword = ""
+  passwordData.value.newPassword = ""
+  passwordData.value.reenteredPassword = ""
 })
-
-const loginType = computed(() => {
-  let typeText = ''
-  switch (userInfoData.value?.loginType) {
-    case 0:
-      typeText = '邮箱'
-      break
-    case 1:
-      typeText = 'QQ'
-      break
-  }
-  return typeText
-})
-
-const handlePasswordInput = () => {
-  if (model.value.reenteredPassword) {
-    rPasswordFormItemRef.value?.validate({trigger: 'password-input'})
-  }
-}
-
-// 保存密码
-const handleValidateButtonClick = (e: MouseEvent) => {
-  e.preventDefault()
-  formRef.value?.validate(async (errors) => {
-    if (!errors) {
-      let tipMessage = (window as any).$message.create("保存中...", {
-        type: 'loading'
-      });
-      const form = new FormData()
-      form.append("code", model.value.code as string)
-      form.append("newPassword", model.value.newPassword as string)
-      form.append("oldPassword", model.value.oldPassword as string)
-      await updateUserPassword(form).then((resp) => {
-        if (resp.status) {
-          tipMessage.type = 'success'
-          tipMessage.content = resp.message
-          model.value.code = ""
-          model.value.oldPassword = ""
-          model.value.newPassword = ""
-          model.value.reenteredPassword = ""
-          startCount.value = false;
-          (<any>window).$message.info("请重新登录");
-          userInfoStore.logout();
-        }
-        if (resp.code === StatusCode.FAIL) {
-          tipMessage.type = 'warning'
-          tipMessage.content = resp.message
-        }
-      }).catch(() => {
-        tipMessage.type = 'error'
-        tipMessage.content = '更新失败'
-      })
-    }
-  })
-}
 
 </script>
 
@@ -116,12 +63,12 @@ const handleValidateButtonClick = (e: MouseEvent) => {
   <n-space vertical v-if="userInfoData">
     <n-card>
       <n-tabs
-          class="card-tabs"
-          default-value="personal"
-          size="large"
-          animated
-          style="margin: 0 -4px"
-          pane-style="padding-left: 4px; padding-right: 4px; box-sizing: border-box;"
+        class="card-tabs"
+        default-value="personal"
+        size="large"
+        animated
+        style="margin: 0 -4px"
+        pane-style="padding-left: 4px; padding-right: 4px; box-sizing: border-box;"
       >
         <n-tab-pane name="personal" tab="用户信息">
           <n-card>
@@ -129,11 +76,11 @@ const handleValidateButtonClick = (e: MouseEvent) => {
               <n-space vertical>
                 <n-text type="warning">用户头像</n-text>
                 <n-upload
-                    :default-file-list="personalAvatarFile"
-                    list-type="image-card"
-                    :max="1"
-                    @before-upload="beforeUpload"
-                    :custom-request="updateUserAvatarHandle"
+                  :default-file-list="personalAvatarFile"
+                  list-type="image-card"
+                  :max="1"
+                  @before-upload="beforeUpload"
+                  :custom-request="updateUserAvatarHandle"
                 >
                   点击上传
                 </n-upload>
@@ -183,35 +130,36 @@ const handleValidateButtonClick = (e: MouseEvent) => {
         </n-tab-pane>
         <n-tab-pane name="updatePassword" tab="修改密码">
           <n-card>
-            <n-form ref="formRef" :model="model" :rules="rules">
+            <n-form ref="formRef" :model="passwordData" :rules="rules">
               <n-form-item path="oldPassword" label="旧密码">
-                <n-input type="password" style="width: 200px" v-model:value="model.oldPassword" @keydown.enter.prevent/>
+                <n-input type="password" style="width: 200px" v-model:value="passwordData.oldPassword"
+                         @keydown.enter.prevent/>
               </n-form-item>
               <n-form-item path="newPassword" label="新密码">
                 <n-input
-                    v-model:value="model.newPassword"
-                    type="password"
-                    style="width: 200px"
-                    @input="handlePasswordInput"
-                    @keydown.enter.prevent
+                  v-model:value="passwordData.newPassword"
+                  type="password"
+                  style="width: 200px"
+                  @input="handlePasswordInput"
+                  @keydown.enter.prevent
                 />
               </n-form-item>
               <n-form-item
-                  ref="rPasswordFormItemRef"
-                  first
-                  path="reenteredPassword"
-                  label="重复密码"
+                ref="rPasswordFormItemRef"
+                first
+                path="reenteredPassword"
+                label="重复密码"
               >
                 <n-input
-                    v-model:value="model.reenteredPassword"
-                    :disabled="!model.newPassword"
-                    type="password"
-                    style="width: 200px"
-                    @keydown.enter.prevent
+                  v-model:value="passwordData.reenteredPassword"
+                  :disabled="!passwordData.newPassword"
+                  type="password"
+                  style="width: 200px"
+                  @keydown.enter.prevent
                 />
               </n-form-item>
               <n-form-item label="验证码" path="code">
-                <n-input v-model:value="model.code" style="width: 200px" placeholder="输入验证码"/>
+                <n-input v-model:value="passwordData.code" style="width: 200px" placeholder="输入验证码"/>
                 <n-popover trigger="hover">
                   <template #trigger>
                     <n-button type="primary" ghost @click="sendEmailCodeHandle" :disabled="startCount">
@@ -224,7 +172,7 @@ const handleValidateButtonClick = (e: MouseEvent) => {
                 </n-popover>
               </n-form-item>
               <n-form-item>
-                <n-button size="small" tertiary @click="handleValidateButtonClick">
+                <n-button size="small" tertiary @click.prevent="showCaptcha">
                   提交
                 </n-button>
               </n-form-item>
@@ -233,6 +181,7 @@ const handleValidateButtonClick = (e: MouseEvent) => {
         </n-tab-pane>
       </n-tabs>
     </n-card>
+    <Verify @success="handleValidate" mode="pop" captchaType="blockPuzzle" ref="verify"/>
   </n-space>
 </template>
 
