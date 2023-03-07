@@ -360,7 +360,7 @@ const previewImageHandle = (image: string, pictureName: string) => {
 
 <style scoped>
 .md {
-  @apply 'bg-$theme-bg rounded-8px px-5px';
+  @apply 'bg-$theme-bg rounded-8px px-5px min-w-full w-0';
   transition: var(--theme-transition), var(--theme-transition-fill), border var(--transition);
 }
 

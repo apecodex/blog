@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="relative w-full h-full flex justify-between gap-20px mt-10px">
+  <div class="relative w-full h-full flex justify-between gap-20px">
     <div class="left-wrapper w-full flex flex-col gap-20px">
       <slot name="content"/>
     </div>
