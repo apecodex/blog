@@ -19,7 +19,7 @@
 }
 
 .right-wrapper {
-  @apply 'sticky top-0 left-0 w-full h-full';
+  @apply 'sticky top-15px left-0 w-full h-full';
 }
 
 @media (max-width: 960px) {
