@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.mapper.UserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.entity.UserInfo">
+        <id column="id" property="id" />
+        <result column="nickname" property="nickname" />
+        <result column="uid" property="uid" />
+        <result column="email" property="email" />
+        <result column="avatar" property="avatar" />
+        <result column="intro" property="intro" />
+        <result column="webSite" property="webSite" />
+        <result column="isEmailNotice" property="isEmailNotice" />
+        <result column="bindQQ" property="bindQQ"/>
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, nickname, uid, email, avatar, intro, webSite, isEmailNotice, bindQQ, createTime, updateTime
+    </sql>
+
+</mapper>

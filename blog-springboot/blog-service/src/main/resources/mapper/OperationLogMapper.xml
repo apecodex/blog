@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.mapper.OperationLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.entity.OperationLog">
+        <id column="id" property="id" />
+        <result column="optModule" property="optModule" />
+        <result column="optType" property="optType" />
+        <result column="optUrl" property="optUrl" />
+        <result column="optMethod" property="optMethod" />
+        <result column="optDesc" property="optDesc" />
+        <result column="requestParam" property="requestParam" />
+        <result column="requestMethod" property="requestMethod" />
+        <result column="responseData" property="responseData" />
+        <result column="userId" property="userId" />
+        <result column="idAddress" property="idAddress" />
+        <result column="ipSource" property="ipSource" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="OperationLogBackResult" type="cn.apecode.dto.OperationLogBackDto" >
+        <id column="id" property="id" />
+        <result column="optModule" property="optModule" />
+        <result column="optType" property="optType" />
+        <result column="optUrl" property="optUrl" />
+        <result column="optMethod" property="optMethod" />
+        <result column="optDesc" property="optDesc" />
+        <result column="requestParam" property="requestParam" />
+        <result column="requestMethod" property="requestMethod" />
+        <result column="responseData" property="responseData" />
+        <result column="idAddress" property="idAddress" />
+        <result column="ipSource" property="ipSource" />
+        <result column="createTime" property="createTime" />
+        <collection property="user" ofType="cn.apecode.dto.SimpleUserInfoDto" >
+            <result column="uid" property="uid" />
+            <result column="nickname" property="nickname" />
+            <result column="avatar" property="avatar" />
+            <result column="intro" property="intro" />
+            <result column="webSite" property="webSite" />
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, optModule, optType, optUrl, optMethod, optDesc, requestParam, requestMethod, responseData, userId, idAddress, ipSource, createTime, updateTime
+    </sql>
+
+    <!-- 获取操作日志 -->
+    <select id="listOperationLog" resultMap="OperationLogBackResult">
+        SELECT t_operation_log.id,
+               t_operation_log.optModule,
+               t_operation_log.optType,
+               t_operation_log.optUrl,
+               t_operation_log.optMethod,
+               t_operation_log.optDesc,
+               t_operation_log.requestParam,
+               t_operation_log.requestMethod,
+               t_operation_log.responseData,
+               t_operation_log.idAddress,
+               t_operation_log.ipSource,
+               t_operation_log.createTime,
+               tui.nickname,
+               tui.uid,
+               tui.avatar,
+               tui.intro,
+               tui.webSite
+        FROM t_operation_log
+                 LEFT JOIN t_user_info tui on tui.id = t_operation_log.userId
+        ORDER BY id DESC
+        LIMIT #{current},#{size};
+    </select>
+
+</mapper>

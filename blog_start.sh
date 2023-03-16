@@ -244,7 +244,7 @@ FROM openjdk:8-jre
 MAINTAINER apecode<apecode@qq.com>
 RUN echo "Asia/Shanghai" > /etc/timezone
 EXPOSE 8081
-ADD blog-springboot-0.0.1.jar app.jar
+ADD blog-api.jar app.jar
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
 EOF
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.apecode.mapper.MessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.apecode.entity.Message">
+        <id column="id" property="id" />
+        <result column="userId" property="userId" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar" property="avatar" />
+        <result column="content" property="content" />
+        <result column="theme" property="theme" />
+        <result column="isReview" property="isReview" />
+        <result column="ipAddress" property="ipAddress" />
+        <result column="ipSource" property="ipSource" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <resultMap id="MessageBackDto" type="cn.apecode.dto.MessageBackDto">
+        <id column="id" property="id" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar" property="avatar" />
+        <result column="content" property="content" />
+        <result column="theme" property="theme" />
+        <result column="isReview" property="isReview" />
+        <result column="ipAddress" property="ipAddress" />
+        <result column="ipSource" property="ipSource" />
+        <result column="createTime" property="createTime" />
+        <collection property="user" ofType="cn.apecode.dto.SimpleUserInfoDto">
+            <result column="uid" property="uid"/>
+            <result column="tui_nickname" property="nickname"/>
+            <result column="tui_avatar" property="avatar"/>
+            <result column="intro" property="intro" />
+            <result column="webSite" property="webSite" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="MessageFrontDto" type="cn.apecode.dto.MessageFrontDto">
+        <result column="nickname" property="nickname" />
+        <result column="avatar" property="avatar" />
+        <result column="content" property="content" />
+        <result column="theme" property="theme" />
+        <result column="createTime" property="createTime" />
+        <collection property="user" ofType="cn.apecode.dto.SimpleUserInfoDto">
+            <result column="uid" property="uid"/>
+            <result column="tui_nickname" property="nickname"/>
+            <result column="tui_avatar" property="avatar"/>
+            <result column="intro" property="intro" />
+            <result column="webSite" property="webSite" />
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userId, nickname, avatar, content, theme, isReview, ipAddress, ipSource, createTime, updateTime
+    </sql>
+    <!-- 获取后台留言列表 -->
+    <select id="listMessageBack" resultMap="MessageBackDto">
+        select tm.id,
+               tm.nickname,
+               tm.avatar,
+               content,
+               theme,
+               isReview,
+               ipAddress,
+               ipSource,
+               tm.createTime,
+               tui.uid,
+               tui.nickname as tui_nickname,
+               tui.avatar   as tui_avatar,
+               tui.intro,
+               tui.webSite
+        from (select id,
+                     userId,
+                     nickname,
+                     avatar,
+                     content,
+                     theme,
+                     isReview,
+                     ipAddress,
+                     ipSource,
+                     createTime
+              from t_message tm
+              <where>
+                  <if test="condition.isReview != null">
+                      isReview = #{condition.isReview}
+                  </if>
+                  <if test="condition.type != null and condition.type == 1">
+                      and userId IS NOT NULL
+                  </if>
+                  <if test="condition.type != null and condition.type == 0">
+                      and userId IS NULL
+                  </if>
+              </where>
+              ) tm
+                 left join t_user_info tui on tm.userId = tui.id
+        order by tm.createTime desc
+    </select>
+    <!-- 获取留言列表 -->
+    <select id="listMessageFront" resultMap="MessageFrontDto">
+        select tm.nickname,
+               tm.avatar,
+               content,
+               theme,
+               tm.createTime,
+               tui.nickname as tui_nickname,
+               uid,
+               tui.avatar   as tui_avatar,
+               tui.intro,
+               tui.webSite
+        from (select id, userId, nickname, avatar, content, theme, createTime from t_message where isReview = 0) tm
+                 left join t_user_info tui on tm.userId = tui.id
+        order by tm.createTime desc
+    </select>
+
+</mapper>
