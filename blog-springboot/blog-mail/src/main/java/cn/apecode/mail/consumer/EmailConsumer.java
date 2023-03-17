@@ -29,7 +29,7 @@ public class EmailConsumer {
     @RabbitListener(queues = EMAIL_QUEUE_NAME)
     public void handler(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
         MessageProperties messageProperties = message.getMessageProperties();
-        EmailDto emailDto = ((EmailDto) JSON.parseObject(message.getBody(), EmailDto.class));
+        EmailDto emailDto = JSON.parseObject(message.getBody(), EmailDto.class);
         try {
             consumerCommon.sendEmail(emailDto, messageProperties);
             channel.basicAck(tag, false);
