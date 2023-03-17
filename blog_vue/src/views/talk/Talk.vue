@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import {useRoute} from "vue-router"
-import {onMounted, watch} from "vue";
+import {onBeforeUnmount, onMounted} from "vue";
 import {Time, Like, Comments} from "@icon-park/vue-next"
 import {loadingImg} from "@/constant"
 import {parseComment, getDate} from "@/utils/utils"
@@ -25,18 +25,16 @@ import Skeleton from "@/components/skeleton/Skeleton.vue";
 
 const route = useRoute();
 
-watch(() => route.params?.talkId, () => {
+onMounted(() => {
   const talkId = route.params?.talkId as string;
   if (talkId) {
     createTalkData(talkId)
   }
 })
 
-onMounted(() => {
-  const talkId = route.params?.talkId as string;
-  if (talkId) {
-    createTalkData(talkId)
-  }
+onBeforeUnmount(() => {
+  // 切换说说前清空，不然再次点击其他说说时获取评论会请求两次，会把上一次的说说评论加载到当前的说说里
+  talkData.value = null;
 })
 </script>
 
