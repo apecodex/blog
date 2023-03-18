@@ -77,6 +77,16 @@ public class CommonConst {
     public static final String UNKNOWN = "未知";
 
     /**
+     * 特定国家（评论）
+     */
+    public static final String COUNTER = "中国";
+
+    /**
+     * 本地局域网
+     */
+    public static final String LOCAL = "局域网";
+
+    /**
      * JSON 格式
      */
     public static final String APPLICATION_JSON = "application/json;charset=utf-8";

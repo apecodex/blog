@@ -30,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,9 @@ import static cn.apecode.common.constant.RabbitMQPrefixConst.EMAIL_EXCHANGE_NAME
 import static cn.apecode.common.constant.RabbitMQPrefixConst.EMAIL_ROUTING_KEY_NAME;
 import static cn.apecode.common.constant.RedisPrefixConst.COMMENT_LIKE_COUNT;
 import static cn.apecode.common.constant.RedisPrefixConst.COMMENT_USER_LIKE;
+import static cn.apecode.common.constant.CommonConst.COUNTER;
+import static cn.apecode.common.constant.CommonConst.LOCAL;
+import static cn.apecode.common.constant.CommonConst.UNKNOWN;
 
 /**
  * <p>
@@ -93,19 +97,24 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             if (Objects.isNull(replyUserComment)) throw new BizException("评论不存在");
             replyUserId = replyUserComment.getUserId();
         }
-
         String ipAddress = IpUtils.getIpAddress(request);
         IpSourceDto ipSourceFromAmap = IpUtils.getIpSourceFromAmap(ipAddress);
         String source;
         String location;
+        String geoIp;
         if (Objects.nonNull(ipSourceFromAmap)) {
             source = IpUtils.cutProvince(ipSourceFromAmap);
+            // ip归属地
+            if (StringUtils.isNotBlank(ipSourceFromAmap.getProvince()) && ipSourceFromAmap.getCountry().equals(COUNTER)) {
+                geoIp = ipSourceFromAmap.getProvince();
+            } else if (!ipSourceFromAmap.getCountry().equals(LOCAL)) {
+                geoIp = ipSourceFromAmap.getCountry();
+            } else geoIp = null;
             location = ipSourceFromAmap.getLocation();
-            if (location.split(",")[0].equals("null")) {
-                location = null;
-            }
+            if (location.split(",")[0].equals("null")) location = null;
         } else {
             source = IpUtils.getIpSource(ipAddress);
+            geoIp = IpUtils.cutProvince(source);
             location = null;
         }
         commentVo.setCommentContent(HTMLUtils.filter(commentVo.getCommentContent()));
@@ -120,6 +129,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 .rectangle(location)
                 .ipAddress(ipAddress)
                 .ipSource(source)
+                .geoIp(geoIp)
                 .browser(UserUtils.getLoginUser().getBrowser())
                 .os(UserUtils.getLoginUser().getOs())
                 .isReview(isReview)
@@ -300,6 +310,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             reply.setId(SecurityUtils.encrypt(reply.getId()));
             reply.setReplyCommentId(SecurityUtils.encrypt(reply.getReplyCommentId()));
             reply.setParentId(SecurityUtils.encrypt(reply.getParentId()));
+            reply.setGeoIp(Optional.ofNullable(reply.getGeoIp()).orElse(UNKNOWN));
         }).collect(Collectors.toList());
         // 根据评论id分组回复数据
         Map<String, List<ReplyDto>> replyMap = replyDtoList.stream().collect(Collectors.groupingBy(ReplyDto::getParentId));
@@ -316,6 +327,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             parent.setId(SecurityUtils.encrypt(parent.getId()));
             parent.setReplyList(replyMap.get(parent.getId()));
             parent.setReplyCount(replyCountMap.get(parent.getId()));
+            parent.setGeoIp(Optional.ofNullable(parent.getGeoIp()).orElse(UNKNOWN));
         }).collect(Collectors.toList());
         return new PageResult<>(parentComments, count.intValue());
     }
@@ -374,6 +386,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             reply.setId(SecurityUtils.encrypt(reply.getId()));
             reply.setReplyCommentId(SecurityUtils.encrypt(reply.getReplyCommentId()));
             reply.setParentId(SecurityUtils.encrypt(reply.getParentId()));
+            reply.setGeoIp(Optional.ofNullable(reply.getGeoIp()).orElse(UNKNOWN));
         }).collect(Collectors.toList());
         return replyDtoList;
     }

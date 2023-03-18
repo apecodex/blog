@@ -282,5 +282,4 @@ public class IpUtils implements EnvironmentAware {
         String location = IpUtils.getLocation(ipAddress);
         return SecurityUtils.encrypt(location);
     }
-
 }

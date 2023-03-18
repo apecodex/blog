@@ -43,7 +43,7 @@ const insertUpdateCommentDataHandle = async (commentParams: CommentQueryParams) 
     })
 }
 
-// 加载跟多评论
+// 加载更多评论
 const updateCommentDataHandle = async (commentParams: CommentQueryParams) => {
     loadingFlag.value = true;
     await getCommentList(commentParams).then((resp: PageResult<Array<CommentEntity>>) => {

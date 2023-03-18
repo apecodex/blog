@@ -65,6 +65,9 @@ public class Comment implements Serializable {
     @ApiModelProperty("评论来源")
     private String ipSource;
 
+    @ApiModelProperty(value = "IP归属地")
+    private String geoIp;
+
     @ApiModelProperty("访问浏览器")
     private String browser;
 

@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `t_comment` (
   `rectangle` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '经纬度',
   `ipAddress` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '评论IP',
   `ipSource` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '评论来源',
+  `geoIp` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'IP归属地',
   `browser` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '访问浏览器',
   `os` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '操作系统',
   `isReview` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否审核(0否/1是)',

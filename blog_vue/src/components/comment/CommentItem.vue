@@ -7,7 +7,7 @@ import {loadingImg} from "@/constant"
 import {computed, reactive, ref} from "vue";
 import {useSettingStore, useUserInfoStore, useWebsiteInfoStore} from "@/store";
 import {storeToRefs} from "pinia";
-import {parseComment} from "@/utils/utils"
+import {isMobile, parseComment} from "@/utils/utils"
 import {replyCommentHandle, moreReplyComment, updateReplyCommentHandle} from "./CommentHooks"
 import {notify} from "@kyvg/vue3-notification";
 import {StatusCode} from "@/api/enum/StatusCode";
@@ -157,9 +157,13 @@ const replyComment = ({commentText, parentId, replyCommentId, topicId, type}: an
                style="transition: var(--theme-transition-color)">
             <span>第{{ currentIndex }}楼</span>
             <span>|</span>
-            <span title="浏览器" class="cursor-pointer">{{ commentData.browser }}</span>
-            <span>|</span>
-            <span title="操作系统" class="cursor-pointer">{{ commentData.os }}</span>
+            <template v-if="!isMobile()">
+              <span title="浏览器" class="cursor-pointer">{{ commentData.browser }}</span>
+              <span>|</span>
+              <span title="操作系统" class="cursor-pointer">{{ commentData.os }}</span>
+              <span>|</span>
+            </template>
+            <span title="IP归属地" class="cursor-pointer">IP：{{ commentData.geoIp }}</span>
             <span v-if="commentData.distance">|</span>
             <span title="直线距离" class="cursor-pointer" v-if="commentData.distance">距离你: {{
                 commentData.distance

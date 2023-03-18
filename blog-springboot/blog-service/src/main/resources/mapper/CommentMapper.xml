@@ -15,6 +15,7 @@
         <result column="rectangle" property="rectangle" />
         <result column="ipAddress" property="ipAddress"/>
         <result column="ipSource" property="ipSource"/>
+        <result column="geoIp" property="geoIp"/>
         <result column="browser" property="browser"/>
         <result column="os" property="os"/>
         <result column="isReview" property="isReview" />
@@ -27,6 +28,7 @@
         <id column="id" property="id" />
         <result column="commentContent" property="commentContent" />
         <result column="rectangle" property="distance" />
+        <result column="geoIp" property="geoIp"/>
         <result column="browser" property="browser"/>
         <result column="os" property="os"/>
         <result column="createTime" property="createTime" />
@@ -45,6 +47,7 @@
         <result column="commentContent" property="commentContent" />
         <result column="replyCommentId" property="replyCommentId" />
         <result column="rectangle" property="distance" />
+        <result column="geoIp" property="geoIp"/>
         <result column="browser" property="browser"/>
         <result column="os" property="os"/>
         <result column="createTime" property="createTime" />
@@ -107,7 +110,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, userId, topicId, commentContent, parentId, type, replyUserId, replyCommentId, rectangle, ipAddress, ipSource, browser, os, isReview, isDelete, createTime, updateTime
+        id, userId, topicId, commentContent, parentId, type, replyUserId, replyCommentId, rectangle, ipAddress, ipSource, geoIp, browser, os, isReview, isDelete, createTime, updateTime
     </sql>
 
     <!-- 根据主题id和评论类型查找所有父评论 -->
@@ -115,8 +118,7 @@
         SELECT c.id,
                c.commentContent,
                c.rectangle,
-               c.ipAddress,
-               c.ipSource,
+               c.geoIp,
                c.browser,
                c.os,
                c.createTime,
@@ -144,6 +146,7 @@
                      c.parentId,
                      c.replyCommentId,
                      c.rectangle,
+                     c.geoIp,
                      c.ipSource,
                      c.browser,
                      c.os,
@@ -158,7 +161,7 @@
                      r.avatar   AS                                                        replyAvatar,
                      r.intro    AS                                                        replyIntro,
                      r.webSite  AS                                                        replyWebSite,
-                     ROW_NUMBER() OVER (PARTITION BY parentId ORDER BY c.createTime ASC ) row_num
+                     ROW_NUMBER() OVER (PARTITION BY parentId ORDER BY c.createTime ) row_num
               FROM t_comment c
                        LEFT JOIN t_user_info u ON c.userId = u.id
                        LEFT JOIN t_user_info r ON c.replyUserId = r.id
@@ -193,6 +196,7 @@
                c.parentId,
                c.replyCommentId,
                c.rectangle,
+               c.geoIp,
                c.browser,
                c.os,
                c.createTime,

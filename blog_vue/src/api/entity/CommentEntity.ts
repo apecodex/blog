@@ -12,6 +12,7 @@ declare type CommentEntity = {
     user: SimpleUserInfoEntity
     commentContent: string
     distance: null | string
+    geoIp: null | string;
     browser: string
     os: string
     replyCount: number | null
@@ -29,6 +30,7 @@ declare type ReplyEntity = {
     replyUser: SimpleUserInfoEntity | null
     commentContent: string
     distance: null | string
+    geoIp: null | string
     browser: string
     os: string
     likeCount: null | number

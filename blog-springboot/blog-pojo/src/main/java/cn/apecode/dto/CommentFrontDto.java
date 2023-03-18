@@ -35,6 +35,9 @@ public class CommentFrontDto {
     @ApiModelProperty(value = "距离", name = "distance", dataType = "String")
     private String distance;
 
+    @ApiModelProperty(value = "IP归属地", name = "geoIp", dataType = "String")
+    private String geoIp;
+
     @ApiModelProperty(value = "访问浏览器", name = "browser", dataType = "String")
     private String browser;
 

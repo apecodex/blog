@@ -7,7 +7,7 @@ import {loadingImg} from "@/constant"
 import {useSettingStore, useUserInfoStore, useWebsiteInfoStore} from "@/store"
 import {storeToRefs} from "pinia";
 import {replyCommentHandle, updateReplyCommentHandle} from "./CommentHooks"
-import {parseComment} from "@/utils/utils"
+import {isMobile, parseComment} from "@/utils/utils"
 import {notify} from "@kyvg/vue3-notification";
 import {StatusCode} from "@/api/enum/StatusCode";
 import {commentLike} from "@/api/requests/Comment";
@@ -156,9 +156,13 @@ const clickLikeHandle = async () => {
                style="transition: var(--theme-transition-color)">
             <span>第{{ currentIndex }}楼</span>
             <span>|</span>
-            <span title="浏览器" class="cursor-pointer">{{ replyCommentData.browser }}</span>
-            <span>|</span>
-            <span title="操作系统" class="cursor-pointer">{{ replyCommentData.os }}</span>
+            <template v-if="!isMobile()">
+              <span title="浏览器" class="cursor-pointer">{{ replyCommentData.browser }}</span>
+              <span>|</span>
+              <span title="操作系统" class="cursor-pointer">{{ replyCommentData.os }}</span>
+              <span>|</span>
+            </template>
+            <span title="IP归属地" class="cursor-pointer">IP：{{ replyCommentData.geoIp }}</span>
             <span v-if="replyCommentData.distance">|</span>
             <span title="直线距离" class="cursor-pointer"
                   v-if="replyCommentData.distance">距离你: {{ replyCommentData.distance }}km</span>

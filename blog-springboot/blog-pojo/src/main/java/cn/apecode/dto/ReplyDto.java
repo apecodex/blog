@@ -46,6 +46,9 @@ public class ReplyDto {
     @ApiModelProperty(value = "访问浏览器", name = "browser", dataType = "String")
     private String browser;
 
+    @ApiModelProperty(value = "IP归属地", name = "geoIp", dataType = "String")
+    private String geoIp;
+
     @ApiModelProperty(value = "操作系统", name = "os", dataType = "String")
     private String os;
 
