@@ -10,10 +10,25 @@
         <result column="createTime" property="createTime" />
         <result column="updateTime" property="updateTime" />
     </resultMap>
+    
+    <resultMap id="TagFrontDto" type="cn.apecode.dto.TagWithArticleCountDto">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="articleCount" property="articleCount"/>
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, articleId, tagId, createTime, updateTime
     </sql>
+    <select id="listTagFront" resultMap="TagFrontDto">
+        SELECT
+            tt.id,
+            tt.name,
+            COUNT(tat.articleId) AS articleCount
+        FROM t_article_tag tat
+                 LEFT JOIN t_tag tt ON tt.id = tat.tagId
+        GROUP BY tat.tagId DESC
+    </select>
 
 </mapper>

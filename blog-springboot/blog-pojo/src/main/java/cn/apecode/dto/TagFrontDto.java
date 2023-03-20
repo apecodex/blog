@@ -22,7 +22,7 @@ import java.util.List;
 public class TagFrontDto {
 
     @ApiModelProperty(value = "标签列表 ", name = "tags", dataType = "List<TagDto>")
-    private List<TagDto> tags;
+    private List<TagWithArticleCountDto> tags;
 
     @ApiModelProperty(value = "最新文章列表", name = "newsArticleList", dataType = "List<ArticleRecommendDto>")
     private List<ArticleRecommendDto> newsArticleList;

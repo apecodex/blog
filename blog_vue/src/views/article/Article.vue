@@ -236,10 +236,11 @@ const previewImageHandle = (image: string, pictureName: string) => {
                 </div>
                 <div class="flex">
                   <span class="block">版权声明：</span>
-                  <span class="break-all flex-1">本博客所有文章除特别声明外，均采用 <a class="hover:(text-$hover-color2)"
-                                                                                      style="border-bottom: 1px solid var(--theme-bg-reverse); transition: border-bottom-color var(--transition)"
-                                                                                      href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                                                                                      target="_blank">CC BY-NC-SA 4.0 </a> 许可协议。转载请注明出处！</span>
+                  <span class="break-all flex-1">本博客所有文章除特别声明外，均采用
+                    <a class="hover:(text-$hover-color2)"
+                       style="border-bottom: 1px solid var(--theme-bg-reverse); transition: border-bottom-color var(--transition)"
+                       href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                       target="_blank">CC BY-NC-SA 4.0 </a> 许可协议。转载请注明出处！</span>
                 </div>
               </div>
               <span class="flex justify-start items-center my-10px">

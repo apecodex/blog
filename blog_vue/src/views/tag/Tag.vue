@@ -17,11 +17,6 @@ const {loadingFlag} = storeToRefs(settingStore)
 
 const tagsData: Ref<TagFrontEntity | null> = ref(null)
 
-const Color = () => {
-  let colorAngle = Math.floor(Math.random() * 360);
-  return 'hsla(' + colorAngle + ',100%,50%, 0.' + random(4, 10) + ')';
-}
-
 const createTags = async (condition: ConditionParams) => {
   loadingFlag.value = true
   await getTags(condition).then((resp: ResultObject<TagFrontEntity>) => {
@@ -50,10 +45,10 @@ onMounted(() => {
       <BoxComponent class="p-10px flex flex-col gap-20px" v-if="tagsData">
         <h1 class="text-24px text-center text-shadow-xl">标签</h1>
         <hr class="hr-edge-weak"/>
-        <div class="flex flex-wrap gap-10px">
-          <router-link :to="`/tags/${tag.id}`" v-for="tag of tagsData.tags" class="tag-a"
-                       :style="{ 'font-size': (Math.floor(Math.random() * 10) + 15) + 'px', 'color': Color()}">
-            {{ tag.name }}
+        <div class="flex flex-wrap gap-12px justify-center">
+          <router-link :to="`/tags/${tag.id}`" v-for="tag of tagsData.tags" class="tag-a shadow rounded-6px py-7px px-5px text-16px <sm:(text-14px)">
+            <span class="tag-name mr-5px px-3px rounded-6px">{{tag.name}}</span>
+            <span class="tag-article-count bg-$theme-bg-reverse text-$text-color-reverse rounded-6px px-3px">{{tag.articleCount}}篇</span>
           </router-link>
         </div>
       </BoxComponent>
@@ -75,11 +70,17 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.tag-a {
-  transition: color .3s ease-out;
+.tag-name, .tag-article-count {
+  transition:  var(--theme-transition-shadow), var(--theme-transition-bg);
 }
-
 .tag-a:hover {
-  @apply '!text-$theme-bg-reverse';
+  box-shadow: var(--theme-shadow-inset) !important;
+  transition:  var(--theme-transition-shadow);
+}
+.tag-a:hover .tag-name {
+  @apply 'bg-$theme-bg-reverse text-$text-color-reverse';
+}
+.tag-a:hover .tag-article-count {
+  @apply 'bg-$theme-bg text-$text-color'
 }
 </style>

@@ -167,12 +167,9 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
                 comment.setTopicId(SecurityUtils.encrypt(comment.getTopicId()));
             }).collect(Collectors.toList());
         });
-        List<Tag> tags = tagMapper.selectList(Wrappers.<Tag>lambdaQuery().orderByDesc(Tag::getId));
-        List<TagDto> tagDtos = tags.stream().map((tag) -> TagDto.builder()
-                .id(SecurityUtils.encrypt(String.valueOf(tag.getId())))
-                .name(tag.getName())
-                .build()).collect(Collectors.toList());
-        TagFrontDto tagFrontDto = TagFrontDto.builder().tags(tagDtos).build();
+        List<TagWithArticleCountDto> tags = articleTagMapper.listTagFront();
+        tags.stream().peek(tag -> tag.setId(SecurityUtils.encrypt(String.valueOf(tag.getId())))).collect(Collectors.toList());
+        TagFrontDto tagFrontDto = TagFrontDto.builder().tags(tags).build();
         // 封装信息
         try {
             tagFrontDto.setNewsArticleList(newsArticleList.get());

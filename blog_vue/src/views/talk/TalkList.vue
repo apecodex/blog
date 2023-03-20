@@ -67,8 +67,8 @@ onMounted(() => {
         <hr class="hr-twill">
         <div class="flex justify-center">
           <button
-            class=" py-3px px-6px outline-none rounded-6px mt-8px shadow bg-$theme-bg hover:(bg-$theme-bg-reverse text-$theme-bg)"
-            style="transition: var(--theme-transition-shadow), var(--theme-transition-bg)" @click="moreTalkHandle">
+              class=" py-3px px-6px outline-none rounded-6px mt-8px shadow bg-$theme-bg hover:(bg-$theme-bg-reverse text-$theme-bg)"
+              style="transition: var(--theme-transition-shadow), var(--theme-transition-bg)" @click="moreTalkHandle">
             查看剩余的{{ talksData.count - talksData.recordList.length }}条
           </button>
         </div>

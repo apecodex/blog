@@ -13,74 +13,74 @@ const {userInfo} = storeToRefs(userInfoStore);
 
 const talksData: Ref<{ count: number, recordList: Array<TalkEntity> } | null> = ref(null)
 const pagination = reactive({
-    size: 10,
-    current: 1
+  size: 10,
+  current: 1
 } as ConditionParams)
 
 // 处理说说数据
 const talksDataHandle = (talks: Array<TalkEntity>) => {
-    talks.map((talk: TalkEntity) => {
-        if (!talk.likeCount) {
-            talk.likeCount = 0;
-        } else {
-            talk.isLike = userInfoStore.isLogin && userInfo.value?.talkLikeSet.indexOf(talk.id) !== -1;
-        }
-        if (!talk.commentCount) {
-            talk.commentCount = 0;
-        }
-        if (talk.src.length >= 4) {
-            talk.src = talk.src.splice(0, 4);
-        }
-        talk.createTime = new Date(talk.createTime);
-    })
+  talks.map((talk: TalkEntity) => {
+    if (!talk.likeCount) {
+      talk.likeCount = 0;
+    } else {
+      talk.isLike = userInfoStore.isLogin && userInfo.value?.talkLikeSet.indexOf(talk.id) !== -1;
+    }
+    if (!talk.commentCount) {
+      talk.commentCount = 0;
+    }
+    if (talk.src.length >= 4) {
+      talk.src = talk.src.splice(0, 4);
+    }
+    talk.createTime = new Date(talk.createTime);
+  })
 }
 
 const createTalksData = async ({size, current}: ConditionParams) => {
-    loadingFlag.value = true;
-    talksData.value = null;
-    await getTalk({size, current}).then((resp: PageResult<Array<TalkEntity>>) => {
-        if (resp.status) {
-            talksDataHandle(resp.data.recordList)
-            talksData.value = resp.data
-        }
-    }).catch(() => {
-        notify({
-            text: "获取说说列表失败，请重试",
-            type: "warn"
-        })
-    }).finally(() => {
-        loadingFlag.value = false
-        scrollDown();
+  loadingFlag.value = true;
+  talksData.value = null;
+  await getTalk({size, current}).then((resp: PageResult<Array<TalkEntity>>) => {
+    if (resp.status) {
+      talksDataHandle(resp.data.recordList)
+      talksData.value = resp.data
+    }
+  }).catch(() => {
+    notify({
+      text: "获取说说列表失败，请重试",
+      type: "warn"
     })
+  }).finally(() => {
+    loadingFlag.value = false
+    scrollDown();
+  })
 }
 
 const updateTalksData = async ({size, current}: ConditionParams) => {
-    loadingFlag.value = true;
-    await getTalk({size, current}).then((resp: PageResult<Array<TalkEntity>>) => {
-        if (resp.status) {
-            talksDataHandle(resp.data.recordList)
-            talksData.value?.recordList.push(...resp.data.recordList);
-        }
-    }).catch(() => {
-        notify({
-            text: "获取说说列表失败，请重试",
-            type: "warn"
-        })
-    }).finally(() => {
-        loadingFlag.value = false
+  loadingFlag.value = true;
+  await getTalk({size, current}).then((resp: PageResult<Array<TalkEntity>>) => {
+    if (resp.status) {
+      talksDataHandle(resp.data.recordList)
+      talksData.value?.recordList.push(...resp.data.recordList);
+    }
+  }).catch(() => {
+    notify({
+      text: "获取说说列表失败，请重试",
+      type: "warn"
     })
+  }).finally(() => {
+    loadingFlag.value = false
+  })
 }
 
 const moreTalkHandle = async () => {
-    if (talksData.value?.recordList.length !== talksData.value?.count) {
-        pagination.current!++;
-        await updateTalksData(pagination)
-    }
+  if (talksData.value?.recordList.length !== talksData.value?.count) {
+    pagination.current!++;
+    await updateTalksData(pagination)
+  }
 }
 export {
-    pagination,
-    talksData,
-    createTalksData,
-    updateTalksData,
-    moreTalkHandle
+  pagination,
+  talksData,
+  createTalksData,
+  updateTalksData,
+  moreTalkHandle
 }

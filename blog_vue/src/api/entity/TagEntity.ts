@@ -10,9 +10,15 @@ declare type TagSearchEntity = {
 
 declare type ArticleTagEntity = TagSearchEntity
 
+declare type TagWithArticleCount = {
+    id: string
+    name: string,
+    articleCount: number
+}
+
 // 标签列表
 declare type TagFrontEntity = {
-    tags: Array<TagEntity>
+    tags: Array<TagWithArticleCount>
     newsArticleList: Array<NewsArticleEntity>
     newsCommentList: Array<NewCommentEntity>
 }
