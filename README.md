@@ -70,7 +70,6 @@
 - windicss
 - md-editor-v3
 - icon-park/vue-next
-- vue-live2d
 - @kyvg/vue3-notification
 
 #### 后台
@@ -123,27 +122,79 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 ## 目录结构
 
 ```sh
-├─annotation  # 自定义注解
-├─aspect      # AOP模块
-├─config      # 配置类
-├─constant    # 常量
-├─consumer    # MQ消费模块
-├─controller  # 控制层
-├─dto         # DTO
-├─entity      # 数据库实体类
-├─enums       # 枚举
-├─exception   # 自定义全局异常处理
-├─filter      # 过滤器
-├─handler     # 处理器
-├─mapper      # mapper
-├─schedule    # 定时
-├─service     # 服务层
-│  └─impl
-├─strategy    # 策略模式（登录、上传）
-│  ├─context
-│  └─impl
-├─utils       # 工具类
-└─vo          # VO
+├─blog-api  # 接口模块，对外提供接口
+│  └─src
+│      ├─main
+│      │  ├─java
+│      │  │  └─cn
+│      │  │      └─apecode
+│      │  │          ├─aspect      # AOP
+│      │  │          └─controller  # 控制层
+├─blog-auth  # 登录认证模块
+│  └─src
+│      └─main
+│          ├─java
+│          │  └─cn
+│          │      └─apecode
+│          │          └─auth
+│          │              ├─filter   # 过滤器
+│          │              └─handler  # 处理器
+├─blog-common  # 公共模块
+│  └─src
+│      └─main
+│          ├─java
+│          │  └─cn
+│          │      └─apecode
+│          │          └─common
+│          │              ├─annotation   # 自定义注解
+│          │              ├─constant     # 常量
+│          │              ├─enums        # 枚举
+│          │              ├─exception    # 自定义全局异常
+│          │              └─utils        # 工具类
+├─blog-config  # 配置模块
+│  └─src
+│      └─main
+│          ├─java
+│          │  └─cn
+│          │      └─apecode
+│          │          ├─config    # 配置类
+│          │          └─handler   # 处理器
+│          └─resources
+│              └─META-INF
+│                  └─services
+├─blog-mail  # 邮件模块
+│  └─src
+│      └─main
+│          ├─java
+│          │  └─cn
+│          │      └─apecode
+│          │          └─mail
+│          │              └─consumer    # MQ消费模块
+├─blog-pojo  # 实体模块
+│  └─src
+│      └─main
+│          ├─java
+│          │  └─cn
+│          │      └─apecode
+│          │          ├─dto       # DTO
+│          │          ├─entity    # 实体类
+│          │          └─vo        # VO
+└─blog-service  # 服务模块
+    └─src
+        └─main
+            ├─java
+            │  └─cn
+            │      └─apecode
+            │          ├─dto         # DTO
+            │          ├─handler     # 处理器
+            │          ├─mapper      # mapper
+            │          ├─schedule    # 定时
+            │          ├─service     # 服务层
+            │          │  └─impl     # 服务层实现类
+            │          ├─strategy    # 策略模式（登录、上传）
+            │          └─utils       # 工具类
+            └─resources
+                └─mapper             # CURD
 ```
 
 ## 运行环境
