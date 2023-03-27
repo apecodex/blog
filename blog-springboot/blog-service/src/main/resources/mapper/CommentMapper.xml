@@ -182,8 +182,7 @@
         FROM t_comment
         WHERE isReview = 0
           AND isDelete = 0
-          AND parentId IN 
-        <foreach open="(" collection="parentIds" item="commentId" separator="," close=")" >
+        <foreach collection="parentIds" item="commentId" open="AND parentId IN (" separator="," close=")">
             #{commentId}
         </foreach>
         GROUP BY parentId;
@@ -229,8 +228,7 @@
           AND c.isDelete = 0
           AND c.type = 2
           AND c.parentId IS NULL
-          AND topicId IN
-        <foreach open="(" collection="talkIds" item="topicId" separator="," close=")" >
+        <foreach collection="talkIds" item="topicId" open="AND topicId IN (" separator="," close=")">
             #{topicId}
         </foreach>
         GROUP BY topicId;
