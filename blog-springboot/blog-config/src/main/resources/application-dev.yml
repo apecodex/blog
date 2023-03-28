@@ -2,13 +2,12 @@ server:
   port: 8081
   http2:
     enabled: true
-  undertow:
+  tomcat:
     threads:
-      io: 8
-      worker: 256
-    max-http-post-size: 4MB
-    buffer-size: 1024
-    direct-buffers: true
+      max: 400
+      min-spare: 100
+    max-connections: 10000
+    max-http-form-post-size: 4MB
 
 spring:
   main:
