@@ -1,0 +1,95 @@
+Configuration:
+  # 日志框架本身的输出日志级别
+  status: WARN
+  # 自动加载配置文件的间隔时间，不低于5秒
+  monitorInterval: 5
+
+  Properties: # 定义全局变量
+    Property:
+      - name: LOG_PATH    # 输出文件路径
+        value: /var/log/blog/
+      - name: DEFAULT_PATTERN    # 默认日志输出格式
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${sys:PID} --- [%15.15t] %-40.40c{1.} : %m%n%xwEx"
+
+  Appenders:
+    Console: #控制台输出
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout: # 日志消息格式
+        pattern: "%clr{%d{yyyy-MM-dd HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %X{user} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n%xwEx"
+
+
+    RollingFile: # 输出到文件
+      - name: FILE
+        fileName: ${LOG_PATH}/app/app.log    #输出文件的地址
+        ignoreExceptions: false
+        filePattern: "${LOG_PATH}/app/%d{yyyy-MM-dd}-%i.gz"    # 文件生成规则
+        ThresholdFilter: # 日志级别过滤器
+          level: DEBUG    # 日志级别
+          onMatch: ACCEPT    # 高于DEBUG级别放行
+          onMismatch: DENY    # 低于DEBUG级别拦截
+        PatternLayout:
+          pattern: "${DEFAULT_PATTERN}"
+        Policies: # 日志拆分规则
+          SizeBasedTriggeringPolicy: # 日志拆分规则
+            size: "128 MB"
+          TimeBasedTriggeringPolicy: # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy: # 单目录下，文件最多30个，超过会删除最早之前的
+          max: 30
+
+      - name: OPERATOR_LOG_FILE
+        fileName: ${LOG_PATH}/opt/opt.log    #输出文件的地址
+        ignoreExceptions: false
+        filePattern: "${LOG_PATH}/opt/%d{yyyy-MM-dd}-%i.gz"    # 文件生成规则
+        ThresholdFilter: # 日志级别过滤器
+          level: DEBUG    # 日志级别
+          onMatch: ACCEPT    # 高于DEBUG级别放行
+          onMismatch: DENY    # 低于DEBUG级别拦截
+        PatternLayout:
+          pattern: "${DEFAULT_PATTERN}"
+        Policies: # 日志拆分规则
+          SizeBasedTriggeringPolicy: # 日志拆分规则
+            size: "128 MB"
+          TimeBasedTriggeringPolicy: # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy: # 单目录下，文件最多30个，超过会删除最早之前的
+          max: 30
+
+      - name: ERROR_FILE
+        fileName: ${LOG_PATH}/err/err.log    #输出文件的地址
+        ignoreExceptions: false
+        filePattern: "${LOG_PATH}/err/%d{yyyy-MM-dd}-%i.gz"    # 文件生成规则
+        ThresholdFilter: # 日志级别过滤器
+          level: WARN    # 日志级别
+          onMatch: ACCEPT    # 高于WARN级别放行
+          onMismatch: DENY    # 低于WARN级别拦截
+        PatternLayout:
+          pattern: "${DEFAULT_PATTERN}"
+        Policies: # 日志拆分规则
+          SizeBasedTriggeringPolicy: # 日志拆分规则
+            size: "128 MB"
+          TimeBasedTriggeringPolicy: # 按天分类
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy: # 单目录下，文件最多30个，超过会删除最早之前的
+          max: 30
+
+
+  Loggers:
+    Root:
+      level: INFO #root的级别为info，如果为debug的话，输出的内容太多
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: FILE
+        - ref: ERROR_FILE
+
+    Logger:
+      # 接口操作日志
+      - name: cn.apecode.aspect.ApiOptLogAspect
+        level: INFO
+        additivity: false  # 设置为false，表示log只打印到本log的appender中，而不再打印到其父logger的appender。
+        AppenderRef:
+          - ref: OPERATOR_LOG_FILE

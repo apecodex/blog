@@ -28,6 +28,7 @@ public class GlobalException {
      */
     @ExceptionHandler(value = {BizException.class})
     public ResponseCode<?> errorHandler(BizException e) {
+        log.error("处理服务异常 - 错误码：{} - 错误信息：{}", e.getCode(), e.getMessage());
         return ResponseCode.fail(e.getCode(), e.getMessage());
     }
 
@@ -40,7 +41,7 @@ public class GlobalException {
      */
     @ExceptionHandler(value = {Exception.class})
     public ResponseCode<?> errorHandler(Exception e) {
-        log.error("Server error: {}", e.getLocalizedMessage());
+        log.error("处理接口异常: {}", e.getLocalizedMessage());
         return ResponseCode.customize(false, SERVER_ERROR);
     }
 
@@ -53,6 +54,7 @@ public class GlobalException {
      */
     @ExceptionHandler(value = {BindException.class})
     public ResponseCode<?> errorHandler(BindException e) {
+        log.error("参数校验异常：{}", Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
         return ResponseCode.fail(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
     }
 }

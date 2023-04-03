@@ -9,6 +9,9 @@ server:
     max-connections: 10000
     max-http-form-post-size: 4MB
 
+logging:
+  config: classpath:log4j2.yml
+
 spring:
   main:
     # 关闭启动banner

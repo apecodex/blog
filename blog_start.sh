@@ -203,6 +203,8 @@ services:
   myblog:
     image: myblog:latest
     container_name: myblog
+    volumes:
+      - ${folder}/log/:/var/log/blog/
     build: 
       context: ${folder}/
       dockerfile: Dockerfile-BlogJar
