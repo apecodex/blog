@@ -1,6 +1,6 @@
 import XmlRequest from "./config";
 
-let base = "/api/";
+let base = import.meta.env.VITE_API_URL;
 
 const request = new XmlRequest({
   timeout: 10000,

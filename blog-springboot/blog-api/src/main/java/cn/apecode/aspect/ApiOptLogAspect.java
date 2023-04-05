@@ -14,10 +14,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author apecode
@@ -67,12 +68,47 @@ public class ApiOptLogAspect {
         // 请求方法
         operationLog.setOptMethod(methodName);
         // 请求参数
-        operationLog.setRequestParam(JSON.toJSONString(joinPoint.getArgs()));
+        String parameters = excludeParameters(joinPoint.getArgs());
+        operationLog.setRequestParam(parameters);
         // 请求IP
         String ipAddress = IpUtils.getIpAddress(request);
         operationLog.setIdAddress(ipAddress);
         // 请求URL
         operationLog.setOptUrl(request.getRequestURI());
         log.info("操作模块：[ {} ]  - 操作描述：[ {} ] - 请求方法：[ {} ] -  操作URL：[ {} ] - 请求IP：[ {} ] -  操作方法：{} - 请求参数：{}", operationLog.getOptModule(), operationLog.getOptDesc(), operationLog.getRequestMethod(), operationLog.getOptUrl(), operationLog.getIdAddress(), operationLog.getOptMethod(), operationLog.getRequestParam());
+    }
+
+    /**
+     * @param args
+     * @return {@link String}
+     * @description: 处理不能序列化的
+     * MultipartFile不能序列化
+     * @auther apecode
+     * @date 5/4/2023 PM1:11
+     */
+    private String excludeParameters(Object[] args) {
+        List<Object> arguments = new ArrayList<>();
+        for (Object arg : args) {
+            // 上传文件无法序列化
+            if (arg instanceof MultipartFile) {
+                Map<String, Object> fileInfo = new HashMap<>();
+                MultipartFile file = (MultipartFile) arg;
+                fileInfo.put("文件名", file.getOriginalFilename());
+                fileInfo.put("大小", file.getSize());
+                fileInfo.put("类型", file.getContentType());
+                arguments.add(fileInfo);
+                continue;
+            }
+            arguments.add(arg);
+        }
+        String paramter = "[]";
+        if (!arguments.isEmpty()) {
+            try {
+                paramter = JSON.toJSONString(arguments);
+            } catch (Exception e) {
+                paramter = arguments.toString();
+            }
+        }
+        return paramter;
     }
 }

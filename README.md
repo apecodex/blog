@@ -119,6 +119,7 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 * 后台可修改轮播背景图片，博客配置等信息。
 * 后端多模块设计，方便后期升级维护。
 * 日志拆分记录，快速定位问题。
+* 支持https配置
 
 ## 目录结构
 

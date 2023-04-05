@@ -1,4 +1,4 @@
-import {request} from '../services'
+import {request} from '@/api/services'
 
 /**
  * 登录
@@ -6,7 +6,6 @@ import {request} from '../services'
  */
 export function Login(data: FormData): Promise<ResultObject<UserEntity>> {
     return request.post({
-        headers: { 'Content-type': 'application/x-www-form-urlencoded' },
         url: "/login",
         data
     })

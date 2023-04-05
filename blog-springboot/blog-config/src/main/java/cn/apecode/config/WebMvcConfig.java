@@ -5,7 +5,6 @@ import cn.apecode.handler.RequestAccessLimit;
 import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +26,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private String staticAccessPath;
     @Value("${upload.local.uploadFolder}")
     private String uploadFolder;
+    @Value("${cross-origin.domain}")    // spring默认使用逗号分隔参数值
+    private String[] crossOrigin;
 
     @Bean
     public RequestAccessLimit getRequestAccessLimit() {
@@ -51,7 +52,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowCredentials(true)
                 .allowedHeaders("*")
-                .allowedOriginPatterns("*")
+                .allowedOriginPatterns(crossOrigin)
                 .allowedMethods("*");
         WebMvcConfigurer.super.addCorsMappings(registry);
     }
@@ -83,4 +84,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
             context.setCookieProcessor(new LegacyCookieProcessor());
         });
     }
+
 }

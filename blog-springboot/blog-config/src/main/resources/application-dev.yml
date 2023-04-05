@@ -8,6 +8,27 @@ server:
       min-spare: 100
     max-connections: 10000
     max-http-form-post-size: 4MB
+  ssl:
+    key-store: classpath:xxx.xxx    # SSL证书
+    key-store-password: xxxxxx    # 密码
+    key-store-type: xxxxxx           # 证书类型
+    enabled: false    # 启用https
+
+# http端口
+# 设置此值先启用ssl，否则无效，监听到http的端口号后转向到的https的端口号
+http:
+  port: 8082
+
+# 是否开启https，默认false
+# true/false
+# 注：开启前先启用ssl，否则接口无法访问
+https:
+  enabled: false
+
+# 跨域，限制特定域名，默认*
+# 可设置多个，以逗号分割。例如："https://xxx.cn,https://*.xxx.cn" 或者 "*xxx.cn,*.xxx.cn"
+cross-origin:
+  domain: "*"
 
 logging:
   config: classpath:log4j2.yml

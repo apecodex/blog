@@ -1,29 +1,29 @@
 import axios from 'axios';
 
 const service = axios.create({
-  timeout: 40000,
-  headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type': 'application/json; charset=UTF-8'
-  },
+    timeout: 40000,
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json; charset=UTF-8'
+    },
 })
 service.interceptors.request.use(
-  config => {
-    config.baseURL = '/api';
-    return config
-  },
-  error => {
-    Promise.reject(error)
-  }
+    config => {
+        config.baseURL = import.meta.env.VITE_API_URL;
+        return config
+    },
+    error => {
+        Promise.reject(error)
+    }
 )
 
 // response interceptor
 service.interceptors.response.use(
-  response => {
-    const res = response.data;
-    return res
-  },
-  error => {
-  }
+    response => {
+        const res = response.data;
+        return res
+    },
+    error => {
+    }
 )
 export default service

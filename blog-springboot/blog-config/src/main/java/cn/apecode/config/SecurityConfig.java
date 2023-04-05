@@ -2,13 +2,13 @@ package cn.apecode.config;
 
 import cn.apecode.auth.filter.JwtAuthenticationTokenFilter;
 import cn.apecode.auth.handler.*;
-import cn.apecode.handler.*;
 import cn.apecode.handler.FilterInvocationSecurityMetadataSourceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -54,8 +54,8 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // 不需要csrf
-        http.csrf().disable().exceptionHandling();
+        // 配置security请求接口允许跨域，不然登录会有跨域问题
+        http.cors(Customizer.withDefaults()).csrf().disable();
         // 禁用缓存
         http.headers().cacheControl().disable();
         // 基于Token,不需要Session

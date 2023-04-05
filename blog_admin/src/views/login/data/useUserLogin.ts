@@ -134,7 +134,7 @@ export const useUserLogin = () => {
     })
   }
 
-  let onShow = (type: string) => {
+  let onShow = () => {
     if (userLoginInfo.username.length === 0) {
       (<any>window).$message.error("请输入用户名");
     } else if (userLoginInfo.password.length === 0) {

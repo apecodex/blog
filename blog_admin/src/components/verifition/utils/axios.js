@@ -9,7 +9,7 @@ const service = axios.create({
 })
 service.interceptors.request.use(
   config => {
-    config.baseURL = '/api';
+    config.baseURL = import.meta.env.VITE_API_URL;
     return config
   },
   error => {

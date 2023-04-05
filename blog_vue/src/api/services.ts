@@ -1,6 +1,6 @@
 import BlogXmlRequest from "@/api/config";
 
-let blogBase = '/api'
+let blogBase = import.meta.env.VITE_API_URL;
 
 const request = new BlogXmlRequest({
     timeout: 10000,

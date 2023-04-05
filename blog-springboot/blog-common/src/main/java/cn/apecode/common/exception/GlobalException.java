@@ -41,7 +41,7 @@ public class GlobalException {
      */
     @ExceptionHandler(value = {Exception.class})
     public ResponseCode<?> errorHandler(Exception e) {
-        log.error("处理接口异常: {}", e.getLocalizedMessage());
+        log.error("处理接口异常: {}", e.getMessage());
         return ResponseCode.customize(false, SERVER_ERROR);
     }
 

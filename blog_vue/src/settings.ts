@@ -28,5 +28,5 @@ export default {
     friendLinkFlag: false,
     articleThemeFlag: false,
     forgetPasswordFlag: false,
-    bindOrUnbindEmailFlag: false,
+    bindOrUnbindEmailFlag: false
 } as SettingConfig

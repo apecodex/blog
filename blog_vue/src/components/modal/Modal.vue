@@ -1,6 +1,5 @@
 <script setup lang='ts'>
-import type {Ref} from "vue"
-import {computed, onBeforeUnmount, onMounted, ref} from "vue";
+import {computed} from "vue";
 import Mask from '@/components/Mask.vue'
 import {Close} from '@icon-park/vue-next'
 import {useSettingStore} from "@/store"
