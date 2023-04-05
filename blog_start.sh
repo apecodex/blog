@@ -93,15 +93,11 @@ http {
         location / {
             root   /www/blog;
             index  index.html index.htm;
-            try_files \$uri \$uri/ /index.html;	
-        }
-
-        location ^~/api/ {
-            proxy_ignore_client_abort   on; 
-            proxy_pass http://ip:8081/;
-            proxy_set_header   Host             \$host;
-            proxy_set_header   X-Real-IP        \$remote_addr;						
-            proxy_set_header   X-Forwarded-For  \$proxy_add_x_forwarded_for;
+            try_files \$uri \$uri/ /index.html;
+            proxy_ignore_client_abort   on;
+            proxy_set_header   Host             $host;
+            proxy_set_header   X-Real-IP        $remote_addr;
+            proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
         }
 
     }
@@ -124,15 +120,11 @@ http {
         location / {
             root   /www/admin;
             index  index.html index.htm;
-            try_files \$uri \$uri/ /index.html;	
-        }
-
-        location ^~/api/ {
-            proxy_ignore_client_abort   on; 
-            proxy_pass http://ip:8081/;
-            proxy_set_header   Host             \$host;
-            proxy_set_header   X-Real-IP        \$remote_addr;						
-            proxy_set_header   X-Forwarded-For  \$proxy_add_x_forwarded_for;
+            try_files \$uri \$uri/ /index.html;
+            proxy_ignore_client_abort   on;
+            proxy_set_header   Host             $host;
+            proxy_set_header   X-Real-IP        $remote_addr;
+            proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
         }
     }
 
@@ -153,6 +145,7 @@ http {
         
         location / {
             root   /usr/local/upload/;
+            autoindex on;
         }
     }
 }
