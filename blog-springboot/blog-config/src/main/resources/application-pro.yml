@@ -109,6 +109,10 @@ spring:
     port:
     default-encoding: utf-8
     protocol: smtp
+  #  关闭热加载
+  devtools:
+    restart:
+      enabled: false
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml

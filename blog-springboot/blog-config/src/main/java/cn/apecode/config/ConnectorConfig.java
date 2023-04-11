@@ -3,6 +3,7 @@ package cn.apecode.config;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.http11.Http11NioProtocol;
+import org.apache.coyote.http2.Http2Protocol;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +62,11 @@ public class ConnectorConfig {
         connector.setScheme("http");
         connector.setPort(serverPortHttp);   // http端口
         connector.setSecure(false);
+        // java.net.SocketTimeoutException: Write timeout等异常
+        Http2Protocol protocol = new Http2Protocol();
+        protocol.setReadTimeout(20000);
+        protocol.setWriteTimeout(20000);
+        connector.addUpgradeProtocol(protocol);
         connector.setRedirectPort(serverPortHttps);  // 重定向https端口
         return connector;
     }

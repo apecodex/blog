@@ -62,7 +62,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             userAuth = userAuthMapper.selectOne(new LambdaQueryWrapper<UserAuth>()
                     .eq(UserAuth::getUsername, username));
             if (Objects.isNull(userAuth)) {
-                throw new UsernameNotFoundException("账号不存在");
+                throw new BadCredentialsException("账号不存在");
             }
         } else {
             userAuth = UserAuth.builder()
