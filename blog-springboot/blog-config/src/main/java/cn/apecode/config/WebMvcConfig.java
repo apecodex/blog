@@ -72,17 +72,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * @description: Tomcat提示: A cookie header was received[xxxxxx] that contained an invalid cookie. That cookie will be ignore
-     * @param
      * @return {@link WebServerFactoryCustomizer<TomcatServletWebServerFactory>}
      * @auther apecode
      * @date 28/3/2023 AM10:29
     */
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> cookieProcessorCustomizer() {
-        return tomcatServletWebServerFactory -> tomcatServletWebServerFactory.addContextCustomizers(context -> {
-            context.setCookieProcessor(new LegacyCookieProcessor());
-        });
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> webServerFactory() {
+        return tomcatServletWebServerFactory -> {
+            // A cookie header was received[xxxxxx] that contained an invalid cookie. That cookie will be ignore
+            tomcatServletWebServerFactory.addContextCustomizers(context -> {
+                context.setCookieProcessor(new LegacyCookieProcessor());
+            });
+            // Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+            // tomcat8.0以上版本遵从RFC规范添加了对URL的特殊字符的限制
+            tomcatServletWebServerFactory.addConnectorCustomizers(connector -> {
+                connector.setProperty("relaxedQueryChars", "|{}[]");
+                connector.setProperty("relaxedPathChars", "|{}[]");
+            });
+        };
     }
 
 }
