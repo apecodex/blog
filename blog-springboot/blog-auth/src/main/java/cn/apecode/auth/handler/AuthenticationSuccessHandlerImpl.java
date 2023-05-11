@@ -85,7 +85,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
             String source = IpUtils.cutProvince(ipSourceFromAmap);
             userAuth.setIpSource(source);
             loginLog.setIpSource(source);
-            if (!ipSourceFromAmap.getLocation().split(",")[0].equals("null")) {
+            if (Objects.nonNull(ipSourceFromAmap.getLocation()) && !ipSourceFromAmap.getLocation().split(",")[0].equals("null")) {
                 String location = ipSourceFromAmap.getLocation();
                 userAuth.setRectangle(location);
                 loginLog.setRectangle(location);
