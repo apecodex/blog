@@ -45,12 +45,16 @@ export default defineConfig({
     }),
     importToCDN({
       modules: [
-        autoComplete('vue'),
+        {
+          name: 'vue',
+          var: 'Vue',
+          path: "https://unpkg.com/vue@3.2.40/dist/vue.global.prod.js"
+        },
         // 没有这个pinia会报错
         {
           name: 'vue-demi',
           var: 'VueDemi',
-          path: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.min.js'
+          path: 'https://unpkg.com/vue-demi@0.13.11/lib/index.iife.js'
         },
         {
           name: 'pinia',
@@ -71,9 +75,13 @@ export default defineConfig({
         {
           name: 'canvas-confetti',
           var: 'confetti',
-          path: 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js'
+          path: 'https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.js'
         },
-        autoComplete('axios')
+        {
+          name: 'axios',
+          var: 'axios',
+          path: 'https://unpkg.com/axios@0.27.2/dist/axios.min.js',
+        },
       ]
     })
   ],

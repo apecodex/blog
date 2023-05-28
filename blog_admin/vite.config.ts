@@ -20,12 +20,16 @@ export default defineConfig({
     }),
     importToCDN({
       modules: [
-        autoComplete('vue'),
+        {
+          name: 'vue',
+          var: 'Vue',
+          path: "https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"
+        },
         // 没有这个pinia会报错
         {
           name: 'vue-demi',
           var: 'VueDemi',
-          path: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.min.js'
+          path: 'https://unpkg.com/vue-demi@0.13.11/lib/index.iife.js'
         },
         {
           name: 'pinia',
@@ -51,9 +55,13 @@ export default defineConfig({
         {
           name: 'echarts',
           var: 'echarts',
-          path: 'https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js',
+          path: 'https://unpkg.com/echarts@5.3.3/dist/echarts.min.js',
         },
-        autoComplete('axios')
+        {
+          name: 'axios',
+          var: 'axios',
+          path: 'https://unpkg.com/axios@0.27.2/dist/axios.min.js',
+        },
       ]
     })
   ],
