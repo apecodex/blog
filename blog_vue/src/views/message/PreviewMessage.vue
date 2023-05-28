@@ -24,7 +24,7 @@ onBeforeUnmount(() => {
 <template>
   <Mask :show="currentMessage !== null" @click="closePreview"/>
   <div :class="{'show': currentMessage}, currentMessage?.theme"
-       class="preview-message opacity-0 fixed top-1/2 left-1/2 max-w-300px w-full max-h-200px rounded-6px z-9 overflow-y-scroll overflow-x-hidden">
+       class="preview-message opacity-0 fixed top-1/2 left-1/2 max-w-300px w-full max-h-200px rounded-6px z-9 overflow-y-auto overflow-x-hidden break-all">
     <p class="flex justify-center items-center p-10px min-h-100px">{{ currentMessage?.content }}</p>
   </div>
 </template>
