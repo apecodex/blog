@@ -76,6 +76,14 @@
                 <configuration>
                     <!-- 指定该Main Class为全局的唯一入口 -->
                     <mainClass>cn.apecode.WebApplication</mainClass>
+                    <executable>true</executable>
+                    <layout>ZIP</layout>
+                    <includes>
+                        <include>
+                            <groupId>nothing</groupId>
+                            <artifactId>nothing</artifactId>
+                        </include>
+                    </includes>
                 </configuration>
                 <executions>
                     <execution>
@@ -83,6 +91,25 @@
                             <!--可以把依赖的包都打包到生成的Jar包中-->
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-lib</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/lib</outputDirectory>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

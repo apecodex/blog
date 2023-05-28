@@ -198,6 +198,7 @@ services:
     container_name: myblog
     volumes:
       - ${folder}/log/:/var/log/blog/
+      - ${folder}/lib/:${folder}/lib/
     build: 
       context: ${folder}/
       dockerfile: Dockerfile-BlogJar
@@ -240,7 +241,7 @@ MAINTAINER apecode<apecode@qq.com>
 RUN echo "Asia/Shanghai" > /etc/timezone
 EXPOSE 8081
 ADD blog-api.jar app.jar
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dloader.path=${folder}/lib", "-jar", "/app.jar"]
 EOF
 
 echo
