@@ -80,7 +80,7 @@ Configuration:
 
   Loggers:
     Root:
-      level: INFO #root的级别为info，如果为debug的话，输出的内容太多
+      level: INFO #root的级别为info，生产环境推荐WARN
       AppenderRef:
         - ref: CONSOLE
         - ref: FILE

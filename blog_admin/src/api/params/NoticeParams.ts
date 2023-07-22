@@ -8,3 +8,13 @@ declare type NoticeParams = {
   size?: number,
   current?: number
 }
+
+/**
+ * 发送消息通知
+ */
+declare type SendNoticeParams = {
+  title: string
+  content: string
+  url?: string
+  userId: string
+}

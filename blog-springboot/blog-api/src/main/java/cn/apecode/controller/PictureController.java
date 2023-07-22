@@ -53,7 +53,7 @@ public class PictureController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "更新图片信息", httpMethod = "PUT")
     @PutMapping("/admin/picture")
-    public ResponseCode<?> updatePicture(@Validated PictureInfoVo pictureInfo) {
+    public ResponseCode<?> updatePicture(@Validated @RequestBody PictureInfoVo pictureInfo) {
         pictureService.updatePicture(pictureInfo);
         return ResponseCode.ok("修改成功");
     }

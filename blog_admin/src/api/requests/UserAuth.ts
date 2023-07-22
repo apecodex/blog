@@ -27,7 +27,7 @@ export function listUserBack(condition: ConditionParams): Promise<PageResult<Arr
  * 修改用户禁用状态
  * @param data
  */
-export function updateUserDisabledStatus (data: FormData): Promise<ResultObject<null>> {
+export function updateUserDisabledStatus(data: UserEnable): Promise<ResultObject<null>> {
   return request.put({
     url: '/admin/user/enable',
     data
@@ -38,7 +38,7 @@ export function updateUserDisabledStatus (data: FormData): Promise<ResultObject<
  * 发送邮件
  * @param data
  */
-export function sendEmail(data: {email: string}): Promise<ResultObject<null>> {
+export function sendEmail(data: { email: string }): Promise<ResultObject<null>> {
   return request.get({
     url: '/user/code',
     params: data

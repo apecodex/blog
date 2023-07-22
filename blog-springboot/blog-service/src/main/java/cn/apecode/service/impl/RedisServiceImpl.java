@@ -143,6 +143,11 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public Long hSize(String key) {
+        return redisTemplate.opsForHash().size(key);
+    }
+
+    @Override
     public Double zIncr(String key, Object value, Double score) {
         return redisTemplate.opsForZSet().incrementScore(key, value, score);
     }

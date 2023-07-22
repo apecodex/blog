@@ -45,7 +45,7 @@ public class TalkController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除说说", httpMethod = "DELETE")
     @DeleteMapping("/admin/talk")
-    public ResponseCode<?> deleteTalk(String talkId) {
+    public ResponseCode<?> deleteTalk(@RequestBody String talkId) {
         talkService.deleteTalk(talkId);
         return ResponseCode.ok("删除成功");
     }
@@ -94,7 +94,7 @@ public class TalkController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改说说顶置", httpMethod = "PUT")
     @PutMapping("/admin/talk/top")
-    public ResponseCode<?> updateTalkTop(@Validated TopVo top) {
+    public ResponseCode<?> updateTalkTop(@Validated @RequestBody TopVo top) {
         talkService.updateTalkTop(top);
         return ResponseCode.ok("修改成功");
     }

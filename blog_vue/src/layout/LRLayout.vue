@@ -5,10 +5,10 @@
 <template>
   <div class="relative w-full h-full flex justify-between gap-20px">
     <div class="left-wrapper w-full flex flex-col gap-20px">
-      <slot name="content"/>
+      <slot name="content" />
     </div>
     <div class="right-wrapper w-full flex flex-col gap-20px">
-      <slot name="info"/>
+      <slot name="info" />
     </div>
   </div>
 </template>

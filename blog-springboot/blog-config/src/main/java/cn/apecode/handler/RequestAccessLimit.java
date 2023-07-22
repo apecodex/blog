@@ -3,7 +3,7 @@ package cn.apecode.handler;
 import cn.apecode.common.annotation.AccessLimit;
 import cn.apecode.common.utils.ResponseCode;
 import cn.apecode.service.RedisService;
-import cn.apecode.utils.IpUtils;
+import cn.apecode.common.utils.IpUtils;
 import com.alibaba.fastjson.JSON;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.web.method.HandlerMethod;

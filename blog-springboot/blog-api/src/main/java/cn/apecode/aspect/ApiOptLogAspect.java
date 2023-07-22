@@ -1,7 +1,7 @@
 package cn.apecode.aspect;
 
 import cn.apecode.entity.OperationLog;
-import cn.apecode.utils.IpUtils;
+import cn.apecode.common.utils.IpUtils;
 import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

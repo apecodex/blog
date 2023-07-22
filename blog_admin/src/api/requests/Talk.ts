@@ -5,10 +5,10 @@ import request from '~/api/service'
  * @param data
  */
 export function saveOrUpdateTalk(data: TalkFormParams): Promise<ResultObject<null>> {
-    return request.post({
-        url: '/admin/talk',
-        data
-    })
+  return request.post({
+    url: '/admin/talk',
+    data
+  })
 }
 
 /**
@@ -16,13 +16,13 @@ export function saveOrUpdateTalk(data: TalkFormParams): Promise<ResultObject<nul
  * @param data
  */
 export function saveTalkPictureVideo(data: any): Promise<ResultObject<UploadFileInfoModel>> {
-    return request.post({
-        url: '/admin/talk/upload',
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        },
-        data
-    })
+  return request.post({
+    url: '/admin/talk/upload',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
 }
 
 /**
@@ -30,9 +30,9 @@ export function saveTalkPictureVideo(data: any): Promise<ResultObject<UploadFile
  * @param id
  */
 export function getTalkBackOnlyById(id: string): Promise<ResultObject<TalkBackOnlyModel>> {
-    return request.get({
-        url: `/admin/talk/${id}`
-    })
+  return request.get({
+    url: `/admin/talk/${id}`
+  })
 }
 
 /**
@@ -40,30 +40,30 @@ export function getTalkBackOnlyById(id: string): Promise<ResultObject<TalkBackOn
  * @param condition
  */
 export function listTalkBack(condition: ConditionParams): Promise<PageResult<Array<TalkBackModel>>> {
-    return request.get({
-        url: '/admin/talks',
-        params: condition
-    })
+  return request.get({
+    url: '/admin/talks',
+    params: condition
+  })
 }
 
 /**
  * 删除说说
  * @param data
  */
-export function deleteTalk(data: FormData): Promise<ResultObject<null>> {
-    return request.delete({
-        url: '/admin/talk',
-        data
-    })
+export function deleteTalk(data: string): Promise<ResultObject<null>> {
+  return request.delete({
+    url: '/admin/talk',
+    data
+  })
 }
 
 /**
  * 修改说说顶置
  * @param data
  */
-export function updateTalkTop(data: FormData): Promise<ResultObject<null>> {
-    return request.put({
-        url: '/admin/talk/top',
-        data
-    })
+export function updateTalkTop(data: TalkTopParams): Promise<ResultObject<null>> {
+  return request.put({
+    url: '/admin/talk/top',
+    data
+  })
 }

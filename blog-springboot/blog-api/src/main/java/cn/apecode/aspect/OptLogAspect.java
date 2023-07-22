@@ -1,11 +1,11 @@
 package cn.apecode.aspect;
 
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.entity.OperationLog;
 import cn.apecode.mapper.OperationLogMapper;
 import cn.apecode.common.utils.CommonUtils;
-import cn.apecode.utils.IpUtils;
+import cn.apecode.common.utils.IpUtils;
 import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

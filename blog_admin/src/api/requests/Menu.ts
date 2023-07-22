@@ -31,7 +31,7 @@ export function listMenuBack(): Promise<ResultObject<Array<MenuBackModel>>> {
  * 新增或修改菜单
  * @param data
  */
-export function saveOrUpdateMenu(data: FormData): Promise<ResultObject<null>> {
+export function saveOrUpdateMenu(data: MenuParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/menu',
     data

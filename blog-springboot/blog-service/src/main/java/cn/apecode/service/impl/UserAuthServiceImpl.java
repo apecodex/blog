@@ -1,8 +1,8 @@
 package cn.apecode.service.impl;
 
 import cn.apecode.service.RedisService;
-import cn.apecode.utils.IpUtils;
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.IpUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.common.enums.EmailTypeEnum;
 import cn.apecode.common.enums.LoginTypeEnum;
 import cn.apecode.common.enums.RoleEnum;
@@ -11,7 +11,7 @@ import cn.apecode.common.utils.CommonUtils;
 import cn.apecode.common.utils.RandomUtils;
 import cn.apecode.common.utils.SecurityUtils;
 import cn.apecode.dto.EmailDto;
-import cn.apecode.dto.IpSourceDto;
+import cn.apecode.common.dto.IpSourceDto;
 import cn.apecode.dto.UserInfoBackDto;
 import cn.apecode.dto.UserInfoDto;
 import cn.apecode.entity.UserAuth;

@@ -1,15 +1,15 @@
 package cn.apecode.service.impl;
 
-import cn.apecode.utils.JwtUtils;
+import cn.apecode.common.utils.JwtUtils;
 import cn.apecode.utils.QQTokenUtils;
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.common.enums.FilePathEnum;
 import cn.apecode.common.exception.BizException;
 import cn.apecode.common.utils.BeanCopyUtils;
 import cn.apecode.common.utils.CommonUtils;
 import cn.apecode.common.utils.SecurityUtils;
 import cn.apecode.dto.UploadFileInfoDto;
-import cn.apecode.dto.UserDetailsDto;
+import cn.apecode.common.dto.UserDetailsDto;
 import cn.apecode.dto.UserInfoFrontDto;
 import cn.apecode.entity.LoginQq;
 import cn.apecode.entity.UserAuth;

@@ -6,8 +6,10 @@ import org.apache.coyote.http11.Http11NioProtocol;
 import org.apache.coyote.http2.Http2Protocol;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.apache.tomcat.websocket.server.WsSci;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -69,5 +71,17 @@ public class ConnectorConfig {
         connector.addUpgradeProtocol(protocol);
         connector.setRedirectPort(serverPortHttps);  // 重定向https端口
         return connector;
+    }
+
+    /**
+     * @description: 创建wss协议接口
+     * @param
+     * @return {@link TomcatContextCustomizer}
+     * @auther apecode
+     * @date 2023/7/21 17:43
+    */
+    @Bean
+    public TomcatContextCustomizer tomcatContextCustomizer() {
+        return context -> context.addServletContainerInitializer(new WsSci(), null);
     }
 }

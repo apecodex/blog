@@ -54,7 +54,7 @@ public class TagController {
     @ApiImplicitParam(value = "标签id", name = "tagId", required = true, dataTypeClass = String.class)
     @NotNull(message = "标签id不能为空")
     @DeleteMapping("/admin/tags")
-    public ResponseCode<?> deleteTag(String tagId) {
+    public ResponseCode<?> deleteTag(@RequestBody String tagId) {
         tagService.deleteTag(tagId);
         return ResponseCode.ok("删除成功");
     }
@@ -74,7 +74,7 @@ public class TagController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改标签", httpMethod = "PUT")
     @PutMapping("/admin/tags")
-    public ResponseCode<?> updateTag(@Validated TagVo tag) {
+    public ResponseCode<?> updateTag(@Validated @RequestBody TagVo tag) {
         tagService.updateTag(tag);
         return ResponseCode.ok("修改成功");
     }

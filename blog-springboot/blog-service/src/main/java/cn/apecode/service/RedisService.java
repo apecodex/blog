@@ -223,6 +223,15 @@ public interface RedisService {
     Long hDecr(String key, String hashKey, Long delta);
 
     /**
+     * @description: 获取Hash结构长度
+     * @param key
+     * @return {@link Long}
+     * @auther apecode
+     * @date 2023/7/21 14:14
+    */
+    Long hSize(String key);
+
+    /**
      * @description: 有序集合中数据递增
      * @param key
      * @param value

@@ -14,20 +14,21 @@ import {
   PictureAlbum,
   FriendsCircle,
   Seedling,
-  Close
+  Close,
+  Communication
 } from '@icon-park/vue-next'
-import {scrollDown} from '@/utils/utils'
-import {computed, ref} from "vue";
+import { scrollDown } from '@/utils/utils'
+import { computed, ref } from "vue";
 import Mask from "@/components/Mask.vue";
-import {useSettingStore, useUserInfoStore, useWebsiteInfoStore} from "@/store";
-import {storeToRefs} from "pinia";
+import { useSettingStore, useUserInfoStore, useWebsiteInfoStore } from "@/store";
+import { storeToRefs } from "pinia";
 
 const websiteInfoStore = useWebsiteInfoStore()
 const settingStore = useSettingStore()
 const userInfoStore = useUserInfoStore()
-const {websiteInfo} = storeToRefs(websiteInfoStore)
-const {loginFlag} = storeToRefs(settingStore)
-const {userInfo} = storeToRefs(userInfoStore)
+const { websiteInfo } = storeToRefs(websiteInfoStore)
+const { loginFlag } = storeToRefs(settingStore)
+const { userInfo } = storeToRefs(userInfoStore)
 
 const hamburgerClassActive = ref(false)
 
@@ -70,18 +71,17 @@ const logoutHandle = () => {
 
 <template>
   <nav class="nav-small">
-    <div class="hamburger" :class="{'is-active': openMenuComp}"
-         @click="openMenuComp = !hamburgerClassActive">
+    <div class="hamburger" :class="{ 'is-active': openMenuComp }" @click="openMenuComp = !hamburgerClassActive">
       <span></span>
       <span></span>
       <span></span>
     </div>
-    <Mask v-model:show="openMenuComp" @click="clickMash"/>
-    <div class="nav-side shadow" :class="{'active': openMenuComp}">
+    <Mask v-model:show="openMenuComp" @click="clickMash" />
+    <div class="nav-side shadow" :class="{ 'active': openMenuComp }">
       <div
-          class="small-menu-close absolute right-5px top-8px z-11 cursor-pointer w-35px h-35px bg-$theme-bg rounded-full">
+        class="small-menu-close absolute right-5px top-8px z-11 cursor-pointer w-35px h-35px bg-$theme-bg rounded-full">
         <Close size="24" class="w-full h-full flex justify-center items-center font-black"
-               @click="openMenuComp = false"/>
+          @click="openMenuComp = false" />
       </div>
       <div class="nav-content flex flex-col justify-center items-center">
         <div class="website-avatar shadow mb-15px">
@@ -93,88 +93,100 @@ const logoutHandle = () => {
         </div>
         <div class="w-full flex justify-evenly mb-15px">
           <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
-            <span class="flex items-center"><Book class="mr-3px"/>文章</span>
+            <span class="flex items-center">
+              <Book class="mr-3px" />文章
+            </span>
             <span>{{ websiteInfo?.articleCount }}</span>
           </span>
           <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
-            <span class="flex items-center"><CategoryManagement class="mr-3px"/>分类</span>
+            <span class="flex items-center">
+              <CategoryManagement class="mr-3px" />分类
+            </span>
             <span>{{ websiteInfo?.categoryCount }}</span>
           </span>
           <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
-            <span class="flex items-center"><Bookmark class="mr-3px"/>标签</span>
+            <span class="flex items-center">
+              <Bookmark class="mr-3px" />标签
+            </span>
             <span>{{ websiteInfo?.tagCount }}</span>
           </span>
         </div>
         <ul class="small-menu mt-10px">
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/">
-              <Home size="20"/>
+              <Home size="20" />
               首页
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/category">
-              <CategoryManagement size="20"/>
+              <CategoryManagement size="20" />
               <span>分类</span>
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/tags">
-              <TagOne size="20"/>
+              <TagOne size="20" />
               <span>标签</span>
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/archives">
-              <DocumentFolder size="20"/>
+              <DocumentFolder size="20" />
               <span>时间轴</span>
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/albums">
-              <PictureAlbum size="20"/>
+              <PictureAlbum size="20" />
               <span>相册</span>
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/talks">
-              <FriendsCircle size="20"/>
+              <FriendsCircle size="20" />
               <span>说说</span>
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
+            <router-link to="/chat">
+              <Communication size="20" />
+              <span>聊天室</span>
+            </router-link>
+          </li>
+          <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/messages">
-              <Message size="20"/>
+              <Message size="20" />
               留言
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/links">
-              <PersonalCollection size="20"/>
+              <PersonalCollection size="20" />
               友链
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle">
             <router-link to="/about">
-              <Blossom size="20"/>
+              <Blossom size="20" />
               关于
             </router-link>
           </li>
           <li class="small-nav-link" @click="scrollHandle" v-if="userInfo">
             <router-link to="/profile">
-              <Me size="20"/>
+              <Me size="20" />
               个人中心
             </router-link>
           </li>
           <li class="small-nav-link" @click="showLoginModalHandle" v-else>
             <a>
-              <Seedling size="20"/>
+              <Seedling size="20" />
               登录/注册
             </a>
           </li>
           <li class="small-nav-link" @click="logoutHandle" v-if="userInfo">
             <a>
-              <Logout size="20"/>
+              <Logout size="20" />
               退出
             </a>
           </li>
@@ -278,6 +290,7 @@ const logoutHandle = () => {
 .small-menu .small-nav-link:last-child {
   @apply 'mb-0';
 }
+
 .small-menu .small-nav-link a {
   @apply 'flex justify-center items-center w-full h-full text-16px gap-12px';
   border-radius: 7px 20px 20px 20px;

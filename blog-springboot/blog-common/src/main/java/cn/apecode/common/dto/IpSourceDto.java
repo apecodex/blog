@@ -1,4 +1,4 @@
-package cn.apecode.dto;
+package cn.apecode.common.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

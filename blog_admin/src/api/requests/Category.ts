@@ -16,7 +16,7 @@ export function searchArticleCategory(categoryName?: string): Promise<ResultObje
  * 保存或修改分类
  * @param data
  */
-export function saveOrUpdateCategory(data: FormData): Promise<ResultObject<null>> {
+export function saveOrUpdateCategory(data: CategoryParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/category',
     data
@@ -38,7 +38,7 @@ export function listCategoryBack(condition: ConditionParams): Promise<PageResult
  * 删除分类
  * @param data
  */
-export function deleteCategory(data: FormData): Promise<ResultObject<null>> {
+export function deleteCategory(data: string): Promise<ResultObject<null>> {
   return request.delete({
     url: '/admin/category',
     data

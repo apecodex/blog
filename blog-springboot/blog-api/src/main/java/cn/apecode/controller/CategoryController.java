@@ -13,10 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class CategoryController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "添加或修改分类", httpMethod = "POST")
     @PostMapping("/admin/category")
-    public ResponseCode<?> saveOrUpdateCategory(@Validated CategoryVo category) {
+    public ResponseCode<?> saveOrUpdateCategory(@Validated @RequestBody CategoryVo category) {
         categoryService.saveOrUpdateCategory(category);
         return ResponseCode.ok("保存成功");
     }
@@ -48,7 +45,7 @@ public class CategoryController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除分类", httpMethod = "DELETE")
     @DeleteMapping("/admin/category")
-    public ResponseCode<?> deleteCategory(String categoryId) {
+    public ResponseCode<?> deleteCategory(@RequestBody String categoryId) {
         categoryService.deleteCategory(categoryId);
         return ResponseCode.ok("删除成功");
     }

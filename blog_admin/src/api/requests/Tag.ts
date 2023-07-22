@@ -4,22 +4,22 @@ import request from '~/api/service'
  * 修改标签
  * @param data
  */
-export function updateTag(data: FormData): Promise<ResultObject<null>> {
-    return request.put({
-        url: '/admin/tags',
-        data
-    })
+export function updateTag(data: UpdateTagParams): Promise<ResultObject<null>> {
+  return request.put({
+    url: '/admin/tags',
+    data
+  })
 }
 
 /**
  * 删除标签
  * @param data
  */
-export function deleteTag(data: FormData): Promise<ResultObject<null>> {
-    return request.delete({
-        url: '/admin/tags',
-        data
-    })
+export function deleteTag(data: string): Promise<ResultObject<null>> {
+  return request.delete({
+    url: '/admin/tags',
+    data
+  })
 }
 
 /**
@@ -27,10 +27,10 @@ export function deleteTag(data: FormData): Promise<ResultObject<null>> {
  * @param condition
  */
 export function listTagBack(condition: ConditionParams): Promise<PageResult<Array<TagBackModel>>> {
-    return request.get({
-        url: '/admin/tags',
-        params: condition
-    })
+  return request.get({
+    url: '/admin/tags',
+    params: condition
+  })
 }
 
 /**
@@ -38,8 +38,8 @@ export function listTagBack(condition: ConditionParams): Promise<PageResult<Arra
  * @param tags
  */
 export function saveTag(tags: Array<string>): Promise<ResultObject<null>> {
-    return request.post({
-        url: '/admin/tags',
-        data: tags
-    })
+  return request.post({
+    url: '/admin/tags',
+    data: tags
+  })
 }

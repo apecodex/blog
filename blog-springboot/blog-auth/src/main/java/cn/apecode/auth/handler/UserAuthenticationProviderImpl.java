@@ -1,9 +1,9 @@
 package cn.apecode.auth.handler;
 
-import cn.apecode.dto.UserDetailsDto;
+import cn.apecode.common.dto.UserDetailsDto;
 import cn.apecode.service.impl.UserDetailsServiceImpl;
 import cn.apecode.utils.AnjiCaptchaUtils;
-import cn.apecode.utils.JwtUtils;
+import cn.apecode.common.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;

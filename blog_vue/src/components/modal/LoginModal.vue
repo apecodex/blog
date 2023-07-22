@@ -1,24 +1,25 @@
 <script setup lang='ts'>
-import type {Ref} from "vue"
-import {computed, reactive, ref} from "vue";
+import type { Ref } from "vue"
+import { computed, reactive, ref } from "vue";
 import Modal from "./Modal.vue"
-import {PreviewClose, PreviewOpen} from '@icon-park/vue-next'
-import {useSettingStore, useUserInfoStore, useWebsiteInfoStore} from '@/store'
-import {storeToRefs} from "pinia";
+import { PreviewClose, PreviewOpen } from '@icon-park/vue-next'
+import { useSettingStore, useUserInfoStore, useWebSocketStore } from '@/store'
+import { storeToRefs } from "pinia";
 import Verify from "@/components/verifition/Verify.vue"
-import {Login} from "@/api/requests/User"
-import {notify} from "@kyvg/vue3-notification"
-import {customConfetti} from "@/utils/utils";
-import {qqLogin, showLoginIcon} from "@/utils/socialLoginUtils"
-import {getUserNoReadNoticeCount} from "@/api/requests/Notice";
+import { Login } from "@/api/requests/User"
+import { notify } from "@kyvg/vue3-notification"
+import { customConfetti } from "@/utils/utils";
+import { qqLogin, showLoginIcon } from "@/utils/socialLoginUtils"
+import { getUserNoReadNoticeCount } from "@/api/requests/Notice";
 
 const settingStore = useSettingStore();
 const userInfoStore = useUserInfoStore();
-const websiteInfoStore = useWebsiteInfoStore();
-const {loginFlag, registerFlag, forgetPasswordFlag} = storeToRefs(settingStore);
-const {userNoticeCount} = storeToRefs(userInfoStore);
-const {websiteInfo} = storeToRefs(websiteInfoStore);
-const {isBindQQ} = storeToRefs(userInfoStore);
+const webSocketStore = useWebSocketStore();
+const { loginFlag, registerFlag, forgetPasswordFlag } = storeToRefs(settingStore);
+const { userNoticeCount } = storeToRefs(userInfoStore);
+const { isBindQQ } = storeToRefs(userInfoStore);
+const { socket, socketConnect } = webSocketStore;
+const { isJoinChat } = storeToRefs(webSocketStore);
 
 
 // 显示密码动画切换
@@ -108,6 +109,15 @@ const verifyHandle = async (verify: { captchaVerification: string }) => {
           userNoticeCount.value = respNotice.data;
         }
       })
+      // 关闭socket
+      socket.close();
+      socket.stompClient.onDisconnect = (frame) => {
+        // 连接WebSocket
+        if (!socket.stompClient.connected) {
+          socketConnect();
+        }
+      }
+      isJoinChat.value = false;
     } else {
       notify({
         text: resp.message,
@@ -133,7 +143,7 @@ const qqLoginHandle = () => {
 <template>
   <Modal title="登录" v-model:show="loginFlag" @closeModal="closeModal">
     <form @submit="loginHandle" class="flex flex-col justify-center items-center relative"
-          :class="{'show-password': showPasswordActiveClass}">
+      :class="{ 'show-password': showPasswordActiveClass }">
       <div class="w-full rounded-6px h-35px">
         <input
           class="w-full h-full indent-2px outline-none border-none bg-$theme-bg !border-dashed !border-1 border-$theme-bg-reverse px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
@@ -144,32 +154,30 @@ const qqLoginHandle = () => {
         <div class="w-full rounded-6px h-35px relative flex justify-center items-center mt-20px">
           <input
             class="password-inp w-full h-full relative z-2 indent-2px outline-none border-none bg-transparent !border-dashed !border-1 border-$theme-bg-reverse py-2px px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
-            :type="showPasswordActiveClass ? 'text': 'password'" v-model="loginForm.password" placeholder="密码"
+            :type="showPasswordActiveClass ? 'text' : 'password'" v-model="loginForm.password" placeholder="密码"
             autocomplete="off">
           <PreviewOpen v-if="showPasswordActiveClass"
-                       class="absolute z-2 right-1px cursor-pointer w-25px rounded-6px h-14/15 flex justify-center items-center bg-$theme-bg"
-                       @click="showPassword"/>
+            class="absolute z-2 right-1px cursor-pointer w-25px rounded-6px h-14/15 flex justify-center items-center bg-$theme-bg"
+            @click="showPassword" />
           <PreviewClose v-else
-                        class="absolute z-2 right-1px cursor-pointer w-25px rounded-6px h-14/15 flex justify-center items-center bg-$theme-bg"
-                        @click="showPassword"/>
+            class="absolute z-2 right-1px cursor-pointer w-25px rounded-6px h-14/15 flex justify-center items-center bg-$theme-bg"
+            @click="showPassword" />
           <div class="beam w-19/20 h-80px top-1/2 right-20px absolute"></div>
         </div>
       </div>
       <div class="flex items-center w-full mt-15px">
         <div class="flex-1">
           <span class="text-$text-color2 text-12px cursor-pointer hover:(text-$hover-color2)"
-                @click="registerHandle">注册</span>
+            @click="registerHandle">注册</span>
         </div>
         <div class="flex-1 text-center">
           <button autofocus class="shadow py-6px px-12px rounded-6px text-18px outline-none"
-                  :class="{'!cursor-not-allowed shadow-inset text-$text-color2': checkFormComp}"
-                  :disabled="checkFormComp"
-          >登 录
+            :class="{ '!cursor-not-allowed shadow-inset text-$text-color2': checkFormComp }" :disabled="checkFormComp">登 录
           </button>
         </div>
         <div class="flex-1 text-right">
           <span class="text-$text-color2 text-12px cursor-pointer hover:(text-$hover-color2)"
-                @click="forgetPasswordHandle">忘记密码?</span>
+            @click="forgetPasswordHandle">忘记密码?</span>
         </div>
       </div>
     </form>
@@ -182,7 +190,7 @@ const qqLoginHandle = () => {
       </div>
     </div>
   </Modal>
-  <Verify @success="verifyHandle" mode="pop" captchaType="blockPuzzle" ref="verify"/>
+  <Verify @success="verifyHandle" mode="pop" captchaType="blockPuzzle" ref="verify" />
 </template>
 
 <style>
@@ -202,5 +210,4 @@ const qqLoginHandle = () => {
   background-color: var(--theme-bg-reverse);
   animation: beam-animate 1s ease-in-out forwards;
 }
-
 </style>

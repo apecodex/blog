@@ -1,4 +1,4 @@
-package cn.apecode.dto;
+package cn.apecode.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;

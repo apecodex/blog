@@ -15,16 +15,17 @@ import {
   PictureAlbum,
   FriendsCircle,
   Seedling,
-  Down
+  Down,
+  Communication
 } from '@icon-park/vue-next'
-import {scrollDown} from '@/utils/utils'
-import {useSettingStore, useUserInfoStore} from "@/store";
-import {storeToRefs} from "pinia";
+import { scrollDown } from '@/utils/utils'
+import { useSettingStore, useUserInfoStore } from "@/store";
+import { storeToRefs } from "pinia";
 
 const settingStore = useSettingStore()
 const userInfoStore = useUserInfoStore()
-const {loginFlag} = storeToRefs(settingStore)
-const {userInfo, userNoticeCount} = storeToRefs(userInfoStore)
+const { loginFlag } = storeToRefs(settingStore)
+const { userInfo, userNoticeCount } = storeToRefs(userInfoStore)
 
 // 退出登录
 const logoutHandle = () => {
@@ -38,34 +39,34 @@ const logoutHandle = () => {
     <ul>
       <li class="nav-link" @click="scrollDown">
         <router-link to="/">
-          <Home size="20"/>
+          <Home size="20" />
           首页
         </router-link>
       </li>
       <li class="nav-link">
         <a href="javascript:void(0)">
-          <BookOpen size="20"/>
+          <BookOpen size="20" />
           文章
-          <Down size="20"/>
+          <Down size="20" />
         </a>
         <div class="nav-dropdown">
           <ul>
             <span class="arrow"></span>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/category">
-                <CategoryManagement size="20"/>
+                <CategoryManagement size="20" />
                 <span>分类</span>
               </router-link>
             </li>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/tags">
-                <TagOne size="20"/>
+                <TagOne size="20" />
                 <span>标签</span>
               </router-link>
             </li>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/archives">
-                <DocumentFolder size="20"/>
+                <DocumentFolder size="20" />
                 <span>时间轴</span>
               </router-link>
             </li>
@@ -74,23 +75,29 @@ const logoutHandle = () => {
       </li>
       <li class="nav-link">
         <a href="javascript:void(0)">
-          <Game size="20"/>
+          <Game size="20" />
           娱乐
-          <Down size="20"/>
+          <Down size="20" />
         </a>
         <div class="nav-dropdown">
           <ul>
             <span class="arrow"></span>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/albums">
-                <PictureAlbum size="20"/>
+                <PictureAlbum size="20" />
                 <span>相册</span>
               </router-link>
             </li>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/talks">
-                <FriendsCircle size="20"/>
+                <FriendsCircle size="20" />
                 <span>说说</span>
+              </router-link>
+            </li>
+            <li class="nav-dropdown-link" @click="scrollDown">
+              <router-link to="/chat">
+                <Communication size="20" />
+                <span>聊天室</span>
               </router-link>
             </li>
           </ul>
@@ -98,46 +105,47 @@ const logoutHandle = () => {
       </li>
       <li class="nav-link" @click="scrollDown">
         <router-link to="/messages">
-          <Message size="20"/>
+          <Message size="20" />
           留言
         </router-link>
       </li>
       <li class="nav-link" @click="scrollDown">
         <router-link to="/links">
-          <PersonalCollection size="20"/>
+          <PersonalCollection size="20" />
           友链
         </router-link>
       </li>
       <li class="nav-link" @click="scrollDown">
         <router-link to="/about">
-          <Blossom size="20"/>
+          <Blossom size="20" />
           关于
         </router-link>
       </li>
       <li class="nav-link ml-5px" v-if="userInfo">
         <div class="relative">
           <img class="w-35px h-35px rounded-full avatar" :src="userInfo?.avatar" alt="">
-          <span class="user-notice-point" :class="{'active': userNoticeCount !== 0}"></span>
+          <span class="user-notice-point" :class="{ 'active': userNoticeCount !== 0 }"></span>
         </div>
         <div class="nav-dropdown">
           <ul class="right-0">
             <span class="arrow arrow-r"></span>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/profile">
-                <Me size="20"/>
+                <Me size="20" />
                 <span>个人中心</span>
               </router-link>
             </li>
             <li class="nav-dropdown-link" @click="scrollDown">
               <router-link to="/profile/notices">
-                <MessageUnread size="20"/>
-                <span v-if="userNoticeCount !== 0"><span class="text-$hover-color2">{{ userNoticeCount >= 100 ? '99+' : userNoticeCount }}</span>条未读</span>
+                <MessageUnread size="20" />
+                <span v-if="userNoticeCount !== 0"><span class="text-$hover-color2">{{ userNoticeCount >= 100 ? '99+' :
+                  userNoticeCount }}</span>条未读</span>
                 <span v-else>暂无消息</span>
               </router-link>
             </li>
             <li class="nav-dropdown-link" @click="logoutHandle">
               <a>
-                <Logout size="20"/>
+                <Logout size="20" />
                 <span>退出</span>
               </a>
             </li>
@@ -146,7 +154,7 @@ const logoutHandle = () => {
       </li>
       <li class="nav-link" @click="loginFlag = true" v-else>
         <a>
-          <Seedling size="20"/>
+          <Seedling size="20" />
           登录/注册
         </a>
       </li>
@@ -155,11 +163,11 @@ const logoutHandle = () => {
 </template>
 
 <style scoped>
-.nav-pc > ul {
+.nav-pc>ul {
   @apply 'flex justify-center items-center gap-5px';
 }
 
-.nav-pc ul .nav-link > a {
+.nav-pc ul .nav-link>a {
   @apply 'flex justify-center items-center gap-5px p-5px';
   transition: var(--theme-transition-bg);
   border-radius: 7px 20px 20px 20px;
@@ -189,7 +197,7 @@ const logoutHandle = () => {
   @apply 'flex justify-start items-center p-5px duration-300 gap-12px';
 }
 
-.nav-link:hover > a {
+.nav-link:hover>a {
   @apply 'bg-$theme-bg-reverse text-$text-color-reverse rounded-4px';
 }
 

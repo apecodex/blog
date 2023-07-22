@@ -1,5 +1,7 @@
 package cn.apecode.strategy.impl;
 
+import cn.apecode.common.dto.IpSourceDto;
+import cn.apecode.common.dto.UserDetailsDto;
 import cn.apecode.common.enums.LoginTypeEnum;
 import cn.apecode.common.enums.RoleEnum;
 import cn.apecode.common.exception.BizException;
@@ -12,8 +14,8 @@ import cn.apecode.service.RedisService;
 import cn.apecode.mapper.*;
 import cn.apecode.service.impl.UserDetailsServiceImpl;
 import cn.apecode.strategy.SocialLoginStrategy;
-import cn.apecode.utils.IpUtils;
-import cn.apecode.utils.JwtUtils;
+import cn.apecode.common.utils.IpUtils;
+import cn.apecode.common.utils.JwtUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Value;

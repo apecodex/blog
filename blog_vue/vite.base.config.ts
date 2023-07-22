@@ -1,9 +1,9 @@
-import {defineConfig, UserConfigExport} from 'vite'
-import {fileURLToPath, URL} from 'url'
+import { defineConfig, UserConfigExport } from 'vite'
+import { fileURLToPath, URL } from 'url'
 import vue from '@vitejs/plugin-vue'
 import viteCompression from 'vite-plugin-compression'
 import WindiCSS from 'vite-plugin-windicss'
-import {Plugin as importToCDN, autoComplete} from "vite-plugin-cdn-import";
+import { Plugin as importToCDN, autoComplete } from "vite-plugin-cdn-import";
 import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
@@ -81,6 +81,16 @@ export default defineConfig({
           name: 'axios',
           var: 'axios',
           path: 'https://unpkg.com/axios@0.27.2/dist/axios.min.js',
+        },
+        {
+          name: 'sockjs-client',
+          var: 'SockJS',
+          path: 'https://unpkg.com/sockjs-client@1.6.1/dist/sockjs.min.js',
+        },
+        {
+          name: '@stomp/stompjs',
+          var: 'StompJs',
+          path: 'https://unpkg.com/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js',
         },
       ]
     })

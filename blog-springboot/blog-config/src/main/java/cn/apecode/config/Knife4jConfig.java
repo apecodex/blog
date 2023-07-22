@@ -28,12 +28,12 @@ import java.util.List;
  **/
 @Configuration
 @EnableOpenApi
-public class Knife4jConfig  {
+public class Knife4jConfig {
 
     @Value("${swagger.version}")
     private String version;
 
-    @Bean
+    @Bean(value = "defaultApi")
     public Docket defaultApi(Environment environment) {
         boolean dev = environment.acceptsProfiles(Profiles.of("dev", "pro"));
         HashSet<String> protocols = new HashSet<>();
@@ -43,6 +43,7 @@ public class Knife4jConfig  {
                 // 是否开启swagger
                 .enable(dev)
                 .apiInfo(apiInfo())
+                .groupName("默认接口")
                 // 选择哪些接口作为swagger的doc发布
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.apecode.controller"))
@@ -55,10 +56,32 @@ public class Knife4jConfig  {
                 .securityContexts(securityContexts());
     }
 
+    @Bean(value = "webSocketApi")
+    public Docket webSocketApi(Environment environment) {
+        boolean dev = environment.acceptsProfiles(Profiles.of("dev", "pro"));
+        HashSet<String> protocols = new HashSet<>();
+        protocols.add("https");
+        protocols.add("http");
+        return new Docket(DocumentationType.OAS_30)
+                // 是否开启swagger
+                .enable(dev)
+                .apiInfo(apiInfo())
+                .groupName("WebSocket接口")
+                // 选择哪些接口作为swagger的doc发布
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("cn.apecode.websocket.controller"))
+                .paths(PathSelectors.any())
+                .build()
+                // 支持的通讯协议集合
+                .protocols(protocols)
+                .securitySchemes(securitySchemes())
+                // 授权信息全局应用
+                .securityContexts(securityContexts());
+    }
+
     /**
-     *
-     * @description: API 页面上半部分展示信息
      * @return {@link ApiInfo}
+     * @description: API 页面上半部分展示信息
      * @auther apecode
      * @date 2022/5/26 0:23
      */
@@ -72,9 +95,8 @@ public class Knife4jConfig  {
     }
 
     /**
-     *
-     * @description: 认证的安全上下文
      * @return {@link List<SecurityContext>}
+     * @description: 认证的安全上下文
      * @auther apecode
      * @date 2022/5/26 0:22
      */
@@ -90,9 +112,8 @@ public class Knife4jConfig  {
     }
 
     /**
-     *
-     * @description:
      * @return {@link List<SecurityScheme>}
+     * @description:
      * @auther apecode
      * @date 2022/5/26 0:22
      */

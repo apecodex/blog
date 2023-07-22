@@ -5,10 +5,10 @@ import request from '~/api/service'
  * @param condition
  */
 export function listFriendLinkBack(condition: ConditionParams): Promise<PageResult<Array<FriendLinkBackModel>>> {
-    return request.get({
-        url: '/admin/links',
-        params: condition
-    })
+  return request.get({
+    url: '/admin/links',
+    params: condition
+  })
 }
 
 /**
@@ -16,10 +16,10 @@ export function listFriendLinkBack(condition: ConditionParams): Promise<PageResu
  * @param data
  */
 export function UpdateFriendLinkReview(data: ReviewParams): Promise<ResultObject<null>> {
-    return request.put({
-        url: '/admin/links',
-        data
-    })
+  return request.put({
+    url: '/admin/links',
+    data
+  })
 }
 
 /**
@@ -27,18 +27,18 @@ export function UpdateFriendLinkReview(data: ReviewParams): Promise<ResultObject
  * @param friendLinkId
  */
 export function deleteFriendLink(friendLinkId: string): Promise<ResultObject<null>> {
-    return request.delete({
-        url: '/admin/link/' + friendLinkId
-    })
+  return request.delete({
+    url: '/admin/link/' + friendLinkId
+  })
 }
 
 /**
  * 新增或修改友链
  * @param data
  */
-export function saveOrUpdateFriendLink(data: FormData): Promise<ResultObject<null>> {
-    return request.post({
-        url: '/admin/link',
-        data
-    })
+export function saveOrUpdateFriendLink(data: FriendLinkParams): Promise<ResultObject<null>> {
+  return request.post({
+    url: '/admin/link',
+    data
+  })
 }

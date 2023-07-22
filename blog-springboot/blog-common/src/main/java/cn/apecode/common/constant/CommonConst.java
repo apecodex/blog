@@ -54,7 +54,7 @@ public class CommonConst {
     /**
      * 默认用户头像
      */
-    public static final String DEFAULT_AVATAR = "https://apecode.oss-cn-chengdu.aliyuncs.com/avatar/0dd72faa4ad73753f5d90ce3313730d2.jpg";
+    public static final String DEFAULT_AVATAR = "https://static.oss.codeape.cn/config/4381fe8188b20b77eec9e4ae56c3b040.jpeg";
 
     /**
      * 省

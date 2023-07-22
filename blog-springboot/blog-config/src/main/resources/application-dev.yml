@@ -72,6 +72,7 @@ spring:
         enabled: true
     path match:
       matching-strategy: ant_path_matcher
+    log-resolved-exception: false
 
   redis:
     host: ip
@@ -116,7 +117,6 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: false
-
 
 # 自定义swagger配置
 swagger:

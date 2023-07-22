@@ -1,6 +1,6 @@
-package cn.apecode.utils;
+package cn.apecode.common.utils;
 
-import cn.apecode.dto.UserDetailsDto;
+import cn.apecode.common.dto.UserDetailsDto;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 

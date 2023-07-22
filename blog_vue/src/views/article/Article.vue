@@ -1,13 +1,13 @@
 <script setup lang='ts'>
-import type {Ref} from 'vue'
-import {useRoute} from 'vue-router'
-import {useSettingStore, useWebsiteInfoStore} from '@/store'
+import type { Ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useSettingStore, useWebsiteInfoStore } from '@/store'
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-import {onMounted, reactive, ref, watch} from "vue";
-import {storeToRefs} from "pinia";
+import { onMounted, reactive, ref, watch } from "vue";
+import { storeToRefs } from "pinia";
 import LRLayout from '@/layout/LRLayout.vue'
-import {notify} from '@kyvg/vue3-notification'
+import { notify } from '@kyvg/vue3-notification'
 import {
   Calendar,
   UpdateRotation,
@@ -34,7 +34,7 @@ import CommentComp from "@/components/comment/Comment.vue"
 import CommentUser from "@/views/comm/CommentUser.vue";
 import CommentList from "@/components/comment/CommentList.vue"
 import PreviewPicture from "@/components/preview/PreviewPicture.vue";
-import {loadingImg} from "@/constant"
+import { loadingImg } from "@/constant"
 import {
   article,
   hasArticleCatalog,
@@ -58,14 +58,14 @@ import {
   commentBtnLock
 } from "@/components/comment/CommentHooks"
 
-import {pagination} from "@/components/comment/CommentHooks"
+import { pagination } from "@/components/comment/CommentHooks"
 // 文章目录
 const MdCatalog = MdEditor.MdCatalog
 
 const settingStore = useSettingStore()
 const websiteStore = useWebsiteInfoStore()
-const {websiteInfo} = storeToRefs(websiteStore)
-const {previewTheme, codeTheme, showCodeRowNumber} = storeToRefs(settingStore);
+const { websiteInfo } = storeToRefs(websiteStore)
+const { previewTheme, codeTheme, showCodeRowNumber, loginFlag } = storeToRefs(settingStore);
 
 const route = useRoute();
 
@@ -126,51 +126,55 @@ const previewImageHandle = (image: string, pictureName: string) => {
           <!--文章标题 -->
           <BoxComponent class="p-10px">
             <h1 class="text-center text-22px text-shadow-xl <md:(text-20px) <sm:(text-18px)">{{
-                article.articleTitle
-              }}</h1>
+              article.articleTitle
+            }}</h1>
             <div class="flex flex-col <md:(text-12px)">
               <div class="w-full flex justify-center flex-wrap mt-15px">
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Calendar
-                  class="mr-3px"/>发表于 {{
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+                  <Calendar class="mr-3px" />发表于 {{
                     article.createTime.split(" ")[0]
-                  }}</span>
+                  }}
+                </span>
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><UpdateRotation
-                  class="mr-3px"/>更新于 {{
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+                  <UpdateRotation class="mr-3px" />更新于 {{
                     article.updateTime.split(" ")[0]
-                  }}</span>
+                  }}
+                </span>
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">{{
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">{{
                     article.type
                   }}</span>
                 <router-link :to="`/categories/${article.categoryId}`"
-                             class="article-info-hover flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px">
-                  <CategoryManagement class="mr-3px"/>
+                  class="article-info-hover flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px">
+                  <CategoryManagement class="mr-3px" />
                   {{ article.categoryName }}
                 </router-link>
               </div>
               <div class="w-full flex justify-center flex-wrap mt-10px">
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Text
-                  class="mr-3px"/>字数统计 {{
-                    articleWordNum
-                  }}</span>
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Text
+                    class="mr-3px" />字数统计 {{
+                      articleWordNum
+                    }}</span>
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Time
-                  class="mr-3px"/>阅读时长 {{
-                    articleReadTime
-                  }}分钟</span>
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Time
+                    class="mr-3px" />阅读时长 {{
+                      articleReadTime
+                    }}分钟</span>
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Eyes
-                  class="mr-3px"/>{{
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+                  <Eyes class="mr-3px" />{{
                     article.viewsCount
-                  }}</span>
+                  }}
+                </span>
                 <span class="flex justify-center items-center rounded-6px shadow px-5px py-3px mr-10px mb-10px"
-                      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)"><Comment
-                  class="mr-3px"/>{{
+                  style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+                  <Comment class="mr-3px" />{{
                     pagination.page ? pagination.page : 0
-                  }}</span>
+                  }}
+                </span>
               </div>
             </div>
           </BoxComponent>
@@ -181,12 +185,9 @@ const previewImageHandle = (image: string, pictureName: string) => {
               <hr class="hr-twill">
             </div>
             <!-- 文章 -->
-            <md-editor v-model="article.articleContent" editorId="my-editor" preview-only
-                       :preview-theme="previewTheme"
-                       :theme="settingStore.theme"
-                       :code-theme="codeTheme"
-                       :showCodeRowNumber="showCodeRowNumber"
-                       @on-get-catalog="onGetCatalog"/>
+            <md-editor v-model="article.articleContent" editorId="my-editor" preview-only :preview-theme="previewTheme"
+              :theme="settingStore.theme" :code-theme="codeTheme" :showCodeRowNumber="showCodeRowNumber"
+              @on-get-catalog="onGetCatalog" />
             <hr class="hr-twill">
             <!-- 分享、点赞、打赏 -->
             <div class="p-10px flex flex-col">
@@ -198,8 +199,8 @@ const previewImageHandle = (image: string, pictureName: string) => {
                 <!-- 点赞 -->
                 <div class="heart-btn">
                   <div class="heart-content shadow py-8px px-13px rounded-6px flex cursor-pointer"
-                       @click="clickLikeHandle">
-                    <span class="heart" :class="{'heart-active': isLikeComp}"></span>
+                    @click="clickLikeHandle">
+                    <span class="heart" :class="{ 'heart-active': isLikeComp }"></span>
                     <span class="like">点赞</span>
                     <span class="numb" :data-numb="article.likeCount"></span>
                   </div>
@@ -211,11 +212,11 @@ const previewImageHandle = (image: string, pictureName: string) => {
                     <div class="reward-content flex gap-10px p-8px">
                       <span class="flex-1">
                         <img class="w-full h-full rounded-8px" :src="websiteInfo?.weiXinQRCode" alt=""
-                             @click="previewImageHandle(websiteInfo?.weiXinQRCode, '微信打赏码')">
+                          @click="previewImageHandle(websiteInfo?.weiXinQRCode, '微信打赏码')">
                       </span>
                       <span class="flex-1">
                         <img class="w-full h-full rounded-8px" :src="websiteInfo?.alipayQRCode" alt=""
-                             @click="previewImageHandle(websiteInfo?.alipayQRCode, '支付宝打赏码')">
+                          @click="previewImageHandle(websiteInfo?.alipayQRCode, '支付宝打赏码')">
                       </span>
                     </div>
                   </button>
@@ -230,25 +231,26 @@ const previewImageHandle = (image: string, pictureName: string) => {
                 <div class="flex">
                   <span class="block">本文链接：</span>
                   <span class="break-all flex-1"><router-link :to="`/article/${article.id}`"
-                                                              class="hover:(text-$hover-color2)"
-                                                              style="border-bottom: 1px solid var(--theme-bg-reverse); transition: border-bottom-color var(--transition)"
-                  >{{ articleUrl }}</router-link></span>
+                      class="hover:(text-$hover-color2)"
+                      style="border-bottom: 1px solid var(--theme-bg-reverse); transition: border-bottom-color var(--transition)">{{
+                        articleUrl }}</router-link></span>
                 </div>
                 <div class="flex">
                   <span class="block">版权声明：</span>
                   <span class="break-all flex-1">本博客所有文章除特别声明外，均采用
                     <a class="hover:(text-$hover-color2)"
-                       style="border-bottom: 1px solid var(--theme-bg-reverse); transition: border-bottom-color var(--transition)"
-                       href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                       target="_blank">CC BY-NC-SA 4.0 </a> 许可协议。转载请注明出处！</span>
+                      style="border-bottom: 1px solid var(--theme-bg-reverse); transition: border-bottom-color var(--transition)"
+                      href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0 </a>
+                    许可协议。转载请注明出处！</span>
                 </div>
               </div>
               <span class="flex justify-start items-center my-10px">
                 <router-link :to="`/tags/${tag.id}`" v-for="tag of article.tags"
-                             class="article-info-hover flex justify-center items-center rounded-6px shadow px-5px mr-10px"
-                             :key="tag.id">
-                                  <TagOne class="mr-3px"/>
-                  {{ tag.name }}</router-link>
+                  class="article-info-hover flex justify-center items-center rounded-6px shadow px-5px mr-10px"
+                  :key="tag.id">
+                  <TagOne class="mr-3px" />
+                  {{ tag.name }}
+                </router-link>
               </span>
             </div>
           </BoxComponent>
@@ -256,9 +258,9 @@ const previewImageHandle = (image: string, pictureName: string) => {
           <div class="last-next-article flex justify-between gap-10px w-full rounded-6px">
             <div class="flex-1 max-w-1/2 text-left h-60px relative" v-if="article.lastArticle">
               <router-link :to="`/article/${article.lastArticle.id}`"
-                           class="relative w-full h-full inline-block overflow-hidden rounded-6px">
+                class="relative w-full h-full inline-block overflow-hidden rounded-6px">
                 <img v-lazy :data-src="article.lastArticle.articleCover" :src="loadingImg" alt=""
-                     class="w-full h-full bg-cover object-cover">
+                  class="w-full h-full bg-cover object-cover">
                 <div class="absolute w-full h-full top-0 left-30px flex flex-col justify-center items-start">
                   <span>上一篇</span>
                   <h2>{{ article.lastArticle.articleTitle }}</h2>
@@ -267,9 +269,9 @@ const previewImageHandle = (image: string, pictureName: string) => {
             </div>
             <div class=" flex-1 max-w-1/2 text-right h-60px relative" v-if="article.nextArticle">
               <router-link :to="`/article/${article.nextArticle.id}`"
-                           class="relative w-full h-full inline-block overflow-hidden rounded-6px">
+                class="relative w-full h-full inline-block overflow-hidden rounded-6px">
                 <img v-lazy :data-src="article.nextArticle.articleCover" :src="loadingImg" alt=""
-                     class="w-full h-full bg-cover object-cover">
+                  class="w-full h-full bg-cover object-cover">
                 <div class="absolute w-full h-full top-0 right-30px flex flex-col justify-center items-end">
                   <span>下一篇</span>
                   <h2>{{ article.nextArticle.articleTitle }}</h2>
@@ -280,17 +282,19 @@ const previewImageHandle = (image: string, pictureName: string) => {
         </div>
         <!-- 推荐文章 -->
         <BoxComponent class="p-10px" v-if="article.recommendArticleList.length !== 0">
-          <span class="text-20px flex gap-5px"><GoodTwo/>推荐文章</span>
+          <span class="text-20px flex gap-5px">
+            <GoodTwo />推荐文章
+          </span>
           <hr class="hr-twill">
           <ul class="recommend-content flex gap-10px flex-wrap mt-10px">
             <li v-for="recommendArticle of article.recommendArticleList" class="flex-1" title="点击查看文章">
               <router-link :to="`/article/${recommendArticle.id}`"
-                           class="recommend-article-a flex min-w-260px h-80px overflow-hidden rounded-6px relative">
-                <img v-lazy class="w-full h-ull object-cover" :data-src="recommendArticle.articleCover"
-                     :src="loadingImg" alt="">
+                class="recommend-article-a flex min-w-260px h-80px overflow-hidden rounded-6px relative">
+                <img v-lazy class="w-full h-ull object-cover" :data-src="recommendArticle.articleCover" :src="loadingImg"
+                  alt="">
                 <div class="absolute w-full h-full flex flex-col justify-center items-start pl-5px gap-8px">
                   <span class="text-14px">{{ recommendArticle.articleTitle }}</span>
-                  <span class="text-12px flex items-center gap-5px"><Time/>{{ recommendArticle.createTime }}</span>
+                  <span class="text-12px flex items-center gap-5px"><Time />{{ recommendArticle.createTime }}</span>
                 </div>
               </router-link>
             </li>
@@ -301,17 +305,24 @@ const previewImageHandle = (image: string, pictureName: string) => {
           <hr class="hr-twill">
           <div class="share-icon flex justify-evenly items-center mt-20px">
             <span class="w-40px h-40px rounded-full shadow flex justify-center items-center hover:(text-lime-500)"
-                  @click="shareWechat"><Wechat size="26"/></span>
+              @click="shareWechat">
+              <Wechat size="26" />
+            </span>
             <span class="w-40px h-40px rounded-full shadow flex justify-center items-center hover:(text-emerald-700)"
-                  @click="shareWechat"><FriendsCircle size="26"/></span>
+              @click="shareWechat">
+              <FriendsCircle size="26" />
+            </span>
             <span class="w-40px h-40px rounded-full shadow flex justify-center items-center hover:(text-cyan-500)"
-                  @click="shareQzShare"><TencentQq size="26"/></span>
+              @click="shareQzShare">
+              <TencentQq size="26" />
+            </span>
             <span class="w-40px h-40px rounded-full shadow flex justify-center items-center hover:(text-red-500)"
-                  @click="shareWeibo"><Weibo
-              size="26"/></span>
+              @click="shareWeibo">
+              <Weibo size="26" />
+            </span>
           </div>
           <p class="mt-10px flex items-center">
-            <CopyLink size="16" class="mr-10px"/>
+            <CopyLink size="16" class="mr-10px" />
             Copy Like
           </p>
           <div class="field">
@@ -321,41 +332,40 @@ const previewImageHandle = (image: string, pictureName: string) => {
         </Modal>
         <!-- 评论 -->
         <CommentUser>
-          <CommentComp @saveComment="saveCommentHandle" :topic-id="article.id" :type="1" :btn-lock="commentBtnLock"/>
+          <CommentComp @saveComment="saveCommentHandle" :topic-id="article.id" :type="1" :btn-lock="commentBtnLock"
+            :login-func="() => loginFlag = true" />
         </CommentUser>
-        <hr class="hr-twill"/>
-        <CommentList :topic-id="article.id" :type="1" :article-author="article.author.nickname"/>
+        <hr class="hr-twill" />
+        <CommentList :topic-id="article.id" :type="1" :article-author="article.author.nickname" />
       </template>
       <template #info>
         <!-- 文章目录 -->
         <BoxComponent v-if="hasArticleCatalog">
-          <span class="ml-10px mt-10px text-16px flex"><ListTwo class="mr-5px"/>目录</span>
+          <span class="ml-10px mt-10px text-16px flex">
+            <ListTwo class="mr-5px" />目录
+          </span>
           <hr class="hr-twill">
-          <MdCatalog
-            class="max-h-260px my-5px overflow-y-scroll"
-            editorId="my-editor"
-            :scroll-element="scrollElement"
-            :theme="settingStore.theme"
-          />
+          <MdCatalog class="max-h-260px my-5px overflow-y-scroll" editorId="my-editor" :scroll-element="scrollElement"
+            :theme="settingStore.theme" />
         </BoxComponent>
         <!-- 最新文章 -->
-        <NewsArticle :news-article-list="article.newsArticleList"/>
+        <NewsArticle :news-article-list="article.newsArticleList" />
         <!-- 最新评论 -->
-        <NewsComment :news-comment-list="article.newsCommentList"/>
+        <NewsComment :news-comment-list="article.newsCommentList" />
       </template>
     </LRLayout>
     <LRLayout v-else>
       <template #content>
-        <Skeleton class="!w-full"/>
-        <Skeleton class="!w-full h-320px"/>
+        <Skeleton class="!w-full" />
+        <Skeleton class="!w-full h-320px" />
       </template>
       <template #info>
-        <Skeleton class="!w-full h-110px"/>
-        <Skeleton class="!w-full h-110px"/>
-        <Skeleton class="!w-full h-110px"/>
+        <Skeleton class="!w-full h-110px" />
+        <Skeleton class="!w-full h-110px" />
+        <Skeleton class="!w-full h-110px" />
       </template>
     </LRLayout>
-    <PreviewPicture :picture="currentPicture"/>
+    <PreviewPicture :picture="currentPicture" />
   </div>
 </template>
 
@@ -437,6 +447,7 @@ const previewImageHandle = (image: string, pictureName: string) => {
   0% {
     background-position: left;
   }
+
   100% {
     background-position: right;
   }

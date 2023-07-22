@@ -2,7 +2,8 @@ package cn.apecode.common.exception;
 
 import cn.apecode.common.enums.StatusCodeEnum;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import static cn.apecode.common.enums.StatusCodeEnum.FAIL;
 
@@ -11,7 +12,8 @@ import static cn.apecode.common.enums.StatusCodeEnum.FAIL;
  * @author: apecode
  * @date: 2022-05-27 01:08
  **/
-@Getter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @AllArgsConstructor
 public class BizException extends RuntimeException {
 

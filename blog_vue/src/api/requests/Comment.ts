@@ -1,14 +1,14 @@
-import {request} from "@/api/services"
+import { request } from "@/api/services"
 
 /**
  * 插入评论
  * @param data
  */
-export function insertComment(data: FormData): Promise<ResultObject<null>> {
-    return request.post({
-        url: "/comment",
-        data
-    })
+export function insertComment(data: SaveCommentParams): Promise<ResultObject<null>> {
+  return request.post({
+    url: "/comment",
+    data
+  })
 }
 
 /**
@@ -16,10 +16,10 @@ export function insertComment(data: FormData): Promise<ResultObject<null>> {
  * @param commentInfo
  */
 export function getCommentList(commentInfo: CommentQueryParams): Promise<PageResult<Array<CommentEntity>>> {
-    return request.get({
-        url: "/comments",
-        params: commentInfo
-    })
+  return request.get({
+    url: "/comments",
+    params: commentInfo
+  })
 }
 
 /**
@@ -27,11 +27,11 @@ export function getCommentList(commentInfo: CommentQueryParams): Promise<PageRes
  * @param commentId
  * @param condition
  */
-export function getReplyCommentList(commentId: string, {size, current}: ConditionParams): Promise<ResultObject<Array<ReplyEntity>>> {
-    return request.get({
-        url: `/comment/${commentId}/replies`,
-        params: {size,current}
-    })
+export function getReplyCommentList(commentId: string, { size, current }: ConditionParams): Promise<ResultObject<Array<ReplyEntity>>> {
+  return request.get({
+    url: `/comment/${commentId}/replies`,
+    params: { size, current }
+  })
 }
 
 /**
@@ -39,7 +39,7 @@ export function getReplyCommentList(commentId: string, {size, current}: Conditio
  * @param commentId
  */
 export function commentLike(commentId: string): Promise<ResultObject<null>> {
-    return request.post({
-        url: `/comment/${commentId}/like`
-    })
+  return request.post({
+    url: `/comment/${commentId}/like`
+  })
 }

@@ -25,6 +25,9 @@ public class PictureBackDto {
     @ApiModelProperty(value = "图片id", name = "id", dataType = "String")
     private String id;
 
+    @ApiModelProperty(value = "相册id", name = "albumId", dataType = "String")
+    private String albumId;
+
     @ApiModelProperty(value = "图片名称", name = "pictureName", dataType = "String")
     private String pictureName;
 

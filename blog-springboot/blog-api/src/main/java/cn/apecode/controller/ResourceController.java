@@ -42,7 +42,7 @@ public class ResourceController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "新增或修改资源", httpMethod = "POST")
     @PostMapping("/admin/resource")
-    public ResponseCode<?> saveOrUpdateResource(@Validated ResourceVo resource) {
+    public ResponseCode<?> saveOrUpdateResource(@Validated @RequestBody ResourceVo resource) {
         resourceService.saveOrUpdateResource(resource);
         return ResponseCode.ok("保存成功");
     }

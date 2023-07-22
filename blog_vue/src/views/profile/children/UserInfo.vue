@@ -8,24 +8,24 @@ import {
   updateUserInfoHandle,
   openBindEmailModal,
 } from "./UserInfoHooks"
-import {getDate} from "@/utils/utils"
-import {qqLogin, showLoginIcon} from "@/utils/socialLoginUtils"
-import {Unlock, EmailLock} from "@icon-park/vue-next"
-import {onMounted} from "vue";
+import { getDate } from "@/utils/utils"
+import { qqLogin, showLoginIcon } from "@/utils/socialLoginUtils"
+import { Unlock, EmailLock } from "@icon-park/vue-next"
+import { onMounted } from "vue";
 import Comment from "@/components/comment/Comment.vue"
 import BoxComponent from "@/components/BoxComponent.vue"
-import {unbindQQ} from "@/api/requests/User";
-import {notify} from "@kyvg/vue3-notification";
-import {storeToRefs} from "pinia";
-import {useUserInfoStore, useSettingStore, useWebsiteInfoStore, useGlobalStore} from "@/store";
+import { unbindQQ } from "@/api/requests/User";
+import { notify } from "@kyvg/vue3-notification";
+import { storeToRefs } from "pinia";
+import { useUserInfoStore, useSettingStore, useWebsiteInfoStore, useGlobalStore } from "@/store";
 
 const globalStore = useGlobalStore();
 const settingStore = useSettingStore();
 const userInfoStore = useUserInfoStore();
 const websiteInfoStore = useWebsiteInfoStore();
-const {userInfo, isBindQQ} = storeToRefs(userInfoStore);
-const {loadingFlag} = storeToRefs(settingStore);
-const {websiteInfo} = storeToRefs(websiteInfoStore);
+const { isBindQQ } = storeToRefs(userInfoStore);
+const { loadingFlag } = storeToRefs(settingStore);
+const { websiteInfo } = storeToRefs(websiteInfoStore);
 
 
 onMounted(() => {
@@ -74,7 +74,7 @@ const bindOrUnbindQQHandle = async () => {
         <span class="w-56px text-right text-$hover-color2 mr-15px">uid</span>
         <div class="flex-1">
           <span class="shadow-inset text-$hover-color rounded-6px py-3px px-10px"
-                style="transition: var(--theme-transition-shadow)">{{ userInfoData.uid }}</span>
+            style="transition: var(--theme-transition-shadow)">{{ userInfoData.uid }}</span>
         </div>
       </div>
       <!-- 注册时间 -->
@@ -94,8 +94,8 @@ const bindOrUnbindQQHandle = async () => {
         <span class="w-56px text-right text-$hover-color2 mr-15px">用户名</span>
         <div class="flex-1">
           <input type="text" v-model="userInfoForm.nickname" @change="updateUserInfoHandle"
-                 class="user-nickname-input w-200px h-full text-14px indent-2px outline-none bg-$theme-bg border-none shadow py-3px px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
-                 style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+            class="user-nickname-input w-200px h-full text-14px indent-2px outline-none bg-$theme-bg border-none shadow py-3px px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
+            style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
         </div>
       </div>
       <!-- 邮件地址 -->
@@ -105,14 +105,14 @@ const bindOrUnbindQQHandle = async () => {
           <div v-if="userInfoData.email" class="flex">
             <span>{{ userInfoData.email }}</span>
             <button class="text-12px outline-none rounded-6px flex items-center ml-10px shadow py-1px px-8px"
-                    @click="openBindEmailModal">
-              <Unlock class="mr-5px"/>
+              @click="openBindEmailModal">
+              <Unlock class="mr-5px" />
               解绑
             </button>
           </div>
           <div v-else>
             <button class="shadow py-1px px-8px rounded-6px outline-none flex items-center" @click="openBindEmailModal">
-              <EmailLock class="mr-5px"/>
+              <EmailLock class="mr-5px" />
               绑定邮箱
             </button>
           </div>
@@ -123,7 +123,7 @@ const bindOrUnbindQQHandle = async () => {
         <span class="w-56px text-right text-$hover-color2 mr-15px">简介</span>
         <div class="flex-1">
           <BoxComponent class="p-10px">
-            <Comment :default-value="userInfoForm.intro" @saveComment="saveIntroHandle" send-btn-text="保存"/>
+            <Comment :default-value="userInfoForm.intro" @saveComment="saveIntroHandle" send-btn-text="保存" />
           </BoxComponent>
         </div>
       </div>
@@ -132,8 +132,8 @@ const bindOrUnbindQQHandle = async () => {
         <span class="w-56px text-right text-$hover-color2 mr-15px">个人网站</span>
         <div class="flex-1">
           <input type="text" v-model="userInfoForm.webSite" placeholder="个人网站" @change="updateUserInfoHandle"
-                 class="user-nickname-input w-200px h-full text-14px indent-2px outline-none bg-$theme-bg border-none shadow py-3px px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
-                 style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+            class="user-nickname-input w-200px h-full text-14px indent-2px outline-none bg-$theme-bg border-none shadow py-3px px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
+            style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
         </div>
       </div>
       <!-- 是否开启邮件通知 -->
@@ -143,18 +143,18 @@ const bindOrUnbindQQHandle = async () => {
           <label class="label">
             <div class="toggle">
               <input class="toggle-state" type="checkbox" name="check" @change="updateUserInfoHandle"
-                     v-model="userInfoForm.isEmailNotice">
+                v-model="userInfoForm.isEmailNotice">
               <div class="indicator"></div>
             </div>
           </label>
         </div>
       </div>
-    <!-- 社交登录 -->
+      <!-- 社交登录 -->
       <div class="flex" v-if="Object.keys(websiteInfo?.socialLogin).length !== 0">
         <span class="w-56px text-right text-$hover-color2 mr-15px">社交登录</span>
         <div class="flex text-12px">
           <div class="flex items-center shadow py-2px px-8px rounded-6px cursor-pointer" v-if="showLoginIcon('QQ')"
-               @click="bindOrUnbindQQHandle">
+            @click="bindOrUnbindQQHandle">
             <div class="flex items-center text-12px">
               <img src="@/assets/imgs/qq_login.png" alt="" class="mr-3px">
               QQ
@@ -193,7 +193,7 @@ const bindOrUnbindQQHandle = async () => {
   box-shadow: var(--theme-shadow);
 }
 
-.toggle-state:checked ~ .indicator {
+.toggle-state:checked~.indicator {
   @apply 'bg-lime-500';
   transform: translate3d(25%, 0, 0);
 }

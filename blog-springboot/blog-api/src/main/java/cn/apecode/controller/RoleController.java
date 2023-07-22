@@ -50,7 +50,7 @@ public class RoleController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除角色", httpMethod = "DELETE")
     @DeleteMapping("/admin/role")
-    public ResponseCode<?> deleteRoleByRoleId(String roleId) {
+    public ResponseCode<?> deleteRoleByRoleId(@RequestBody String roleId) {
         roleService.deleteRoleByRoleId(roleId);
         return ResponseCode.ok("删除成功");
     }

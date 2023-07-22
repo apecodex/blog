@@ -28,7 +28,8 @@
   scrollbar-color: var(--theme-bg-reverse), var(--theme-bg);
 }
 
-html, body {
+html,
+body {
   @apply 'text-shadow-sm font-mono';
   font-family: tzy, Times, serif, Arial, Helvetica, sans-serif !important;
   cursor: url('https://apecode.oss-cn-chengdu.aliyuncs.com/config/mouse/x1.cur'), auto !important;
@@ -78,7 +79,8 @@ button,
   transform: rotateZ(360deg)
 }
 
-.shadow, .shadow-hover {
+.shadow,
+.shadow-hover {
   box-shadow: var(--theme-shadow) !important;
   transition: var(--theme-transition-shadow);
 }
@@ -87,7 +89,8 @@ button,
   box-shadow: var(--theme-shadow-inset) !important;
 }
 
-.shadow-inset, .shadow-inset-hover {
+.shadow-inset,
+.shadow-inset-hover {
   box-shadow: var(--theme-shadow-inset) !important;
   transition: var(--theme-transition-shadow);
 }
@@ -97,7 +100,8 @@ button,
 }
 
 /* 反色 */
-.shadow-reverse, .shadow-hover-reverse {
+.shadow-reverse,
+.shadow-hover-reverse {
   box-shadow: var(--theme-shadow-reverse) !important;
 }
 
@@ -105,7 +109,8 @@ button,
   box-shadow: var(--theme-shadow-inset-reverse) !important;
 }
 
-.shadow-inset-reverse, .shadow-inset-hover-reverse {
+.shadow-inset-reverse,
+.shadow-inset-hover-reverse {
   box-shadow: var(--theme-shadow-inset-reverse) !important;
   transition: var(--theme-transition-shadow);
 }
@@ -161,6 +166,7 @@ button,
     filter: alpha(opacity=0);
     transform: translateY(-50px);
   }
+
   100% {
     opacity: 1;
     filter: none;
@@ -174,6 +180,7 @@ button,
     filter: alpha(opacity=0);
     transform: translateX(50px);
   }
+
   100% {
     opacity: 1;
     filter: none;
@@ -187,14 +194,17 @@ button,
     transform: perspective(400px) rotateX(90deg);
     opacity: 0;
   }
+
   40% {
     -webkit-transform: perspective(400px) rotateX(-10deg);
     transform: perspective(400px) rotateX(-10deg);
   }
+
   70% {
     -webkit-transform: perspective(400px) rotateX(10deg);
     transform: perspective(400px) rotateX(10deg);
   }
+
   100% {
     -webkit-transform: perspective(400px) rotateX(0deg);
     transform: perspective(400px) rotateX(0deg);
@@ -208,6 +218,7 @@ button,
     transform: perspective(400px) rotateX(0deg);
     opacity: 1;
   }
+
   100% {
     -webkit-transform: perspective(400px) rotateX(90deg);
     transform: perspective(400px) rotateX(90deg);
@@ -260,6 +271,7 @@ button,
   75% {
     transform: translateX(5px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -270,15 +282,19 @@ button,
   0% {
     transform: translateY(-50%) rotate(3deg);
   }
+
   25% {
     transform: translateY(-50%) rotate(-3deg);
   }
+
   50% {
     transform: translateY(-50%) rotate(1deg);
   }
+
   75% {
     transform: translateY(-50%) rotate(-1deg);
   }
+
   100% {
     transform: translateY(-50%) rotate(0deg);
   }

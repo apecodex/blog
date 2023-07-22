@@ -39,7 +39,7 @@ public class CommentController {
     @OptLog(optType = COMMENT)
     @ApiOperation(value = "添加评论", httpMethod = "POST")
     @PostMapping("/comment")
-    public ResponseCode<?> saveComment(@Validated CommentVo comment) {
+    public ResponseCode<?> saveComment(@Validated @RequestBody CommentVo comment) {
         commentService.saveComment(comment);
         return ResponseCode.ok("添加成功");
     }

@@ -18,6 +18,7 @@
         <module>blog-config</module>
         <module>blog-mail</module>
         <module>blog-service</module>
+        <module>blog-websocket</module>
     </modules>
 
     <groupId>cn.apecode</groupId>

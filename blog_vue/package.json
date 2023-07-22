@@ -11,12 +11,14 @@
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
     "@kyvg/vue3-notification": "^2.6.1",
+    "@stomp/stompjs": "^7.0.0",
     "axios": "^0.27.2",
     "canvas-confetti": "^1.6.0",
     "crypto-js": "^4.1.1",
     "md-editor-v3": "^2.3.0",
     "pinia": "^2.0.22",
     "pinia-plugin-persistedstate": "^2.2.0",
+    "sockjs-client": "^1.6.1",
     "vue": "^3.2.37",
     "vue-router": "^4.1.5"
   },

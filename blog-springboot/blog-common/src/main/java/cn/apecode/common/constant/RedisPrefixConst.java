@@ -54,4 +54,8 @@ public class RedisPrefixConst {
 
     // 网站配置
     public static final String WEBSITE_CONFIG = "website_config";
+
+    // 在线用户
+    public static final String ONLINE_USER = "online_user";
+
 }

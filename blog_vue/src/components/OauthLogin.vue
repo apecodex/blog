@@ -1,27 +1,32 @@
 <template>
-  <div class="fixed top-0 left-0 right-0 bottom-0 z-999 w-full h-full bg-$theme-bg flex justify-center items-center flex-col">
+  <div
+    class="fixed top-0 left-0 right-0 bottom-0 z-999 w-full h-full bg-$theme-bg flex justify-center items-center flex-col">
     <div class="loader"></div>
-    <p class="text-center mt-20px">{{ loginTip}}</p>
+    <p class="text-center mt-20px">{{ loginTip }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 
-import {onMounted, ref} from "vue";
-import {useRoute, useRouter} from "vue-router"
-import {bindQQ, qqLogin} from "@/api/requests/User";
-import {useSettingStore, useUserInfoStore, useWebsiteInfoStore, useGlobalStore} from "@/store";
-import {customConfetti} from "@/utils/utils";
-import {getUserNoReadNoticeCount} from "@/api/requests/Notice";
-import {storeToRefs} from "pinia";
-import {notify} from "@kyvg/vue3-notification";
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router"
+import { bindQQ, qqLogin } from "@/api/requests/User";
+import { useSettingStore, useUserInfoStore, useWebsiteInfoStore, useGlobalStore, useWebSocketStore } from "@/store";
+import { customConfetti } from "@/utils/utils";
+import { getUserNoReadNoticeCount } from "@/api/requests/Notice";
+import { storeToRefs } from "pinia";
+import { notify } from "@kyvg/vue3-notification";
+
 
 const globalStore = useGlobalStore();
 const settingStore = useSettingStore();
 const userInfoStore = useUserInfoStore();
 const websiteInfoStore = useWebsiteInfoStore();
-const {userNoticeCount, isBindQQ} = storeToRefs(userInfoStore);
-const {originalLoginUrl} = storeToRefs(websiteInfoStore);
+const webSocketStore = useWebSocketStore();
+const { userNoticeCount, isBindQQ } = storeToRefs(userInfoStore);
+const { originalLoginUrl } = storeToRefs(websiteInfoStore);
+const { socket, socketConnect } = webSocketStore;
+const { isJoinChat } = storeToRefs(webSocketStore);
 
 
 const route = useRoute();
@@ -37,7 +42,7 @@ onMounted(() => {
       QC.Login.getMe((openId: string, accessToken: string) => {
         // 绑定QQ
         if (!isBindQQ.value) {
-          bindQQ({openId, accessToken}).then((resp) => {
+          bindQQ({ openId, accessToken }).then((resp) => {
             if (resp.status) {
               notify({
                 text: resp.message,
@@ -59,7 +64,7 @@ onMounted(() => {
             globalStore.reload();
           })
         } else {
-          qqLogin({openId, accessToken}).then(async (resp) => {
+          qqLogin({ openId, accessToken }).then(async (resp) => {
             if (resp.status) {
               notify({
                 text: `登录成功，欢迎回来！${resp.data.nickname}`,
@@ -80,6 +85,15 @@ onMounted(() => {
                   userNoticeCount.value = respNotice.data;
                 }
               })
+              // 关闭socket
+              socket.close();
+              socket.stompClient.onDisconnect = (frame) => {
+                // 连接WebSocket
+                if (!socket.stompClient.connected) {
+                  socketConnect();
+                }
+              }
+              isJoinChat.value = false;
             } else {
               notify({
                 text: resp.message,
@@ -100,9 +114,9 @@ onMounted(() => {
   }
   // 跳转回原页面
   if (originalLoginUrl.value !== null && originalLoginUrl.value !== "") {
-    router.push({path: originalLoginUrl.value});
+    router.push({ path: originalLoginUrl.value });
   } else {
-    router.push({path: "/"});
+    router.push({ path: "/" });
   }
 })
 
@@ -135,7 +149,9 @@ onMounted(() => {
 }
 
 @keyframes rotate92523 {
-  0%, 100% {
+
+  0%,
+  100% {
     left: 35px;
   }
 

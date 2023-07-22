@@ -2,6 +2,7 @@ package cn.apecode.common.exception;
 
 import cn.apecode.common.utils.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,7 +29,7 @@ public class GlobalException {
      */
     @ExceptionHandler(value = {BizException.class})
     public ResponseCode<?> errorHandler(BizException e) {
-        log.error("处理服务异常 - 错误码：{} - 错误信息：{}", e.getCode(), e.getMessage());
+        log.info("处理服务异常 - 错误码：{} - 错误信息：{}", e.getCode(), e.getMessage());
         return ResponseCode.fail(e.getCode(), e.getMessage());
     }
 
@@ -56,5 +57,18 @@ public class GlobalException {
     public ResponseCode<?> errorHandler(BindException e) {
         log.error("参数校验异常：{}", Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
         return ResponseCode.fail(Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
+    }
+
+    /**
+     * @description: 客户端已经断开连接
+     * @param e
+     * @return {@link ResponseCode<?>}
+     * @auther apecode
+     * @date 2023/7/22 13:54
+    */
+    @ExceptionHandler(value = ClientAbortException.class)
+    public ResponseCode<?> handlerClientAbortException(Exception e) {
+        log.warn("in clientAbortException");
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 package cn.apecode.service.impl;
 
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.common.exception.BizException;
 import cn.apecode.common.utils.BeanCopyUtils;
 import cn.apecode.common.utils.CommonUtils;

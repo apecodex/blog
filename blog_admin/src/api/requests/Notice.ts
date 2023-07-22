@@ -43,7 +43,7 @@ export function deleteNotice(ids: Array<string>): Promise<ResultObject<null>> {
  * 发送通知
  * @param data
  */
-export function sendNotice(data: FormData): Promise<ResultObject<null>> {
+export function sendNotice(data: SendNoticeParams): Promise<ResultObject<null>> {
   return request.post({
     url: "/admin/notice",
     data

@@ -34,7 +34,7 @@ public class NoticeController {
 
     @ApiOperation(value = "发送通知", httpMethod = "POST")
     @PostMapping("/admin/notice")
-    public ResponseCode<?> sendNotice(@Validated NoticeVo noticeVo) {
+    public ResponseCode<?> sendNotice(@Validated @RequestBody NoticeVo noticeVo) {
         noticeService.sendNotice(noticeVo);
         return ResponseCode.ok("发送成功");
     }

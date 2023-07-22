@@ -36,7 +36,7 @@ public class FriendLinkController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或修改友链", httpMethod = "POST")
     @PostMapping("/admin/link")
-    public ResponseCode<?> saveOrUpdateFriendLike(@Validated FriendLinkVo friendLink) {
+    public ResponseCode<?> saveOrUpdateFriendLike(@Validated @RequestBody FriendLinkVo friendLink) {
         friendLinkService.saveOrUpdateFriendLink(friendLink);
         return ResponseCode.ok("保存成功");
     }
@@ -66,7 +66,7 @@ public class FriendLinkController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "用户保存或修改友链", httpMethod = "POST")
     @PostMapping("/user/link")
-    public ResponseCode<?> saveOrUpdateFriendLinkByUser(@Validated FriendLinkUserVo friendLink) {
+    public ResponseCode<?> saveOrUpdateFriendLinkByUser(@Validated @RequestBody FriendLinkUserVo friendLink) {
         friendLinkService.saveOrUpdateFriendLinkByUser(friendLink);
         return ResponseCode.ok("保存成功");
     }

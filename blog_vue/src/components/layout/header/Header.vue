@@ -1,15 +1,15 @@
 <script setup lang='ts'>
-import {onBeforeMount, ref} from "vue";
-import {getYiYan} from '@/api/requests/YiYan'
-import {scrollDown} from '@/utils/utils'
+import { onBeforeMount, ref } from "vue";
+import { getYiYan } from '@/api/requests/YiYan'
+import { scrollDown } from '@/utils/utils'
 import Navigation from './Navigation.vue'
-import {useWebsiteInfoStore} from '@/store'
-import {storeToRefs} from "pinia";
-import {getBlogInfo} from "@/api/requests/WebsiteInfo";
-import {notify} from "@kyvg/vue3-notification";
+import { useWebsiteInfoStore } from '@/store'
+import { storeToRefs } from "pinia";
+import { getBlogInfo } from "@/api/requests/WebsiteInfo";
+import { notify } from "@kyvg/vue3-notification";
 
 const websiteInfoStore = useWebsiteInfoStore();
-const {websiteInfo} = storeToRefs(websiteInfoStore);
+const { websiteInfo } = storeToRefs(websiteInfoStore);
 
 const IntroTextValue = ref("")
 const yiYanTextValue = ref({
@@ -43,13 +43,13 @@ const introTextFunc = () => {
   const textArr = websiteInfo.value?.homeTyperTexts
   if (textArr) {
     let index = 0;
-// 每行文本第几个字符
+    // 每行文本第几个字符
     let charIndex = 0;
-// 间隔时间
+    // 间隔时间
     let delta = 500;
-// 动画开始时间
+    // 动画开始时间
     let start: number | null = null;
-// 删除
+    // 删除
     let isDeleting = false;
     const type = (time: number) => {
       window.requestAnimationFrame(type);
@@ -111,11 +111,11 @@ onBeforeMount(() => {
       </div>
       <ul class="slideshow">
         <li v-for="(bg, index) in websiteInfo?.websiteBackgroundImages" :key="index">
-          <span :style="{backgroundImage: `url(${bg})`}"></span>
+          <span :style="{ backgroundImage: `url(${bg})` }"></span>
         </li>
       </ul>
       <div class="arrows-box absolute bottom-10px z-1 flex items-end justify-center cursor-pointer"
-           style="transition: var(--theme-transition)" @click="scrollDown">
+        style="transition: var(--theme-transition)" @click="scrollDown">
         <div class="scrolldown relative w-30px h-50px rounded-50px box-border mb-16px cursor-pointer cursor-pointer">
           <div class="chevrons pt-6px -ml-3px mt-48px w-30px flex flex-col items-center">
             <div class="chevrondown"></div>
@@ -126,19 +126,19 @@ onBeforeMount(() => {
     </div>
     <div class="wave-wrapper">
       <svg class="wares" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-           viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
         <defs>
-          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
         </defs>
         <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" fill="var(--parallax-1)"/>
-          <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--parallax-2)"/>
-          <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--parallax-3)"/>
-          <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--parallax-4)"/>
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="var(--parallax-1)" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--parallax-2)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--parallax-3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--parallax-4)" />
         </g>
       </svg>
     </div>
-    <navigation/>
+    <navigation />
   </section>
 </template>
 
@@ -230,27 +230,27 @@ section.header-section {
   @apply 'absolute w-full bottom-0 theme-transition';
 }
 
-.parallax > use {
+.parallax>use {
   animation: wares-move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
   transition: var(--theme-transition-fill);
 }
 
-.parallax > use:nth-child(1) {
+.parallax>use:nth-child(1) {
   animation-delay: -2s;
   animation-duration: 7s;
 }
 
-.parallax > use:nth-child(2) {
+.parallax>use:nth-child(2) {
   animation-delay: -3s;
   animation-duration: 10s;
 }
 
-.parallax > use:nth-child(3) {
+.parallax>use:nth-child(3) {
   animation-delay: -4s;
   animation-duration: 13s;
 }
 
-.parallax > use:nth-child(4) {
+.parallax>use:nth-child(4) {
   animation-delay: -5s;
   animation-duration: 20s;
 }
@@ -260,6 +260,7 @@ section.header-section {
   0% {
     transform: translate3d(-90px, 0, 0);
   }
+
   100% {
     transform: translate3d(85px, 0, 0);
   }
@@ -267,10 +268,12 @@ section.header-section {
 
 /*光标动画*/
 @keyframes blink {
+
   from,
   to {
     border-color: transparent;
   }
+
   50% {
     border-color: var(--text-color);
   }
@@ -281,9 +284,11 @@ section.header-section {
   0% {
     bottom: 0;
   }
+
   50% {
     bottom: 30px
   }
+
   100% {
     bottom: 0
   }
@@ -305,8 +310,7 @@ section.header-section {
   animation: imageAnimation 36s linear infinite 0s;
 }
 
-.slideshow li:nth-child(1) span {
-}
+.slideshow li:nth-child(1) span {}
 
 .slideshow li:nth-child(2) span {
   -webkit-animation-delay: 6s;
@@ -343,19 +347,23 @@ section.header-section {
     opacity: 0;
     animation-timing-function: ease-in
   }
+
   8% {
     opacity: 1;
     transform: scale(1.05);
     animation-timing-function: ease-out
   }
+
   17% {
     opacity: 1;
     transform: scale(1.1) rotate(0deg)
   }
+
   25% {
     opacity: 0;
     transform: scale(1.1) rotate(0deg)
   }
+
   100% {
     opacity: 0
   }

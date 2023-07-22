@@ -119,6 +119,7 @@
         ) as ui
         left join t_user_role ur on ur.userId = ui.id
         left join t_role r on r.id = ur.roleId
+        order by ui.id desc;
     </select>
 
 </mapper>

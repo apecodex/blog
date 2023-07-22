@@ -80,7 +80,7 @@ public class UserAuthController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改用户禁用状态", httpMethod = "PUT")
     @PutMapping("/admin/user/enable")
-    public ResponseCode<?> updateUserEnable(@Validated UserEnableVo userEnable) {
+    public ResponseCode<?> updateUserEnable(@Validated @RequestBody UserEnableVo userEnable) {
         userAuthService.updateUserEnable(userEnable);
         return ResponseCode.ok("修改成功");
     }

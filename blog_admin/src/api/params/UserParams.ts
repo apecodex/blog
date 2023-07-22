@@ -26,3 +26,10 @@ declare type UpdateUserInfo = {
   webSite: string | null
   isEmailNotice: boolean | null
 }
+/**
+ * 更新用户禁用状态
+ */
+declare type UserEnable = {
+  id: string
+  enable: boolean
+}

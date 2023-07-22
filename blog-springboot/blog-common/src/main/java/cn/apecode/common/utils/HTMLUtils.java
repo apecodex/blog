@@ -1,6 +1,7 @@
 package cn.apecode.common.utils;
 
 import com.github.houbb.sensitive.word.bs.SensitiveWordBs;
+import com.github.houbb.sensitive.word.support.allow.WordAllows;
 
 /**
  * @description: HTML、敏感词工具类
@@ -19,7 +20,9 @@ public class HTMLUtils {
             .enableNumCheck(false)
             .enableEmailCheck(false)
             .enableUrlCheck(false)
+            .wordAllow(WordAllows.system())
             .init();
+
 
     /**
      * @description: 过滤敏感词

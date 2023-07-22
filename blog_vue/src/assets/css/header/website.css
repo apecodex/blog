@@ -1,0 +1,141 @@
+/* 网站设置 */
+.website-setting {
+  @apply '-left-100px';
+  border-radius: 0 16px 6px 0;
+  transition: left .6s ease, var(--theme-transition);
+}
+
+.website-chat-btn {
+  @apply '-right-100px';
+  transition: right .6s ease, var(--theme-transition), var(--theme-transition-shadow);
+  border-radius: 20%;
+  border-top-left-radius: 16px;
+  border-bottom-right-radius: 28px;
+}
+
+.website-chat-btn:hover {
+  box-shadow: var(--theme-shadow-inset-reverse) !important;
+}
+
+.effect1config {
+  @apply 'w-50px h-50px -top-48px -left-5px absolute fill-$theme-bg2';
+  transform: rotate(176deg);
+  transition: var(--theme-transition-fill)
+}
+
+.effect1config.normal {
+  @apply 'relative -left-12px top-3px';
+  transform: rotate(176deg);
+}
+
+.effect1config.invert {
+  @apply 'relative -left-12px -top-3px';
+  transform: rotate(-86deg);
+  bottom: 0;
+}
+
+.website-side-wrapper {
+  transition: left .3s ease-in-out, var(--theme-transition);
+}
+
+.website-side-wrapper::after {
+  @apply 'w-full h-30px -bottom-20px absolute';
+  content: "";
+}
+
+.setting-icon:hover~.website-side-wrapper,
+.website-side-wrapper:hover {
+  @apply 'left-0';
+}
+
+.website-side-wrapper ul li.setting-item div {
+  transition: var(--theme-transition-shadow), var(--theme-transition);
+}
+
+.website-side-wrapper ul li.setting-item div:hover {
+  @apply 'bg-$text-color text-$text-color-reverse';
+}
+
+/* 提示 */
+.setting-item .setting-tips {
+  transition: left .1s ease-in-out;
+}
+
+.website-chat-btn .chatroom-btn-tips {
+  transition: right .1s ease-in-out;
+}
+
+.setting-item .setting-tips::before,
+.website-chat-btn .chatroom-btn-tips::before {
+  @apply 'absolute top-1/2';
+  content: "";
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transform: translateY(-50%);
+}
+
+.setting-item .setting-tips::before {
+  @apply '-left-19px';
+  border-left: 10px solid transparent;
+  border-right: 10px solid var(--text-color);
+
+}
+
+.website-chat-btn .chatroom-btn-tips::before {
+  @apply '-right-19px';
+  border-left: 10px solid var(--text-color);
+  border-right: 10px solid transparent;
+}
+
+.setting-item:hover .setting-tips,
+.website-chat-btn:hover .chatroom-btn-tips {
+  animation: justshake 0.5s forwards;
+}
+
+.setting-item:hover .setting-tips {
+  @apply 'left-60px';
+}
+
+.website-chat-btn:hover .chatroom-btn-tips {
+  @apply 'right-70px';
+}
+
+.theme-slider:before {
+  @apply 'absolute h-1.4em w-1.4em rounded-1/2 bg-$heme-bg';
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  left: 10%;
+  bottom: 15%;
+  box-shadow: inset 8px -4px 0 0 #fff000;
+  transition: .5s;
+}
+
+.theme-checkbox:checked+.theme-slider {
+  @apply 'bg-$theme-bg';
+}
+
+.theme-checkbox:checked+.theme-slider:before {
+  transform: translateX(100%);
+  box-shadow: inset 15px -4px 0 15px #fff000;
+}
+
+
+.website-setting.website-fixed {
+  @apply 'left-0';
+}
+
+.website-chat-btn.website-fixed {
+  @apply 'right-10px';
+}
+
+/* 到达顶部时隐藏 */
+.website-setting.website-sticky {
+  @apply '-left-full';
+}
+
+.website-chat-btn.website-sticky {
+  @apply 'right-10px';
+}

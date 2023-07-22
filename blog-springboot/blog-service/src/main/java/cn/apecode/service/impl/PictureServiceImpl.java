@@ -1,15 +1,12 @@
 package cn.apecode.service.impl;
 
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.common.enums.FilePathEnum;
 import cn.apecode.common.exception.BizException;
 import cn.apecode.common.utils.BeanCopyUtils;
 import cn.apecode.common.utils.CommonUtils;
 import cn.apecode.common.utils.SecurityUtils;
-import cn.apecode.dto.PhotoAlbumInfoDto;
-import cn.apecode.dto.PictureBackDto;
-import cn.apecode.dto.PictureFrontDto;
-import cn.apecode.dto.UploadFileInfoDto;
+import cn.apecode.dto.*;
 import cn.apecode.entity.PhotoAlbum;
 import cn.apecode.entity.Picture;
 import cn.apecode.mapper.PhotoAlbumMapper;
@@ -24,6 +21,8 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -69,7 +71,10 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture> impl
         if (Objects.isNull(albumId)) throw new BizException("相册id有误");
         Page<Picture> page = new Page<>(PageUtils.getCurrent(), PageUtils.getSize());
         IPage<PictureBackDto> pictureBackDtoIPage = pictureMapper.listPictureByPhotoAlbumId(page, albumId);
-        pictureBackDtoIPage.getRecords().stream().peek(picture -> picture.setId(SecurityUtils.encrypt(String.valueOf(picture.getId())))).collect(Collectors.toList());
+        pictureBackDtoIPage.getRecords().stream().peek(picture -> {
+            picture.setId(SecurityUtils.encrypt(String.valueOf(picture.getId())));
+            picture.setAlbumId(SecurityUtils.encrypt(String.valueOf(picture.getAlbumId())));
+        }).collect(Collectors.toList());
         return new PageResult<>(pictureBackDtoIPage.getRecords(), (int) pictureBackDtoIPage.getTotal());
     }
 
@@ -147,7 +152,34 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture> impl
             if (Objects.isNull(pictureId)) throw new BizException("图片id有误");
             return pictureId;
         }).collect(Collectors.toList());
+        // 先拿到所以待删除的图片
+        List<Picture> pictureList = pictureMapper.selectBatchIds(ids);
+        // 删除图片
         pictureMapper.deleteBatchIds(ids);
+        // 拿到已删除图片的相册id
+        Set<Integer> albumIds = pictureList.stream().map(Picture::getAlbumId).collect(Collectors.toSet());
+        List<Picture> existAlbums = pictureMapper.selectBatchAlbumIds(albumIds);
+        List<Integer> deleteAfterPicture = existAlbums.stream().map(Picture::getAlbumId).collect(Collectors.toList());
+        // 删除图片之后已经没有图片的相册
+        List<Integer> inExistentAlbums = differenceSets(albumIds, deleteAfterPicture);
+        if (!inExistentAlbums.isEmpty()) {
+            // 删除相册
+            photoAlbumMapper.deleteBatchIds(inExistentAlbums);
+        }
+    }
+
+    /**
+     * @description: 差集
+     * List1中有的但是List2中没有
+     * @param list1
+     * @param list2
+     * @return {@link List<Integer>}
+     * @auther apecode
+     * @date 2023/7/22 21:01
+    */
+    private List<Integer> differenceSets(Set<Integer> list1, List<Integer> list2) {
+        Map<Integer, Integer> tempMap = list2.parallelStream().collect(Collectors.toMap(Function.identity(), Function.identity(), (oldData, newData) -> newData));
+        return list1.parallelStream().filter(item -> !tempMap.containsKey(item)).collect(Collectors.toList());
     }
 
     /**
@@ -260,7 +292,10 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper, Picture> impl
     public PageResult<PictureBackDto> listDeletePicture() {
         Page<Picture> page = new Page<>(PageUtils.getCurrent(), PageUtils.getSize());
         IPage<PictureBackDto> pictureBackDtoIPage = pictureMapper.listDeletePicture(page);
-        pictureBackDtoIPage.getRecords().stream().peek(picture -> picture.setId(SecurityUtils.encrypt(String.valueOf(picture.getId())))).collect(Collectors.toList());
+        pictureBackDtoIPage.getRecords().stream().peek(picture -> {
+            picture.setId(SecurityUtils.encrypt(String.valueOf(picture.getId())));
+            picture.setAlbumId(SecurityUtils.encrypt(String.valueOf(picture.getAlbumId())));
+        }).collect(Collectors.toList());
         return new PageResult<>(pictureBackDtoIPage.getRecords(), (int) pictureBackDtoIPage.getTotal());
     }
 

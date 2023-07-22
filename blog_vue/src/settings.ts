@@ -18,7 +18,7 @@ export interface SettingConfig {
 
 export default {
     globalTheme: 'darkTheme',
-    previewTheme: 'github',
+    previewTheme: 'cyanosis',
     codeTheme: 'github',
     showCodeRowNumber: true,
     loginFlag: false,

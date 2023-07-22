@@ -12,7 +12,7 @@ import cn.apecode.entity.RoleMenu;
 import cn.apecode.mapper.MenuMapper;
 import cn.apecode.mapper.RoleMenuMapper;
 import cn.apecode.service.MenuService;
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.vo.MenuVo;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;

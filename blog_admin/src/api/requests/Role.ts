@@ -4,9 +4,9 @@ import request from "~/api/service";
  * 获取角色选项
  */
 export function getRoleOptions(): Promise<ResultObject<Array<roleOptionModel>>> {
-    return request.get({
-        url: '/admin/user/roles'
-    })
+  return request.get({
+    url: '/admin/user/roles'
+  })
 }
 
 /**
@@ -14,10 +14,10 @@ export function getRoleOptions(): Promise<ResultObject<Array<roleOptionModel>>> 
  * @param condition
  */
 export function listRole(condition: ConditionParams): Promise<PageResult<Array<RoleBackModel>>> {
-    return request.get({
-        url: '/admin/roles',
-        params: condition
-    })
+  return request.get({
+    url: '/admin/roles',
+    params: condition
+  })
 }
 
 /**
@@ -25,19 +25,19 @@ export function listRole(condition: ConditionParams): Promise<PageResult<Array<R
  * @param data
  */
 export function saveOrUpdateRole(data: RoleParams): Promise<ResultObject<null>> {
-    return request.post({
-        url: '/admin/role',
-        data
-    })
+  return request.post({
+    url: '/admin/role',
+    data
+  })
 }
 
 /**
  * 删除角色
  * @param data
  */
-export function deleteRole(data: FormData): Promise<ResultObject<null>> {
-    return request.delete({
-        url: '/admin/role',
-        data
-    })
+export function deleteRole(data: string): Promise<ResultObject<null>> {
+  return request.delete({
+    url: '/admin/role',
+    data
+  })
 }

@@ -72,6 +72,7 @@ spring:
         enabled: true
     path match:
       matching-strategy: ant_path_matcher
+    log-resolved-exception: false
 
   redis:
     host: redis

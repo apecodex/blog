@@ -90,4 +90,8 @@ public class WebsiteConfigVo {
 
     @ApiModelProperty(name = "isMusicPlayer", value = "是否自动播放音乐", required = true, dataType = "Boolean")
     private Boolean isAutoPlayer;
+
+    @ApiModelProperty(name = "chatRoomNotice", value = "聊天室公告", required = true, dataType = "String")
+    private String chatRoomNotice;
+
 }

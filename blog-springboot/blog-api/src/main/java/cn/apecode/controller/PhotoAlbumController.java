@@ -48,7 +48,7 @@ public class PhotoAlbumController {
     @OptLog(optType = SAVE)
     @ApiOperation(value = "添加相册", httpMethod = "POST")
     @PostMapping("/admin/album")
-    public ResponseCode<?> savePhotoAlbum(@Validated PhotoAlbumVo photoAlbum) {
+    public ResponseCode<?> savePhotoAlbum(@Validated @RequestBody PhotoAlbumVo photoAlbum) {
         photoAlbumService.savePhotoAlbum(photoAlbum);
         return ResponseCode.ok("添加成功");
     }
@@ -77,7 +77,7 @@ public class PhotoAlbumController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改相册", httpMethod = "PUT")
     @PutMapping("/admin/album")
-    public ResponseCode<?> updatePhotoAlbum(@Validated PhotoAlbumVo photoAlbum) {
+    public ResponseCode<?> updatePhotoAlbum(@Validated @RequestBody PhotoAlbumVo photoAlbum) {
         photoAlbumService.updatePhotoAlbum(photoAlbum);
         return ResponseCode.ok("修改成功");
     }

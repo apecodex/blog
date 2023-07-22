@@ -1,7 +1,6 @@
-package cn.apecode.utils;
+package cn.apecode.common.utils;
 
-import cn.apecode.common.utils.SecurityUtils;
-import cn.apecode.dto.IpSourceDto;
+import cn.apecode.common.dto.IpSourceDto;
 import com.alibaba.fastjson.JSON;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.commons.lang3.StringUtils;

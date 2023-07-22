@@ -1,22 +1,22 @@
 <script setup lang='ts'>
 import Modal from "@/components/modal/Modal.vue";
-import {useSettingStore, useUserInfoStore} from "@/store"
-import {storeToRefs} from "pinia";
-import {saveOrUpdateFriendLink} from "@/api/requests/FriendLink";
-import {notify} from "@kyvg/vue3-notification";
+import { useSettingStore, useUserInfoStore } from "@/store"
+import { storeToRefs } from "pinia";
+import { saveOrUpdateFriendLink } from "@/api/requests/FriendLink";
+import { notify } from "@kyvg/vue3-notification";
 import {
   lockBtn,
   friendLinkForm,
   clearFriendLinkForm,
   checkFriendLinkForm
 } from "./FriendLinkHooks"
-import {StatusCode} from "@/api/enum/StatusCode";
+import { StatusCode } from "@/api/enum/StatusCode";
 
 const settingStore = useSettingStore();
-const {friendLinkFlag} = storeToRefs(settingStore);
+const { friendLinkFlag } = storeToRefs(settingStore);
 
 const userInfoStore = useUserInfoStore();
-const {loadingFlag, loginFlag} = storeToRefs(settingStore);
+const { loadingFlag, loginFlag } = storeToRefs(settingStore);
 
 const closeModal = () => {
   settingStore.closeModal();
@@ -35,18 +35,18 @@ const saveOrUpdateFriendLinkHandle = async (event: SubmitEvent) => {
     return;
   }
   if (checkFriendLinkForm) {
-    const form = new FormData()
-    form.append("id", friendLinkForm.id as string);
-    form.append("linkAvatar", friendLinkForm.linkAvatar as string);
-    form.append("linkIntro", friendLinkForm.linkIntro as string);
-    form.append("linkName", friendLinkForm.linkName as string);
-    form.append("linkUrl", friendLinkForm.linkUrl as string);
     lockBtn.value = true;
     notify({
       text: "正在提交申请...",
     });
     loadingFlag.value = true;
-    await saveOrUpdateFriendLink(form).then((resp: ResultObject<null>) => {
+    await saveOrUpdateFriendLink({
+      id: friendLinkForm.id,
+      linkAvatar: friendLinkForm.linkAvatar,
+      linkIntro: friendLinkForm.linkIntro,
+      linkName: friendLinkForm.linkName,
+      linkUrl: friendLinkForm.linkUrl,
+    }).then((resp: ResultObject<null>) => {
       if (resp.status) {
         notify({
           text: "申请成功，审核结果会尽快返回给你，请留意哦~",
@@ -98,7 +98,7 @@ const saveOrUpdateFriendLinkHandle = async (event: SubmitEvent) => {
       </div>
       <div class="submit-btn mt-10px flex justify-center items-center">
         <button type="submit" class="py-4px px-15px mt-5px text-16px rounded-6px shadow"
-                :class="{'!cursor-not-allowed': checkFriendLinkForm}" :disabled="checkFriendLinkForm">申 请
+          :class="{ '!cursor-not-allowed': checkFriendLinkForm }" :disabled="checkFriendLinkForm">申 请
         </button>
       </div>
     </form>
@@ -119,12 +119,11 @@ const saveOrUpdateFriendLinkHandle = async (event: SubmitEvent) => {
   animation: justshake 0.3s forwards;
 }
 
-.submit-btn > button {
+.submit-btn>button {
   transition: var(--theme-transition), var(--theme-transition-shadow);
 }
 
-.submit-btn > button:hover {
+.submit-btn>button:hover {
   @apply 'bg-$theme-bg-reverse text-$text-color-reverse';
 }
-
 </style>

@@ -7,4 +7,3 @@ declare module '*.vue' {
 }
 
 declare module 'canvas-confetti'
-declare module 'vue-live2d'

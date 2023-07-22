@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import type {NavigationGuardNext, RouteLocationNormalized, Router} from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized, Router } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import { constantRoutes } from './routes'
 import { useMenuStore, useUserInfoStore } from '~/store'
@@ -71,8 +71,14 @@ export function setupRouterGuard(router: Router) {
     }
   })
 
-  router.afterEach( (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-    (document as any).title = to.meta.title || "Blog Admin";
+  router.afterEach((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    document.title = to.meta.title as string || "加载中~";
+    window.onblur = () => {
+      document.title = "(๑´0`๑)不要走太远哦~"
+    }
+    window.onfocus = () => {
+      document.title = to.meta.title as string;
+    }
     (<any>window).$loadingBar.finish();
   })
 

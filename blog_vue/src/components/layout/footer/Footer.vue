@@ -13,10 +13,10 @@ const {websiteInfo} = storeToRefs(websiteInfoStore)
     <div class="mb-10px">Copyright © {{ new Date(websiteInfo?.websiteCreateTime * 1000).getFullYear() }} - 至今 | By <a href="https://github.com/apecodex">apecode.</a></div>
     <div class="flex w-full justify-center items-center <sm:(flex-col items-center)">
       <div>
-        <a target="_blank" href="#"
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=53060202000215"
            class="flex items-center">
           <img src="@/assets/imgs/public_security_record.png"/>
-          <p class="ml-2px text-12px">公安备案</p></a>
+          <p class="ml-2px text-12px">滇公网安备 53060202000215号</p></a>
       </div>
       <div class="ml-10px">
         <a href="https://beian.miit.gov.cn" target="_blank" class="outline-none">

@@ -66,6 +66,7 @@
     <!-- 获取回收站图片 -->
     <select id="listDeletePicture" resultMap="PictureBackDto">
         select tp.id,
+               tp.albumId,
                pictureName,
                pictureSrc,
                width,
@@ -82,6 +83,16 @@
         from t_picture tp
                  left join t_user_info tui on tui.id = tp.userId
         where tp.isDelete = 1
+    </select>
+    <!-- 批量通过相册id获取图片 -->
+    <select id="selectBatchAlbumIds" resultType="cn.apecode.entity.Picture">
+        SELECT * FROM t_picture
+        <where>
+            <foreach collection="albumIds" item="albumId" open="AND albumId IN (" separator="," close=")">
+                #{albumId}
+            </foreach>
+        </where>
+        GROUP BY albumId;
     </select>
 
 </mapper>

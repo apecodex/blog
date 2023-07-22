@@ -11,21 +11,41 @@ import {
   Info
 } from '@icon-park/vue-next'
 import BoxComponent from '@/components/BoxComponent.vue'
-import {onMounted, ref} from "vue";
-import {handlerDateDurationCurrent, parseComment} from "@/utils/utils";
-import {useWebsiteInfoStore} from '@/store'
-import {storeToRefs} from "pinia";
-import {loadingImg} from "@/constant"
+import { nextTick, onMounted, ref } from "vue";
+import { handlerDateDurationCurrent, parseComment } from "@/utils/utils";
+import { useWebsiteInfoStore } from '@/store'
+import { storeToRefs } from "pinia";
+import { getOnlineCount } from '@/api/requests/SystemInfo'
+import { notify } from '@kyvg/vue3-notification';
 
 const websiteInfoStore = useWebsiteInfoStore()
-const {websiteInfo} = storeToRefs(websiteInfoStore)
+const { websiteInfo, onlineCount } = storeToRefs(websiteInfoStore)
 
+// 网站运行时间
 const timer = ref("")
 onMounted(() => {
   setInterval(() => {
     timer.value = handlerDateDurationCurrent(parseInt(websiteInfo.value?.websiteCreateTime as string));
   }, 1000)
+  // 获取在线人数
+  nextTick(async () => {
+    if (onlineCount.value === 0) {
+      await getOnlineCount().then((resp: ResultObject<number>) => {
+        if (resp.status) {
+          onlineCount.value = resp.data;
+        }
+      }).catch(() => {
+        notify({
+          text: '在线人数获取失败，请重试',
+          type: 'warm'
+        })
+      })
+    }
+  })
+
 })
+
+
 
 </script>
 
@@ -36,59 +56,72 @@ onMounted(() => {
       <hr class="hr-edge-weak">
     </div>
     <div class="w-150px h-150px shadow rounded-full flex justify-center items-center mt-5px shake"
-         style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
+      style="transition: var(--theme-transition-bg), var(--theme-transition-shadow)">
       <div class="w-140px h-140px shadow-inset rounded-full flex justify-center items-center"
-           style="box-shadow: var(--theme-transition-bg)">
+        style="box-shadow: var(--theme-transition-bg)">
         <div class="w-126px h-126px ">
-          <img class="avatar rounded-full w-full h-full"
-               :src="websiteInfo?.websiteAvatar" alt="">
+          <img class="avatar rounded-full w-full h-full" :src="websiteInfo?.websiteAvatar" alt="">
         </div>
       </div>
     </div>
     <div class="w-full flex justify-evenly">
-          <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
-            <span class="flex items-center gap-3px"><Book/>文章</span>
-            <span>{{ websiteInfo?.articleCount}}</span>
-          </span>
       <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
-            <span class="flex items-center gap-3px"><CategoryManagement/>分类</span>
-            <span>{{ websiteInfo?.categoryCount }}</span>
-          </span>
+        <span class="flex items-center gap-3px">
+          <Book />文章
+        </span>
+        <span>{{ websiteInfo?.articleCount }}</span>
+      </span>
       <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
-            <span class="flex items-center gap-3px"><Bookmark/>标签</span>
-            <span>{{websiteInfo?.tagCount}}</span>
-          </span>
+        <span class="flex items-center gap-3px">
+          <CategoryManagement />分类
+        </span>
+        <span>{{ websiteInfo?.categoryCount }}</span>
+      </span>
+      <span class="flex flex-col justify-center items-center rounded-6px p-3px shadow">
+        <span class="flex items-center gap-3px">
+          <Bookmark />标签
+        </span>
+        <span>{{ websiteInfo?.tagCount }}</span>
+      </span>
     </div>
     <div class="mb-15px break-all px-15px flex justify-center">
-      <p class="whitespace-pre-line break-all" v-html="parseComment(websiteInfo?.websiteIntro, '20', '20')"></p>
+      <p class="whitespace-pre-line break-all" v-html="parseComment(websiteInfo?.websiteIntro as string, '20', '20')"></p>
     </div>
   </BoxComponent>
   <BoxComponent class="info-content-item px-10px py-5px">
-    <span class="text-16px flex items-center gap-8px"><MessageEmoji size="20"/>社交</span>
+    <span class="text-16px flex items-center gap-8px">
+      <MessageEmoji size="20" />社交
+    </span>
     <div class="social-contact relative flex justify-center gap-12px mt-10px mb-5px">
-          <span :data-attr="websiteInfo?.wechat" class="social-contact-wechat w-35px h-35px rounded-full flex justify-center items-center shadow">
-              <Wechat size="24"/>
-          </span>
+      <span :data-attr="websiteInfo?.wechat"
+        class="social-contact-wechat w-35px h-35px rounded-full flex justify-center items-center shadow">
+        <Wechat size="24" />
+      </span>
       <span class="w-35px h-35px rounded-full flex justify-center items-center shadow">
-            <a :href="`https://wpa.qq.com/msgrd?v=3&uin=${1473018671}&site=qq&menu=yes`" target="_blank">
-              <TencentQq size="24"/>
-            </a>
-          </span>
+        <a :href="`https://wpa.qq.com/msgrd?v=3&uin=${1473018671}&site=qq&menu=yes`" target="_blank">
+          <TencentQq size="24" />
+        </a>
+      </span>
       <span class="w-35px h-35px rounded-full flex justify-center items-center shadow">
-            <a href="https://github.com/apecodex" target="_blank">
-              <Github size="24"/>
-            </a>
-          </span>
+        <a href="https://github.com/apecodex" target="_blank">
+          <Github size="24" />
+        </a>
+      </span>
     </div>
   </BoxComponent>
   <BoxComponent class="info-content-item px-10px py-5px">
-    <span class="text-16px flex items-center gap-8px"><Announcement size="20"/>公告</span>
+    <span class="text-16px flex items-center gap-8px">
+      <Announcement size="20" />公告
+    </span>
     <div class="my-5px">
-      <p class="whitespace-pre-line break-all" v-html="parseComment(websiteInfo?.websiteNotice, '20', '20')"></p>
+      <p class="whitespace-pre-line break-all" v-html="parseComment(websiteInfo?.websiteNotice as string, '20', '20')">
+      </p>
     </div>
   </BoxComponent>
   <BoxComponent class="info-content-item px-10px py-5px">
-    <span class="text-16px flex items-center gap-8px"><Info size="20"/>网站资讯</span>
+    <span class="text-16px flex items-center gap-8px">
+      <Info size="20" />网站资讯
+    </span>
     <div class="my-5px flex flex-col gap-5px">
       <p class="break-all flex justify-between">
         <span>已运行：</span>
@@ -102,31 +135,34 @@ onMounted(() => {
         <span>本站总访问量：</span>
         <span>{{ websiteInfo?.onlyViewCount }}</span>
       </p>
+      <p class="break-all flex justify-between">
+        <span>在线人数：</span>
+        <span>{{ onlineCount }}</span>
+      </p>
     </div>
   </BoxComponent>
 </template>
 
 <style scoped>
-
 .info-content-item {
   animation: flipInX 1s ease-in;
 }
 
-.author-name > span:after {
+.author-name>span:after {
   content: "✿";
   padding-left: 8px;
 }
 
-.author-name > span:before {
+.author-name>span:before {
   content: "✿";
   padding-right: 8px;
 }
 
-.blog-info:hover .author-name > span:after {
+.blog-info:hover .author-name>span:after {
   color: var(--hover-color);
 }
 
-.blog-info:hover .author-name > span:before {
+.blog-info:hover .author-name>span:before {
   color: var(--hover-color);
 }
 

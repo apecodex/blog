@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import {tableSize, tableSet} from "~/components/common/dataTable";
+import { tableSize, tableSet } from "~/components/common/dataTable";
 
 import {
   columns,
@@ -22,18 +22,18 @@ import {
 import {
   NSpace,
   NInputGroup,
-    NInput,
-    NButton,
-    NDataTable,
-    NModal,
-    NSpin,
-    NCheckbox
+  NInput,
+  NButton,
+  NDataTable,
+  NModal,
+  NSpin,
+  NCheckbox
 } from "naive-ui";
 import DataTableSetting from "~/components/common/dataTable/DataTableSetting.vue"
-import {onMounted} from "vue";
+import { onMounted } from "vue";
 
 onMounted(() => {
-  createUsersData({current: 1})
+  createUsersData({ current: 1 })
 })
 
 </script>
@@ -42,26 +42,15 @@ onMounted(() => {
   <n-space vertical>
     <n-space justify="space-between">
       <n-input-group>
-        <n-input placeholder="用户昵称/邮箱" clearable size="small" v-model:value="searchData.keywords"/>
+        <n-input placeholder="用户昵称/邮箱" clearable size="small" v-model:value="searchData.keywords" />
         <n-button type="primary" size="small" ghost @click="searchUserHandle">搜索</n-button>
       </n-input-group>
-      <data-table-setting/>
+      <data-table-setting />
     </n-space>
-    <n-data-table
-        id="userList-scroll-container"
-        :columns="columns"
-        :data="usersData"
-        :striped="tableSet.striped"
-        :single-line="tableSet.singleLine"
-        :scroll-x="2690"
-        remote
-        :loading="loading"
-        :pagination="pagination"
-        :single-column="tableSet.singleColumn"
-        :row-key="(row: usersData) => row.id"
-        :size="tableSize"
-        @update:page="handlePageChange"
-    />
+    <n-data-table id="userList-scroll-container" :columns="columns" :data="usersData" :striped="tableSet.striped"
+      :single-line="tableSet.singleLine" :scroll-x="2690" remote :loading="loading" :pagination="pagination"
+      :single-column="tableSet.singleColumn" :row-key="(row: usersData) => row.id" :size="tableSize"
+      @update:page="handlePageChange" />
     <n-modal v-model:show="showMapModal">
       <div id="LastLoginMap" class="w-500px h-500px rounded-8px"></div>
     </n-modal>
@@ -89,11 +78,11 @@ onMounted(() => {
       <n-space vertical>
         <div>
           <span>通知标题</span>
-          <n-input v-model:value="sendNoticeForm.title" type="text" placeholder="标题"/>
+          <n-input v-model:value="sendNoticeForm.title" type="text" placeholder="标题" />
         </div>
         <div>
           <span>通知内容</span>
-          <n-input v-model:value="sendNoticeForm.content" type="text" placeholder="通知内容"/>
+          <n-input v-model:value="sendNoticeForm.content" type="text" placeholder="通知内容" />
         </div>
       </n-space>
       <template #action>
@@ -105,5 +94,4 @@ onMounted(() => {
   </n-space>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

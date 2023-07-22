@@ -48,7 +48,7 @@ public class MenuController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新菜单", httpMethod = "POST")
     @PostMapping("/admin/menu")
-    public ResponseCode<?> saveOrUpdateMenu(@Validated MenuVo menu) {
+    public ResponseCode<?> saveOrUpdateMenu(@Validated @RequestBody MenuVo menu) {
         menuService.saveOrUpdateMenu(menu);
         return ResponseCode.ok("保存成功");
     }

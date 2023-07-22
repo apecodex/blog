@@ -1,8 +1,8 @@
 package cn.apecode.service.impl;
 
 import cn.apecode.service.RedisService;
-import cn.apecode.utils.IpUtils;
-import cn.apecode.utils.UserUtils;
+import cn.apecode.common.utils.IpUtils;
+import cn.apecode.common.utils.UserUtils;
 import cn.apecode.common.exception.BizException;
 import cn.apecode.common.utils.BeanCopyUtils;
 import cn.apecode.common.utils.CommonUtils;
