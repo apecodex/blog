@@ -57,6 +57,7 @@
 * sensitive-word
 * anji-plus
 * knife4j（Swagger3）
+* WebSocket
 
 ### 前端
 
@@ -71,6 +72,7 @@
 - md-editor-v3
 - icon-park/vue-next
 - @kyvg/vue3-notification
+- sockjs-client
 
 #### 后台
 
@@ -120,6 +122,7 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 * 后端多模块设计，方便后期升级维护。
 * 日志拆分记录，快速定位问题。
 * 支持https配置
+* 即时聊天室
 
 ## 目录结构
 

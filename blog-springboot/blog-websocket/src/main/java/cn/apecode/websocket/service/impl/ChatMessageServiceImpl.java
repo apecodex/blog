@@ -11,6 +11,7 @@ import cn.apecode.websocket.pojo.VisitorUser;
 import cn.apecode.websocket.service.ChatMessageService;
 import com.alibaba.fastjson.JSON;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -95,10 +96,12 @@ public class ChatMessageServiceImpl implements ChatMessageService {
      */
     @Override
     public void sendChatMessage(String message, Principal user) {
-        ChatMessage<ResponseCode<String>> chatMessage = getUserInfo(user);
-        chatMessage.setType(ChatMessageTypeEnum.CHAT);
-        chatMessage.setData(ResponseCode.ok(message));
-        messagingTemplate.convertAndSend("/public/chat", JSON.toJSONString(chatMessage));
+        if (StringUtils.isNotBlank(message)) {
+            ChatMessage<ResponseCode<String>> chatMessage = getUserInfo(user);
+            chatMessage.setType(ChatMessageTypeEnum.CHAT);
+            chatMessage.setData(ResponseCode.ok(message));
+            messagingTemplate.convertAndSend("/public/chat", JSON.toJSONString(chatMessage));
+        }
     }
 
     /**

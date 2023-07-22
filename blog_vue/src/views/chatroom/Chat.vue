@@ -25,7 +25,9 @@ let publicChatSub: StompSubscription | null;
 
 // 发送聊天内容
 const sendMessage = ({ commentText }: any) => {
-  socket.send("/sendChatMessage", commentText.value)
+  if (commentText.value.trim().length !== 0) {
+    socket.send("/sendChatMessage", commentText.value)
+  }
   commentText.value = "";
 }
 
