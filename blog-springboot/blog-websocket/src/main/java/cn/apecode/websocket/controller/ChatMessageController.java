@@ -9,7 +9,6 @@ import cn.apecode.websocket.utils.VisitorUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -40,7 +39,7 @@ public class ChatMessageController {
      * @auther apecode
      * @date 2023/7/21 11:55
     */
-    @GetMapping(value = "/getChatVisitorInfo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getChatVisitorInfo")
     @ApiOperation(value = "获取聊天室游客信息", httpMethod = "GET")
     public ResponseCode<VisitorUser> getVisitorInfo(HttpServletRequest request) {
         VisitorUser visitorUser = VisitorUtils.getVisitorUserInfo(request);
@@ -84,7 +83,7 @@ public class ChatMessageController {
      * @auther apecode
      * @date 2023/7/21 0:35
     */
-    @GetMapping(value = "/getOnlineUserList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getOnlineUserList")
     @ApiOperation(value = "获取在线用户列表", httpMethod = "GET")
     public ResponseCode<List<OnlineUser>> getOnlineUserList() {
         List<OnlineUser> onlineUserList = chatMessageService.getOnlineUserList();

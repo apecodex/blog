@@ -4,12 +4,14 @@ import cn.apecode.common.utils.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.validation.BindException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Objects;
 
 import static cn.apecode.common.enums.StatusCodeEnum.SERVER_ERROR;
+import static cn.apecode.common.enums.StatusCodeEnum.BAD_REQUEST;
 
 /**
  * @description: 全局异常处理
@@ -60,15 +62,29 @@ public class GlobalException {
     }
 
     /**
-     * @description: 客户端已经断开连接
      * @param e
      * @return {@link ResponseCode<?>}
+     * @description: 客户端已经断开连接
      * @auther apecode
      * @date 2023/7/22 13:54
-    */
+     */
     @ExceptionHandler(value = ClientAbortException.class)
     public ResponseCode<?> handlerClientAbortException(Exception e) {
         log.warn("in clientAbortException");
         return null;
     }
+
+    /**
+     * @description: 请求方式错误
+     * @param e
+     * @return {@link ResponseCode<?>}
+     * @auther apecode
+     * @date 2023/7/25 16:51
+    */
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public ResponseCode<?> methodNotSupportErrorHandler(Exception e) {
+        log.error("请求方式有误：{}", e.getMessage());
+        return ResponseCode.customize(false, BAD_REQUEST);
+    }
+
 }

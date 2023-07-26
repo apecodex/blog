@@ -26,7 +26,8 @@ public enum StatusCodeEnum {
     ACCESS_LIMIT(1011, "请求过于频繁，请稍后再试"),
     QQ_LOGIN_ERROR(1012, "QQ登录错误"),
     PAGE_NOT_FOUND(404, "页面不存在"),
-    SERVER_ERROR(500, "服务器错误");
+    SERVER_ERROR(500, "服务器错误"),
+    BAD_REQUEST(400, "请求错误");
 
     /*
     * 状态码

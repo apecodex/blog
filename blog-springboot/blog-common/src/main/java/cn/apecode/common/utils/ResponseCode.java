@@ -1,7 +1,11 @@
 package cn.apecode.common.utils;
 
 import cn.apecode.common.enums.StatusCodeEnum;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 import static cn.apecode.common.enums.StatusCodeEnum.FAIL;
 import static cn.apecode.common.enums.StatusCodeEnum.SUCCESS;
@@ -13,7 +17,9 @@ import static cn.apecode.common.enums.StatusCodeEnum.SUCCESS;
  * @date: 2022-05-27 00:01
  **/
 @Data
-public class ResponseCode<T> {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResponseCode<T> implements Serializable {
 
     // 状态
     private boolean status;

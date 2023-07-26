@@ -185,21 +185,37 @@ IDEA、WebStorm、HeidiSQL、RDM、XShell、Xftp
 │          │          ├─entity    # 实体类
 │          │          └─vo        # VO
 └─blog-service  # 服务模块
+│   └─src
+│        └─main
+│            ├─java
+│            │  └─cn
+│            │      └─apecode
+│            │          ├─dto         # DTO
+│            │          ├─handler     # 处理器
+│            │          ├─mapper      # mapper
+│            │          ├─schedule    # 定时
+│            │          ├─service     # 服务层
+│            │          │  └─impl     # 服务层实现类
+│            │          ├─strategy    # 策略模式（登录、上传）
+│            │          └─utils       # 工具类
+│            └─resources
+│                └─mapper             # CURD
+└─blog-websocket
     └─src
         └─main
             ├─java
             │  └─cn
             │      └─apecode
-            │          ├─dto         # DTO
-            │          ├─handler     # 处理器
-            │          ├─mapper      # mapper
-            │          ├─schedule    # 定时
-            │          ├─service     # 服务层
-            │          │  └─impl     # 服务层实现类
-            │          ├─strategy    # 策略模式（登录、上传）
-            │          └─utils       # 工具类
+            │          └─websocket
+            │              ├─config
+            │              ├─controller
+            │              ├─enums
+            │              ├─handler
+            │              ├─pojo
+            │              ├─service
+            │              │  └─impl
+            │              └─utils
             └─resources
-                └─mapper             # CURD
 ```
 
 ## 运行环境
