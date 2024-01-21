@@ -3,6 +3,8 @@ package cn.apecode.controller;
 import cn.apecode.common.annotation.AccessLimit;
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.UploadFileInfoDto;
 import cn.apecode.dto.UserInfoFrontDto;
 import cn.apecode.service.UserInfoService;
@@ -36,6 +38,7 @@ public class UserInfoController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改用户角色", httpMethod = "PUT")
     @PutMapping("/admin/user/role")
+    @Decrypt
     public ResponseCode<?> updateUserRole(@Validated @RequestBody UserRoleVo userRole) {
         userInfoService.updateUserRole(userRole);
         return ResponseCode.ok("修改成功");
@@ -58,6 +61,7 @@ public class UserInfoController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "更新用户信息", httpMethod = "PUT")
     @PutMapping("/user/info")
+    @Decrypt
     public ResponseCode<?> updateUserInfo(@Validated @RequestBody UserInfoVo userInfo) {
         userInfoService.updateUserInfo(userInfo);
         return ResponseCode.ok("更新成功");
@@ -65,6 +69,7 @@ public class UserInfoController {
 
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("/user/info")
+    @Encrypt
     public ResponseCode<UserInfoFrontDto> getUserInfo() {
         return ResponseCode.ok(userInfoService.getUserInfo());
     }
@@ -72,6 +77,7 @@ public class UserInfoController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "解绑用户邮箱", httpMethod = "PUT")
     @PutMapping("/user/email/unbind")
+    @Decrypt
     public ResponseCode<String> unbindEmail(@Validated @RequestBody SaveOrUnbindEmailVo unbindEmailVo) {
         return ResponseCode.ok(userInfoService.unbindEmail(unbindEmailVo), "解绑成功");
     }

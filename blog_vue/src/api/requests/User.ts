@@ -18,7 +18,8 @@ export function Login(data: FormData): Promise<ResultObject<UserEntity>> {
 export function register(data: {code: string, email: string, password: string, captchaVerification: string}): Promise<ResultObject<null>> {
     return request.post({
         url: "/register",
-        data
+        data,
+        isEncrypt: true
     })
 }
 
@@ -40,7 +41,8 @@ export function sendEmailCode(email: string): Promise<ResultObject<null>> {
 export function findPassword(data: {code: string, email: string, newPassword: string, captchaVerification: string}): Promise<ResultObject<null>> {
     return request.put({
         url: "/findPassword",
-        data
+        data,
+        isEncrypt: true
     })
 }
 
@@ -63,7 +65,8 @@ export function updateUserAvatar(file: FormData): Promise<ResultObject<UploadFil
  */
 export function getUserInfo(): Promise<ResultObject<UserInfoModel>> {
     return request.get({
-        url: "/user/info"
+        url: "/user/info",
+        isDecrypt: true
     })
 }
 
@@ -74,7 +77,8 @@ export function getUserInfo(): Promise<ResultObject<UserInfoModel>> {
 export function updateUserInfo(data: UserInfoParams): Promise<ResultObject<null>> {
     return request.put({
         url: "/user/info",
-        data
+        data,
+        isEncrypt: true
     })
 }
 
@@ -82,10 +86,11 @@ export function updateUserInfo(data: UserInfoParams): Promise<ResultObject<null>
  * 修改用户密码
  * @param data
  */
-export function updateUserPassword(data: FormData): Promise<ResultObject<null>> {
+export function updateUserPassword(data: UpdatePasswordParams): Promise<ResultObject<null>> {
     return request.put({
         url: "/user/password",
-        data
+        data,
+        isEncrypt: true
     })
 }
 
@@ -137,6 +142,7 @@ export function bindEmail(data: BindOrUnBindEmail): Promise<ResultObject<string>
 export function unbindEmail(data: BindOrUnBindEmail): Promise<ResultObject<string>> {
     return request.put({
         url: "/user/email/unbind",
-        data
+        data,
+        isEncrypt: true
     })
 }

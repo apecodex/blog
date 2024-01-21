@@ -35,7 +35,8 @@ export function removeArticleCover(filePath: string): Promise<ResultObject<null>
 export function saveOrUpdateArticle(articleParams: SaveOrUpdateArticleParams): Promise<ResultObject<null>> {
   return requests.post({
     url: '/admin/article',
-    data: articleParams
+    data: articleParams,
+    isEncrypt: true
   })
 }
 
@@ -46,7 +47,8 @@ export function saveOrUpdateArticle(articleParams: SaveOrUpdateArticleParams): P
  */
 export function getArticleBackByArticleId(articleId: string): Promise<ResultObject<OnlyArticleBackModel>> {
   return requests.get({
-    url: "/admin/article/" + articleId
+    url: "/admin/article/" + articleId,
+    isDecrypt: true
   })
 }
 
@@ -69,7 +71,8 @@ export function updateArticleTop(data: FormData): Promise<ResultObject<null>> {
 export function listArticleBack(conditon: ConditionParams): Promise<PageResult<Array<ArticleBackModel>>> {
   return requests.get({
     url: "/admin/articles",
-    params: conditon
+    params: conditon,
+    isDecrypt: true
   })
 }
 

@@ -27,7 +27,7 @@ const showPasswordActiveClass = ref(false);
 const verify: Ref<HTMLElement | null> = ref<HTMLElement | null>(null) // 滑动验证码
 // 登录表单
 const loginForm: UserLoginParams = reactive({
-  email: "",
+  username: "",
   password: "",
   captchaVerification: ""
 })
@@ -48,14 +48,14 @@ const showPassword = () => {
 
 const closeModal = () => {
   showPasswordActiveClass.value = false
-  loginForm.email = ""
+  loginForm.username = ""
   loginForm.password = ""
   loginForm.captchaVerification = ""
   settingStore.closeModal()
 }
 // 检查是否经输入用户和密码
 const checkFormComp = computed(() => {
-  const emailStatus = loginForm.email.trim().length === 0
+  const emailStatus = loginForm.username.trim().length === 0
   const passwordStatus = loginForm.password.length === 0
   return emailStatus || passwordStatus
 })
@@ -64,7 +64,7 @@ const checkFormComp = computed(() => {
 const loginHandle = (event: SubmitEvent) => {
   event.preventDefault();
   let reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-  if (!reg.test(loginForm.email)) {
+  if (!reg.test(loginForm.username)) {
     notify({
       text: "邮箱格式不正确",
       type: "warn"
@@ -86,7 +86,7 @@ const loginHandle = (event: SubmitEvent) => {
 const verifyHandle = async (verify: { captchaVerification: string }) => {
   loginForm.captchaVerification = verify.captchaVerification
   const form = new FormData()
-  form.append('username', loginForm.email)
+  form.append('username', loginForm.username)
   form.append('password', loginForm.password)
   form.append('captchaVerification', loginForm.captchaVerification)
   notify({
@@ -123,6 +123,9 @@ const verifyHandle = async (verify: { captchaVerification: string }) => {
         text: resp.message,
         type: 'warn'
       })
+      loginForm.username = "";
+      loginForm.password = "";
+      loginForm.captchaVerification = ""
     }
   }).catch(() => {
     notify({
@@ -147,7 +150,7 @@ const qqLoginHandle = () => {
       <div class="w-full rounded-6px h-35px">
         <input
           class="w-full h-full indent-2px outline-none border-none bg-$theme-bg !border-dashed !border-1 border-$theme-bg-reverse px-4px rounded-6px text-16px justshake focus:(border-$hover-color)"
-          type="text" v-model="loginForm.email" placeholder="邮箱号" autocomplete="off"
+          type="text" v-model="loginForm.username" placeholder="邮箱号" autocomplete="off"
           @focusin="showPasswordActiveClass = false">
       </div>
       <div class="w-full">

@@ -5,7 +5,8 @@ import request from "~/api/service";
  */
 export function getRoleOptions(): Promise<ResultObject<Array<roleOptionModel>>> {
   return request.get({
-    url: '/admin/user/roles'
+    url: '/admin/user/roles',
+    isDecrypt: true
   })
 }
 
@@ -16,7 +17,8 @@ export function getRoleOptions(): Promise<ResultObject<Array<roleOptionModel>>> 
 export function listRole(condition: ConditionParams): Promise<PageResult<Array<RoleBackModel>>> {
   return request.get({
     url: '/admin/roles',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -27,7 +29,8 @@ export function listRole(condition: ConditionParams): Promise<PageResult<Array<R
 export function saveOrUpdateRole(data: RoleParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/role',
-    data
+    data,
+    isEncrypt: true
   })
 }
 

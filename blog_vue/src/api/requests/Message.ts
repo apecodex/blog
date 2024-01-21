@@ -7,7 +7,8 @@ import {request} from "@/api/services"
 export function getMessages(condition: ConditionParams): Promise<PageResult<Array<MessageEntity>>> {
     return request.get({
         url: "/messages",
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }
 
@@ -15,9 +16,10 @@ export function getMessages(condition: ConditionParams): Promise<PageResult<Arra
  * 添加留言
  * @param data
  */
-export function saveMessage(data: FormData): Promise<ResultObject<null>> {
+export function saveMessage(data: {content: string, theme: string}): Promise<ResultObject<null>> {
     return request.post({
         url: "/message",
-        data
+        data,
+        isEncrypt: true,
     })
 }

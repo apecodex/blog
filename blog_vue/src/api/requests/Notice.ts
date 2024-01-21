@@ -9,7 +9,8 @@ import {request} from "@/api/services"
 export function getUserNotices(isRead: boolean, {current, size}: ConditionParams): Promise<PageResult<Array<NoticeEntity>>> {
     return request.get({
         url: "/user/notice",
-        params: {isRead, current, size}
+        params: {isRead, current, size},
+        isDecrypt: true
     })
 }
 

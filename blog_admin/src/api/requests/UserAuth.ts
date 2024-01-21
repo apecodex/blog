@@ -19,7 +19,8 @@ export function Login(data: FormData): Promise<ResultObject<UserInfoModel>> {
 export function listUserBack(condition: ConditionParams): Promise<PageResult<Array<UsersBackModel>>> {
   return request.get({
     url: '/admin/users',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -30,7 +31,8 @@ export function listUserBack(condition: ConditionParams): Promise<PageResult<Arr
 export function updateUserDisabledStatus(data: UserEnable): Promise<ResultObject<null>> {
   return request.put({
     url: '/admin/user/enable',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -52,6 +54,7 @@ export function sendEmail(data: { email: string }): Promise<ResultObject<null>> 
 export function updateUserPassword(data: UpdatePassword): Promise<ResultObject<null>> {
   return request.put({
     url: '/user/password',
-    data
+    data,
+    isEncrypt: true
   })
 }

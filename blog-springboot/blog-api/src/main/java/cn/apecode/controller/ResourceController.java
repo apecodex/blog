@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.LabelOptionDto;
 import cn.apecode.dto.ResourceDto;
 import cn.apecode.service.ResourceService;
@@ -35,6 +37,7 @@ public class ResourceController {
 
     @ApiOperation(value = "获取资源列表", httpMethod = "GET")
     @GetMapping(value = "/admin/resources")
+    @Encrypt
     public ResponseCode<List<ResourceDto>> listResource(ConditionVo condition) {
         return ResponseCode.ok(resourceService.listResource(condition));
     }
@@ -42,6 +45,7 @@ public class ResourceController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "新增或修改资源", httpMethod = "POST")
     @PostMapping("/admin/resource")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateResource(@Validated @RequestBody ResourceVo resource) {
         resourceService.saveOrUpdateResource(resource);
         return ResponseCode.ok("保存成功");
@@ -58,6 +62,7 @@ public class ResourceController {
 
     @ApiOperation(value = "获取角色资源选项", httpMethod = "GET")
     @GetMapping("/admin/role/resources")
+    @Encrypt
     public ResponseCode<List<LabelOptionDto>> listResourceOption() {
         return ResponseCode.ok(resourceService.listResourceOption());
     }

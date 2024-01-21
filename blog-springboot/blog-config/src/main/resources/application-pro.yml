@@ -196,3 +196,11 @@ aj:
     req-check-minute-limit: 60
     # verify接口一分钟内请求数限制
     req-verify-minute-limit: 60
+
+# 加解密
+encrypt:
+  rsa:
+    publicKey: 
+    privateKey: 
+  showLog: false # 是否打印加密解密log true or false
+  open: true # 是否开启加密 true or false

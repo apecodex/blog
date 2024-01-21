@@ -3,7 +3,8 @@ import requests from '../service'
 // 获取后台信息
 export function getWebsiteInfoBack(): Promise<ResultObject<WebsiteInfoBackModel>> {
   return requests.get({
-    url: "/admin"
+    url: "/admin",
+    isDecrypt: true
   })
 }
 
@@ -12,7 +13,8 @@ export function getWebsiteInfoBack(): Promise<ResultObject<WebsiteInfoBackModel>
  */
 export function getWebsiteConfigure(): Promise<ResultObject<WebsiteConfigureModel>> {
   return requests.get({
-    url: '/admin/website/config'
+    url: '/admin/website/config',
+    isDecrypt: true
   })
 }
 
@@ -23,7 +25,8 @@ export function getWebsiteConfigure(): Promise<ResultObject<WebsiteConfigureMode
 export function updateWebsiteConfigure(data: WebsiteConfigureModel): Promise<ResultObject<null>> {
   return requests.put({
     url: '/admin/website/config',
-    data
+    data,
+    isEncrypt: true
   })
 }
 

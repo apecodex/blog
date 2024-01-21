@@ -3,6 +3,8 @@ package cn.apecode.controller;
 import cn.apecode.common.annotation.AccessLimit;
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.CommentBackDto;
 import cn.apecode.dto.CommentFrontDto;
 import cn.apecode.dto.ReplyDto;
@@ -39,6 +41,7 @@ public class CommentController {
     @OptLog(optType = COMMENT)
     @ApiOperation(value = "添加评论", httpMethod = "POST")
     @PostMapping("/comment")
+    @Decrypt
     public ResponseCode<?> saveComment(@Validated @RequestBody CommentVo comment) {
         commentService.saveComment(comment);
         return ResponseCode.ok("添加成功");
@@ -48,6 +51,7 @@ public class CommentController {
     @ApiImplicitParams({@ApiImplicitParam(value = "主题id", name = "topicId", required = true, dataTypeClass = String.class),
             @ApiImplicitParam(value = "评论类型", name = "type", required = true, dataTypeClass = Integer.class)})
     @GetMapping("/comments")
+    @Encrypt
     public ResponseCode<PageResult<CommentFrontDto>> listComment(String topicId, Integer type) {
         return ResponseCode.ok(commentService.listComment(topicId, type));
     }
@@ -63,6 +67,7 @@ public class CommentController {
     @ApiOperation(value = "查询评论下的回复", httpMethod = "GET")
     @ApiImplicitParam(value = "评论id", name = "commentId", required = true, dataTypeClass = String.class)
     @GetMapping("/comment/{commentId}/replies")
+    @Encrypt
     public ResponseCode<List<ReplyDto>> listRepliesByCommentId(@PathVariable String commentId) {
         return ResponseCode.ok(commentService.listRepliesByCommentId(commentId));
     }
@@ -85,6 +90,7 @@ public class CommentController {
 
     @ApiOperation(value = "查询后台评论", httpMethod = "GET")
     @GetMapping("/admin/comments")
+    @Encrypt
     public ResponseCode<PageResult<CommentBackDto>> listCommentBack(ConditionVo condition) {
         return ResponseCode.ok(commentService.listCommentBack(condition));
     }

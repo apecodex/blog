@@ -31,11 +31,8 @@ const saveMessageHandle = async () => {
         });
         return;
     }
-    const form: FormData = new FormData()
-    form.append("theme", messageForm.theme)
-    form.append("content", messageForm.content)
     loadingFlag.value = true
-    await saveMessage(form).then((resp: ResultObject<null>) => {
+    await saveMessage({theme: messageForm.theme, content: messageForm.content}).then((resp: ResultObject<null>) => {
         if (resp.status) {
             // 重新请求最新留言
             if (websiteInfo.value?.isMessageReview) {

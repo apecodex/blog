@@ -8,7 +8,8 @@ import request from '../service'
 export function searchArticleCategory(categoryName?: string): Promise<ResultObject<Array<CategorySearchModel>>> {
   return request.get({
     url: "/admin/category/search",
-    params: { keywords: categoryName }
+    params: { keywords: categoryName },
+    isDecrypt: true
   })
 }
 
@@ -19,7 +20,8 @@ export function searchArticleCategory(categoryName?: string): Promise<ResultObje
 export function saveOrUpdateCategory(data: CategoryParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/category',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -30,7 +32,8 @@ export function saveOrUpdateCategory(data: CategoryParams): Promise<ResultObject
 export function listCategoryBack(condition: ConditionParams): Promise<PageResult<Array<CategoryBackModel>>> {
   return request.get({
     url: '/admin/categories',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 

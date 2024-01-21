@@ -69,7 +69,7 @@ public class Knife4jConfig {
                 .groupName("WebSocket接口")
                 // 选择哪些接口作为swagger的doc发布
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.apecode.websocket.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.apecode.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 // 支持的通讯协议集合

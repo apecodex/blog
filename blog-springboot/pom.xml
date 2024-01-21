@@ -19,6 +19,7 @@
         <module>blog-mail</module>
         <module>blog-service</module>
         <module>blog-websocket</module>
+        <module>blog-crypto</module>
     </modules>
 
     <groupId>cn.apecode</groupId>

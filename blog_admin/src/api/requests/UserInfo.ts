@@ -4,10 +4,11 @@ import request from '~/api/service'
  * 修改用户角色
  * @param data
  */
-export function updateUserRole(data: {roleList: Array<string>, userId: string}): Promise<ResultObject<null>> {
+export function updateUserRole(data: { roleList: Array<string>, userId: string }): Promise<ResultObject<null>> {
     return request.put({
         url: '/admin/user/role',
-        data
+        data,
+        isEncrypt: true
     })
 }
 
@@ -16,7 +17,8 @@ export function updateUserRole(data: {roleList: Array<string>, userId: string}):
  */
 export function getUserInfo(): Promise<ResultObject<UserPersonalInfoModel>> {
     return request.get({
-        url: '/user/info'
+        url: '/user/info',
+        isDecrypt: true
     })
 }
 
@@ -41,6 +43,7 @@ export function updateUserAvatar(file: any): Promise<ResultObject<UploadFileInfo
 export function updateUserInfo(data: UpdateUserInfo): Promise<ResultObject<null>> {
     return request.put({
         url: '/user/info',
-        data
+        data,
+        isEncrypt: true
     })
 }

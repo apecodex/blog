@@ -7,7 +7,8 @@ import request from '~/api/service'
 export function listCommentBack(condition: ConditionParams): Promise<PageResult<Array<CommentBackModel>>> {
     return request.get({
         url: '/admin/comments',
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }
 

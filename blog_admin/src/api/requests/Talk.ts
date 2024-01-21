@@ -7,7 +7,8 @@ import request from '~/api/service'
 export function saveOrUpdateTalk(data: TalkFormParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/talk',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -31,7 +32,8 @@ export function saveTalkPictureVideo(data: any): Promise<ResultObject<UploadFile
  */
 export function getTalkBackOnlyById(id: string): Promise<ResultObject<TalkBackOnlyModel>> {
   return request.get({
-    url: `/admin/talk/${id}`
+    url: `/admin/talk/${id}`,
+    isDecrypt: true
   })
 }
 
@@ -42,7 +44,8 @@ export function getTalkBackOnlyById(id: string): Promise<ResultObject<TalkBackOn
 export function listTalkBack(condition: ConditionParams): Promise<PageResult<Array<TalkBackModel>>> {
   return request.get({
     url: '/admin/talks',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 

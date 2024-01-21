@@ -2,6 +2,8 @@ package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.TalkBackDto;
 import cn.apecode.dto.TalkBackOnlyDto;
 import cn.apecode.dto.TalkFrontDto;
@@ -37,6 +39,7 @@ public class TalkController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或修改说说", httpMethod = "POST")
     @PostMapping(value = "/admin/talk")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateTalk(@RequestBody @Validated TalkVo talk) {
         talkService.saveOrUpdateTalk(talk);
         return ResponseCode.ok("保存成功");
@@ -52,6 +55,7 @@ public class TalkController {
 
     @ApiOperation(value = "查看后台说说", httpMethod = "GET")
     @GetMapping("/admin/talks")
+    @Encrypt
     public ResponseCode<PageResult<TalkBackDto>> listTalkBack(ConditionVo condition) {
         return ResponseCode.ok(talkService.listTalkBack(condition));
     }
@@ -66,6 +70,7 @@ public class TalkController {
 
     @ApiOperation(value = "查看说说列表", httpMethod = "GET")
     @GetMapping("/talks")
+    @Encrypt
     public ResponseCode<PageResult<TalkFrontDto>> listTalkFront() {
         return ResponseCode.ok(talkService.listTalkFront());
     }
@@ -73,6 +78,7 @@ public class TalkController {
     @ApiOperation(value = "根据id查看说说", httpMethod = "GET")
     @ApiImplicitParam(value = "说说id", name = "talkId", required = true, dataTypeClass = String.class)
     @GetMapping("/talk/{talkId}")
+    @Encrypt
     public ResponseCode<TalkFrontDto> getTalkById(@PathVariable String talkId) {
         return ResponseCode.ok(talkService.getTalkById(talkId));
     }
@@ -87,6 +93,7 @@ public class TalkController {
     @ApiOperation(value = "根据id获取后台说说", httpMethod = "GET")
     @ApiImplicitParam(value = "说说id", name = "talkId", required = true, dataTypeClass = String.class)
     @GetMapping("/admin/talk/{talkId}")
+    @Encrypt
     public ResponseCode<TalkBackOnlyDto> getTalkBackOnlyById(@PathVariable String talkId) {
         return ResponseCode.ok(talkService.getTalkBackOnlyById(talkId));
     }

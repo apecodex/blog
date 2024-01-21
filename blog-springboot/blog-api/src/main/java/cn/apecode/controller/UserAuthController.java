@@ -3,6 +3,8 @@ package cn.apecode.controller;
 import cn.apecode.common.annotation.AccessLimit;
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.UserInfoBackDto;
 import cn.apecode.dto.UserInfoDto;
 import cn.apecode.service.UserAuthService;
@@ -41,6 +43,7 @@ public class UserAuthController {
 
     @ApiOperation(value = "获取后台用户列表", httpMethod = "GET")
     @GetMapping("/admin/users")
+    @Encrypt
     public ResponseCode<PageResult<UserInfoBackDto>> listUsers(ConditionVo conditionVo) {
         return ResponseCode.ok(userAuthService.listUserInfoBack(conditionVo));
     }
@@ -48,14 +51,15 @@ public class UserAuthController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改密码", httpMethod = "PUT")
     @PutMapping("/user/password")
+    @Decrypt
     public ResponseCode<?> updatePassword(@Validated @RequestBody PasswordVo password) {
         userAuthService.updatePassword(password);
         return ResponseCode.ok("新密码修改成功");
     }
 
-    @OptLog(optType = UPDATE)
     @ApiOperation(value = "找回密码", httpMethod = "PUT")
     @PutMapping("/findPassword")
+    @Decrypt
     public ResponseCode<?> findPassword(@Validated @RequestBody FindPasswordVo findPassword) {
         userAuthService.findPassword(findPassword);
         return ResponseCode.ok("新密码修改成功");
@@ -63,6 +67,7 @@ public class UserAuthController {
 
     @ApiOperation(value = "用户注册", httpMethod = "POST")
     @PostMapping("/register")
+    @Decrypt
     public ResponseCode<?> register(@Validated @RequestBody RegisterVo register) {
         userAuthService.register(register);
         return ResponseCode.ok("注册成功");
@@ -80,6 +85,7 @@ public class UserAuthController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改用户禁用状态", httpMethod = "PUT")
     @PutMapping("/admin/user/enable")
+    @Decrypt
     public ResponseCode<?> updateUserEnable(@Validated @RequestBody UserEnableVo userEnable) {
         userAuthService.updateUserEnable(userEnable);
         return ResponseCode.ok("修改成功");

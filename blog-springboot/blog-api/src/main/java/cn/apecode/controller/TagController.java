@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.TagBackDto;
 import cn.apecode.dto.TagDto;
 import cn.apecode.dto.TagFrontDto;
@@ -39,12 +41,14 @@ public class TagController {
     @OptLog(optType = SAVE)
     @ApiOperation(value = "添加标签", httpMethod = "POST")
     @PostMapping("/admin/tags")
+    @Decrypt
     public ResponseCode<List<TagDto>> saveTag(@RequestBody List<String> tagsName) {
         return ResponseCode.ok(tagService.saveTags(tagsName));
     }
 
     @ApiOperation(value = "查询后台标签列表", httpMethod = "GET")
     @GetMapping("/admin/tags")
+    @Encrypt
     public ResponseCode<PageResult<TagBackDto>> listTagBack(ConditionVo condition) {
         return ResponseCode.ok(tagService.listTagBack(condition));
     }
@@ -67,6 +71,7 @@ public class TagController {
 
     @ApiOperation(value = "查询标签列表", httpMethod = "GET")
     @GetMapping("/tags")
+    @Encrypt
     public ResponseCode<TagFrontDto> listTagFront() {
         return ResponseCode.ok(tagService.listTagFront());
     }
@@ -74,6 +79,7 @@ public class TagController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改标签", httpMethod = "PUT")
     @PutMapping("/admin/tags")
+    @Decrypt
     public ResponseCode<?> updateTag(@Validated @RequestBody TagVo tag) {
         tagService.updateTag(tag);
         return ResponseCode.ok("修改成功");

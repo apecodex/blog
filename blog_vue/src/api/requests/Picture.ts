@@ -7,6 +7,7 @@ import {request} from "@/api/services"
 export function getPicturesByAlbumId(condition: ConditionParams): Promise<PageResultWithObject<Array<PictureEntity>, PictureAlbumInfoEntity>> {
     return request.get({
         url: `/album/${condition.albumPath}/pictures`,
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }

@@ -62,6 +62,11 @@ export default defineConfig({
           var: 'axios',
           path: 'https://unpkg.com/axios@0.27.2/dist/axios.min.js',
         },
+        {
+          name: 'jsencrypt',
+          var: 'JSEncrypt',
+          path: 'https://unpkg.com/jsencrypt@3.3.2/bin/jsencrypt.min.js',
+        },
       ]
     })
   ],

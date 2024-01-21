@@ -7,7 +7,8 @@ import request from '~/api/service'
 export function listAlbumBack(condition: ConditionParams): Promise<PageResult<Array<AlbumBackModel>>> {
   return request.get({
     url: '/admin/albums',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -32,7 +33,8 @@ export function updateAlbumCover(data: any): Promise<ResultObject<UploadFileInfo
 export function updateAlbum(data: PhotoAlbumParams): Promise<ResultObject<null>> {
   return request.put({
     url: '/admin/album',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -53,6 +55,7 @@ export function deleteAlbum(albumId: string): Promise<ResultObject<null>> {
 export function saveAlbum(data: PhotoAlbumParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/album',
-    data
+    data,
+    isEncrypt: true
   })
 }

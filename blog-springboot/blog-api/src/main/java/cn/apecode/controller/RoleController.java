@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.RoleDto;
 import cn.apecode.dto.UserRoleDto;
 import cn.apecode.service.RoleService;
@@ -36,6 +38,7 @@ public class RoleController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新角色", httpMethod = "POST")
     @PostMapping("/admin/role")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateRole(@Validated @RequestBody RoleVo roleVo) {
         roleService.saveOrUpdateRole(roleVo);
         return ResponseCode.ok("保存成功");
@@ -43,6 +46,7 @@ public class RoleController {
 
     @ApiOperation(value = "查询角色列表", httpMethod = "GET")
     @GetMapping("/admin/roles")
+    @Encrypt
     public ResponseCode<PageResult<RoleDto>> listRole(ConditionVo condition) {
         return ResponseCode.ok(roleService.listRole(condition));
     }
@@ -57,6 +61,7 @@ public class RoleController {
 
     @ApiOperation(value = "查询用户角色选项", httpMethod = "GET")
     @GetMapping("/admin/user/roles")
+    @Encrypt
     public ResponseCode<List<UserRoleDto>> listUserRole() {
         return ResponseCode.ok(roleService.listUserRole());
     }

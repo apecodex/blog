@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.CategoryBackDto;
 import cn.apecode.dto.CategoryFrontDto;
 import cn.apecode.dto.CategoryOptionDto;
@@ -37,6 +39,7 @@ public class CategoryController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "添加或修改分类", httpMethod = "POST")
     @PostMapping("/admin/category")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateCategory(@Validated @RequestBody CategoryVo category) {
         categoryService.saveOrUpdateCategory(category);
         return ResponseCode.ok("保存成功");
@@ -52,18 +55,21 @@ public class CategoryController {
 
     @ApiOperation(value = "搜索文章分类", httpMethod = "GET")
     @GetMapping("/admin/category/search")
+    @Encrypt
     public ResponseCode<List<CategoryOptionDto>> listCategoryFromSearch(ConditionVo condition) {
         return ResponseCode.ok(categoryService.listCategoryFromSearch(condition));
     }
 
     @ApiOperation(value = "获取后台分类列表", httpMethod = "GET")
     @GetMapping("/admin/categories")
+    @Encrypt
     public ResponseCode<PageResult<CategoryBackDto>> listCategoryBack(ConditionVo condition) {
         return ResponseCode.ok(categoryService.listCategoryBack(condition));
     }
 
     @ApiOperation(value = "获取分类列表", httpMethod = "GET")
     @GetMapping("/categories")
+    @Encrypt
     public ResponseCode<CategoryFrontDto> listCategoryFront() {
         return ResponseCode.ok(categoryService.listCategoryFront());
     }

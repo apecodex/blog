@@ -10,7 +10,8 @@ import {storeToRefs} from "pinia";
 export function getTalk({size, current}: ConditionParams): Promise<PageResult<Array<TalkEntity>>> {
     return request.get({
         url: "/talks",
-        params: {size, current}
+        params: {size, current},
+        isDecrypt: true
     })
 }
 
@@ -24,7 +25,8 @@ export function getTalkByTalkId(talkId: string): Promise<ResultObject<TalkEntity
         headers: {
             "rectangle": rectangle.value
         },
-        url: `/talk/${talkId}`
+        url: `/talk/${talkId}`,
+        isDecrypt: true
     })
 }
 

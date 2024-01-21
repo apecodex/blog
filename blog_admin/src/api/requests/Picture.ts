@@ -7,7 +7,8 @@ import request from '~/api/service'
 export function listPictureByAlbumId(condition: ConditionParams): Promise<PageResult<Array<PictureBackModel>>> {
   return request.get({
     url: '/admin/pictures',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -18,7 +19,8 @@ export function listPictureByAlbumId(condition: ConditionParams): Promise<PageRe
 export function updatePictureDeleteStatus(data: { idList: Array<string>, isDelete: boolean }): Promise<ResultObject<null>> {
   return request.put({
     url: '/admin/pictures/delete',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -29,7 +31,8 @@ export function updatePictureDeleteStatus(data: { idList: Array<string>, isDelet
 export function movePictureAlbum(data: { albumId: string, pictureIdList: Array<string> }): Promise<PageResult<null>> {
   return request.put({
     url: '/admin/pictures/album',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -40,7 +43,8 @@ export function movePictureAlbum(data: { albumId: string, pictureIdList: Array<s
 export function updatePictureInfo(data: PictureInfoParams): Promise<ResultObject<null>> {
   return request.put({
     url: '/admin/picture',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -65,7 +69,8 @@ export function uploadPicture(data: any): Promise<ResultObject<UploadFileInfoMod
 export function savePictures(data: { albumId: string, pictureUrlList: Array<UploadFileInfoModel> }): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/picture',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -76,7 +81,8 @@ export function savePictures(data: { albumId: string, pictureUrlList: Array<Uplo
 export function listDeletePicture(condition: ConditionParams): Promise<PageResult<Array<PictureBackModel>>> {
   return request.get({
     url: '/admin/pictures/delete',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -87,6 +93,7 @@ export function listDeletePicture(condition: ConditionParams): Promise<PageResul
 export function deletePicture(data: Array<string>): Promise<ResultObject<null>> {
   return request.delete({
     url: '/admin/picture',
-    data
+    data,
+    isEncrypt: true
   })
 }

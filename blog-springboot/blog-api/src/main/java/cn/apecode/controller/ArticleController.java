@@ -2,6 +2,8 @@ package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.*;
 import cn.apecode.service.ArticleService;
 import cn.apecode.vo.*;
@@ -37,6 +39,7 @@ public class ArticleController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "添加或修改文章", httpMethod = "POST")
     @PostMapping("/admin/article")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateArticle(@Validated @RequestBody ArticleVo article) {
         articleService.saveOrUpdateArticle(article);
         return ResponseCode.ok("保存成功");
@@ -74,6 +77,7 @@ public class ArticleController {
 
     @ApiOperation(value = "获取文章归档", httpMethod = "GET")
     @GetMapping("/article/archives")
+    @Encrypt
     public ResponseCode<List<ArchiveMonthDto>> listArchives() {
         return ResponseCode.ok(articleService.listArchives());
     }
@@ -89,12 +93,14 @@ public class ArticleController {
     @ApiOperation(value = "根据id获取文章", httpMethod = "GET")
     @ApiImplicitParam(value = "文章id", name = "articleId", dataTypeClass = String.class, required = true)
     @GetMapping("/article/{articleId}")
+    @Encrypt
     public ResponseCode<ArticleDto> getArticleByArticleId(@PathVariable String articleId) {
         return ResponseCode.ok(articleService.getArticleByArticleId(articleId));
     }
 
     @ApiOperation(value = "获取首页文章", httpMethod = "GET")
     @GetMapping("/articles")
+    @Encrypt
     public ResponseCode<PageResult<ArticleHomeDto>> listArticle() {
         return ResponseCode.ok(articleService.listArticle());
     }
@@ -102,12 +108,14 @@ public class ArticleController {
     @ApiOperation(value = "根据id获取后台文章", httpMethod = "GET")
     @ApiImplicitParam(value = "文章id", name = "articleId", dataTypeClass = String.class, required = true)
     @GetMapping("/admin/article/{articleId}")
+    @Encrypt
     public ResponseCode<ArticleVo> getArticleBackByArticleId(@PathVariable String articleId) {
         return ResponseCode.ok(articleService.getArticleBackByArticleId(articleId));
     }
 
     @ApiOperation(value = "获取后台文章", httpMethod = "GET")
     @GetMapping("/admin/articles")
+    @Encrypt
     public ResponseCode<PageResult<ArticleBackDto>> listArticleBack(ConditionVo condition) {
         return ResponseCode.ok(articleService.listArticleBack(condition));
     }

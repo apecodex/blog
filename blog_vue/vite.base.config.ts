@@ -92,6 +92,11 @@ export default defineConfig({
           var: 'StompJs',
           path: 'https://unpkg.com/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js',
         },
+        {
+          name: 'jsencrypt',
+          var: 'JSEncrypt',
+          path: 'https://unpkg.com/jsencrypt@3.3.2/bin/jsencrypt.min.js',
+        },
       ]
     })
   ],

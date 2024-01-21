@@ -7,6 +7,7 @@ import {request} from "@/api/services"
 export function getTags(condition: ConditionParams): Promise<ResultObject<TagFrontEntity>> {
     return request.get({
         url: "/tags",
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }

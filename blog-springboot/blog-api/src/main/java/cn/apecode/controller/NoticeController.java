@@ -1,5 +1,7 @@
 package cn.apecode.controller;
 
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.NoticeBackDto;
 import cn.apecode.dto.NoticeFrontDto;
 import cn.apecode.service.NoticeService;
@@ -34,6 +36,7 @@ public class NoticeController {
 
     @ApiOperation(value = "发送通知", httpMethod = "POST")
     @PostMapping("/admin/notice")
+    @Decrypt
     public ResponseCode<?> sendNotice(@Validated @RequestBody NoticeVo noticeVo) {
         noticeService.sendNotice(noticeVo);
         return ResponseCode.ok("发送成功");
@@ -48,6 +51,7 @@ public class NoticeController {
 
     @ApiOperation(value = "删除通知", httpMethod = "DELETE")
     @DeleteMapping("/admin/notice")
+    @Decrypt
     public ResponseCode<?> deleteNotice(@Validated @RequestBody DeleteVo deleteVo) {
         noticeService.deleteNotice(deleteVo);
         return ResponseCode.ok("删除成功");
@@ -63,6 +67,7 @@ public class NoticeController {
     @ApiOperation(value = "获取用户通知列表", httpMethod = "GET")
     @ApiImplicitParam(value = "是否已阅", name = "isRead", required = true, dataTypeClass = Boolean.class)
     @GetMapping("/user/notice")
+    @Encrypt
     public ResponseCode<PageResult<NoticeFrontDto>> listNoticeFront(Boolean isRead) {
         return ResponseCode.ok(noticeService.listNoticeFront(isRead));
     }
@@ -72,6 +77,7 @@ public class NoticeController {
             @ApiImplicitParam(value = "是否系统通知", name = "isSystemNotice", dataTypeClass = Boolean.class),
             @ApiImplicitParam(value = "用户昵称", name = "nickname", dataTypeClass = String.class)})
     @GetMapping("/admin/notice")
+    @Encrypt
     public ResponseCode<PageResult<NoticeBackDto>> listNoticeBack(Boolean isRead, Boolean isSystemNotice, String nickname) {
         return ResponseCode.ok(noticeService.listNoticeBack(isRead, isSystemNotice, nickname));
     }

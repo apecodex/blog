@@ -5,7 +5,8 @@ import request from '~/api/service'
  */
 export function listRoleResourceOption(): Promise<ResultObject<Array<ResourceOrMenuOptionModel>>> {
   return request.get({
-    url: '/admin/role/resources'
+    url: '/admin/role/resources',
+    isDecrypt: true
   })
 }
 
@@ -16,7 +17,8 @@ export function listRoleResourceOption(): Promise<ResultObject<Array<ResourceOrM
 export function listResourceBack(condition: ConditionParams): Promise<ResultObject<Array<ResourceBackModel>>> {
   return request.get({
     url: '/admin/resources',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -27,7 +29,8 @@ export function listResourceBack(condition: ConditionParams): Promise<ResultObje
 export function saveOrUpdateResource(data: ResourceParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/resource',
-    data
+    data,
+    isEncrypt: true
   })
 }
 

@@ -14,7 +14,8 @@
     "@stomp/stompjs": "^7.0.0",
     "axios": "^0.27.2",
     "canvas-confetti": "^1.6.0",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
+    "jsencrypt": "^3.3.2",
     "md-editor-v3": "^2.3.0",
     "pinia": "^2.0.22",
     "pinia-plugin-persistedstate": "^2.2.0",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.6.0",
+    "@types/crypto-js": "^4.2.1",
     "@types/node": "^18.8.0",
     "@vitejs/plugin-legacy": "^3.0.0",
     "@vitejs/plugin-vue": "^3.1.0",

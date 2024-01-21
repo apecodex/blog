@@ -7,7 +7,8 @@ import request from '~/api/service'
 export function updateTag(data: UpdateTagParams): Promise<ResultObject<null>> {
   return request.put({
     url: '/admin/tags',
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -29,7 +30,8 @@ export function deleteTag(data: string): Promise<ResultObject<null>> {
 export function listTagBack(condition: ConditionParams): Promise<PageResult<Array<TagBackModel>>> {
   return request.get({
     url: '/admin/tags',
-    params: condition
+    params: condition,
+    isDecrypt: true
   })
 }
 
@@ -40,6 +42,7 @@ export function listTagBack(condition: ConditionParams): Promise<PageResult<Arra
 export function saveTag(tags: Array<string>): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/tags',
-    data: tags
+    data: tags,
+    isEncrypt: true
   })
 }

@@ -1,9 +1,14 @@
 import {request} from '@/api/services'
 
+/**
+ * 获取首页文章
+ * @param articleId
+ */
 export function getHomeArticleList(condition: ConditionParams): Promise<PageResult<Array<ArticleHomeEntity>>> {
     return request.get({
         url: "/articles",
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }
 
@@ -13,7 +18,8 @@ export function getHomeArticleList(condition: ConditionParams): Promise<PageResu
  */
 export function getArticleByArticleId(articleId: string): Promise<ResultObject<ArticleEntity>> {
     return request.get({
-        url: '/article/' + articleId
+        url: '/article/' + articleId,
+        isDecrypt: true
     })
 }
 
@@ -43,7 +49,8 @@ export function articleLike(articleId: string): Promise<ResultObject<null>> {
  */
 export function getArticleArchives(): Promise<ResultObject<Array<ArchiveEntity>>> {
     return request.get({
-        url: "/article/archives"
+        url: "/article/archives",
+        isDecrypt: true
     })
 }
 

@@ -1,11 +1,12 @@
 import request from '../service'
 
 /**
- * 获取后台菜单
+ * 获取当前用户菜单
  */
 export function getUserMenus(): Promise<ResultObject<Array<UserMenuBackModel>>> {
   return request.get({
-    url: "/admin/user/menus"
+    url: "/admin/user/menus",
+    isDecrypt: true
   })
 }
 
@@ -14,7 +15,8 @@ export function getUserMenus(): Promise<ResultObject<Array<UserMenuBackModel>>> 
  */
 export function listRoleMenuOption(): Promise<ResultObject<Array<ResourceOrMenuOptionModel>>> {
   return request.get({
-    url: '/admin/role/menus'
+    url: '/admin/role/menus',
+    isDecrypt: true
   })
 }
 
@@ -23,7 +25,8 @@ export function listRoleMenuOption(): Promise<ResultObject<Array<ResourceOrMenuO
  */
 export function listMenuBack(): Promise<ResultObject<Array<MenuBackModel>>> {
   return request.get({
-    url: '/admin/menus'
+    url: '/admin/menus',
+    isDecrypt: true
   })
 }
 
@@ -34,7 +37,8 @@ export function listMenuBack(): Promise<ResultObject<Array<MenuBackModel>>> {
 export function saveOrUpdateMenu(data: MenuParams): Promise<ResultObject<null>> {
   return request.post({
     url: '/admin/menu',
-    data
+    data,
+    isEncrypt: true
   })
 }
 

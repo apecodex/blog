@@ -7,7 +7,8 @@ import request from '~/api/service'
 export function listMessageBack(condition: ConditionParams): Promise<PageResult<Array<MessageBackModel>>> {
     return request.get({
         url: '/admin/messages',
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }
 
@@ -18,7 +19,8 @@ export function listMessageBack(condition: ConditionParams): Promise<PageResult<
 export function updateMessageReview(data: { idList: Array<string>, isReview: boolean }): Promise<ResultObject<null>> {
     return request.put({
         url: '/admin/message',
-        data
+        data,
+        isEncrypt: true
     })
 }
 
@@ -29,6 +31,7 @@ export function updateMessageReview(data: { idList: Array<string>, isReview: boo
 export function deleteMessage(data: Array<string>): Promise<ResultObject<null>> {
     return request.delete({
         url: '/admin/message',
-        data
+        data,
+        isEncrypt: true
     })
 }

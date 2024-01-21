@@ -2,7 +2,7 @@
  * 用户登录参数
  */
 declare type UserLoginParams = {
-    email: string
+    username: string
     password: string
     captchaVerification: string
 }
@@ -32,4 +32,14 @@ declare type BindOrUnBindEmail = {
     captchaVerification: string
     code: string
     email: string
+}
+
+/**
+ * 更新密码
+ */
+declare type UpdatePasswordParams = {
+    oldPassword: string
+    newPassword: string
+    code: string
+    captchaVerification: string
 }

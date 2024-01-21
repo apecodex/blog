@@ -9,7 +9,8 @@ import request from '../service'
 export function listNoticeBack(params: NoticeParams): Promise<PageResult<Array<NoticeBackModel>>> {
   return request.get({
     url: "/admin/notice",
-    params
+    params,
+    isDecrypt: true
   })
 }
 
@@ -35,7 +36,8 @@ export function deleteNotice(ids: Array<string>): Promise<ResultObject<null>> {
     data: {
       idList: ids,
       isDelete: true
-    }
+    },
+    isEncrypt: true
   })
 }
 
@@ -46,6 +48,7 @@ export function deleteNotice(ids: Array<string>): Promise<ResultObject<null>> {
 export function sendNotice(data: SendNoticeParams): Promise<ResultObject<null>> {
   return request.post({
     url: "/admin/notice",
-    data
+    data,
+    isEncrypt: true
   })
 }

@@ -7,7 +7,8 @@ import { request } from "@/api/services"
 export function insertComment(data: SaveCommentParams): Promise<ResultObject<null>> {
   return request.post({
     url: "/comment",
-    data
+    data,
+    isEncrypt: true
   })
 }
 
@@ -18,7 +19,8 @@ export function insertComment(data: SaveCommentParams): Promise<ResultObject<nul
 export function getCommentList(commentInfo: CommentQueryParams): Promise<PageResult<Array<CommentEntity>>> {
   return request.get({
     url: "/comments",
-    params: commentInfo
+    params: commentInfo,
+    isDecrypt: true
   })
 }
 
@@ -30,7 +32,8 @@ export function getCommentList(commentInfo: CommentQueryParams): Promise<PageRes
 export function getReplyCommentList(commentId: string, { size, current }: ConditionParams): Promise<ResultObject<Array<ReplyEntity>>> {
   return request.get({
     url: `/comment/${commentId}/replies`,
-    params: { size, current }
+    params: { size, current },
+    isDecrypt: true
   })
 }
 

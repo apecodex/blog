@@ -3,6 +3,8 @@ package cn.apecode.controller;
 import cn.apecode.common.annotation.AccessLimit;
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.FriendLinkBackDto;
 import cn.apecode.dto.FriendLinkFrontDto;
 import cn.apecode.service.FriendLinkService;
@@ -36,6 +38,7 @@ public class FriendLinkController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或修改友链", httpMethod = "POST")
     @PostMapping("/admin/link")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateFriendLike(@Validated @RequestBody FriendLinkVo friendLink) {
         friendLinkService.saveOrUpdateFriendLink(friendLink);
         return ResponseCode.ok("保存成功");
@@ -52,6 +55,7 @@ public class FriendLinkController {
 
     @ApiOperation(value = "获取后台友链列表", httpMethod = "GET")
     @GetMapping("/admin/links")
+    @Encrypt
     public ResponseCode<PageResult<FriendLinkBackDto>> listFriendLinkBack(ConditionVo condition) {
         return ResponseCode.ok(friendLinkService.listFriendLinkBack(condition));
     }

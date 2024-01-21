@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.LabelOptionDto;
 import cn.apecode.dto.UserMenuDto;
 import cn.apecode.service.MenuService;
@@ -35,12 +37,14 @@ public class MenuController {
 
     @ApiOperation(value = "获取当前用户菜单", httpMethod = "GET")
     @GetMapping("/admin/user/menus")
+    @Encrypt
     public ResponseCode<List<UserMenuDto>> ListUserMenusByUserId() {
         return ResponseCode.ok(menuService.listUserMenusByUserId());
     }
 
     @ApiOperation(value = "获取菜单列表", httpMethod = "GET")
     @GetMapping("/admin/menus")
+    @Encrypt
     public ResponseCode<List<UserMenuDto>> listMenu() {
         return ResponseCode.ok(menuService.listMenu());
     }
@@ -48,6 +52,7 @@ public class MenuController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "保存或更新菜单", httpMethod = "POST")
     @PostMapping("/admin/menu")
+    @Decrypt
     public ResponseCode<?> saveOrUpdateMenu(@Validated @RequestBody MenuVo menu) {
         menuService.saveOrUpdateMenu(menu);
         return ResponseCode.ok("保存成功");
@@ -65,6 +70,7 @@ public class MenuController {
 
     @ApiOperation(value = "获取角色菜单选项", httpMethod = "GET")
     @GetMapping("/admin/role/menus")
+    @Encrypt
     public ResponseCode<List<LabelOptionDto>> listRoleMenuOption() {
         return ResponseCode.ok(menuService.listRoleMenuOption());
     }

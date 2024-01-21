@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "crypto-js": "^4.1.1",
     "echarts": "^5.3.3",
+    "jsencrypt": "^3.3.2",
     "md-editor-v3": "^2.5.0",
     "pinia": "^2.0.17",
     "pinia-plugin-persistedstate": "^3.0.1",

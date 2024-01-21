@@ -5,7 +5,8 @@ import {request} from '@/api/services'
  */
 export function getBlogInfo(): Promise<ResultObject<WebsiteInfoEntity>> {
     return request.get({
-        url: '/'
+        url: '/',
+        isDecrypt: true
     })
 }
 

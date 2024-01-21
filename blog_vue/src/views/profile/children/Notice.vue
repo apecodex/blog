@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import {getDate} from "@/utils/utils"
-import {useUserInfoStore} from "@/store"
+import { getDate } from "@/utils/utils"
+import { useUserInfoStore } from "@/store"
 import {
   pagination,
   noticesData,
@@ -11,14 +11,14 @@ import {
   createUserNoReadCountHandle,
   clearNoReadHandle
 } from "./NoticeHooks"
-import {onMounted} from "vue";
-import {storeToRefs} from "pinia";
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
 
 const userInfoStore = useUserInfoStore();
-const {userNoticeCount} = storeToRefs(userInfoStore);
+const { userNoticeCount } = storeToRefs(userInfoStore);
 
 onMounted(() => {
-  createNoticesData(false, {current: pagination.current, size: pagination.size});
+  createNoticesData(false, { current: pagination.current, size: pagination.size });
   createUserNoReadCountHandle();
 })
 </script>
@@ -26,23 +26,25 @@ onMounted(() => {
 <template>
   <div>
     <div class="flex justify-center gap-60px <sm:(justify-between)">
-      <button class="is-read-btn py-4px px-10px shadow rounded-6px relative outline-none" :class="{'active': !pagination.isRead}"
-              @click="changeIsRead(false)">
+      <button class="is-read-btn py-4px px-10px shadow rounded-6px relative outline-none"
+        :class="{ 'active': !pagination.isRead }" @click="changeIsRead(false)">
         未 读
         <span
-            class="absolute -top-5px -right-15px p-3px rounded-full shadow bg-$theme-bg text-12px font-bold text-red-600" style="transition: var(--theme-transition-shadow), var(--theme-transition-bg)" v-if="userNoticeCount !== 0">{{
+          class="absolute -top-5px left-45px p-3px rounded-full shadow bg-$theme-bg text-12px font-bold text-red-600"
+          style="transition: var(--theme-transition-shadow), var(--theme-transition-bg)" v-if="userNoticeCount !== 0">{{
             userNoticeCount !== 0 ? userNoticeCount : ''
           }}</span>
       </button>
-      <button class="is-read-btn py-4px px-10px shadow rounded-6px outline-none" v-if="userNoticeCount !== 0" @click="clearNoReadHandle">清除未读</button>
-      <button class="is-read-btn py-4px px-10px shadow rounded-6px outline-none" :class="{'active': pagination.isRead}"
-              @click="changeIsRead(true)">已 读
+      <button class="is-read-btn py-4px px-10px shadow rounded-6px outline-none" v-if="userNoticeCount !== 0"
+        @click="clearNoReadHandle">清除未读</button>
+      <button class="is-read-btn py-4px px-10px shadow rounded-6px outline-none" :class="{ 'active': pagination.isRead }"
+        @click="changeIsRead(true)">已 读
       </button>
     </div>
     <hr class="hr-twill py-1px my-15px">
     <div v-if="noticesData" class="flex flex-col gap-20px">
       <div class="notice-item p-10px rounded-6px flex flex-col gap-3px" v-for="notice of noticesData.recordList"
-           :key="notice.id">
+        :key="notice.id">
         <h3 class="text-17px">{{ notice.title }}</h3>
         <p>{{ notice.content }}</p>
         <div class="flex justify-between items-center">
@@ -54,7 +56,7 @@ onMounted(() => {
               <a :href="notice.url" target="_blank">查看</a>
             </button>
             <button class="notice-btn text-$hover-color2 shadow px-8px rounded-6px outline-none"
-                    @click="updateNoticeReadHandle(new Array(notice.id))" v-if="!notice.status">朕已阅
+              @click="updateNoticeReadHandle(new Array(notice.id))" v-if="!notice.status">朕已阅
             </button>
           </div>
         </div>

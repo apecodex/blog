@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.PhotoAlbumBackDto;
 import cn.apecode.dto.PhotoAlbumFrontDto;
 import cn.apecode.dto.UploadFileInfoDto;
@@ -41,6 +43,7 @@ public class PhotoAlbumController {
 
     @ApiOperation(value = "获取后台相册列表", httpMethod = "GET")
     @GetMapping("/admin/albums")
+    @Encrypt
     public ResponseCode<PageResult<PhotoAlbumBackDto>> listPhotoAlbumBack(ConditionVo condition) {
         return ResponseCode.ok(photoAlbumService.listPhotoAlbumBack(condition));
     }
@@ -48,6 +51,7 @@ public class PhotoAlbumController {
     @OptLog(optType = SAVE)
     @ApiOperation(value = "添加相册", httpMethod = "POST")
     @PostMapping("/admin/album")
+    @Decrypt
     public ResponseCode<?> savePhotoAlbum(@Validated @RequestBody PhotoAlbumVo photoAlbum) {
         photoAlbumService.savePhotoAlbum(photoAlbum);
         return ResponseCode.ok("添加成功");
@@ -70,6 +74,7 @@ public class PhotoAlbumController {
 
     @ApiOperation(value = "获取相册列表", httpMethod = "GET")
     @GetMapping("/albums")
+    @Encrypt
     public ResponseCode<PageResult<PhotoAlbumFrontDto>> listPhotoAlbumFront(ConditionVo condition) {
         return ResponseCode.ok(photoAlbumService.listPhotoAlbumFront(condition));
     }
@@ -77,6 +82,7 @@ public class PhotoAlbumController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "修改相册", httpMethod = "PUT")
     @PutMapping("/admin/album")
+    @Decrypt
     public ResponseCode<?> updatePhotoAlbum(@Validated @RequestBody PhotoAlbumVo photoAlbum) {
         photoAlbumService.updatePhotoAlbum(photoAlbum);
         return ResponseCode.ok("修改成功");

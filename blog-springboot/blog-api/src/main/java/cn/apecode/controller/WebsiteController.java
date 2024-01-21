@@ -1,6 +1,8 @@
 package cn.apecode.controller;
 
 import cn.apecode.common.annotation.OptLog;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.BlogBackInfoDto;
 import cn.apecode.dto.BlogHomeInfoDto;
 import cn.apecode.dto.UploadFileInfoDto;
@@ -34,6 +36,7 @@ public class WebsiteController {
 
     @ApiOperation(value = "获取后台信息", httpMethod = "GET")
     @GetMapping("/admin")
+    @Encrypt
     public ResponseCode<BlogBackInfoDto> getBlogBackInfo() {
         return ResponseCode.ok(websiteService.getBlogBackInfo());
     }
@@ -55,6 +58,7 @@ public class WebsiteController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "更新网站配置", httpMethod = "PUT")
     @PutMapping("/admin/website/config")
+    @Decrypt
     public ResponseCode<?> updateWebsiteConfigure(@RequestBody WebsiteConfigVo websiteConfig) {
         websiteService.updateWebsiteConfigure(websiteConfig);
         return ResponseCode.ok("修改成功");
@@ -62,6 +66,7 @@ public class WebsiteController {
 
     @ApiOperation(value = "获取网站配置", httpMethod = "GET")
     @GetMapping("/admin/website/config")
+    @Encrypt
     public ResponseCode<WebsiteConfigVo> getWebsiteConfigure() {
         return ResponseCode.ok(websiteService.getWebsiteConfigure());
     }
@@ -75,6 +80,7 @@ public class WebsiteController {
 
     @ApiOperation(value = "获取博客信息", httpMethod = "GET")
     @GetMapping("/")
+    @Encrypt
     public ResponseCode<BlogHomeInfoDto> getBlogInfo() {
         return ResponseCode.ok(websiteService.getBlogInfo());
     }

@@ -3,6 +3,8 @@ package cn.apecode.controller;
 import cn.apecode.common.annotation.AccessLimit;
 import cn.apecode.common.annotation.OptLog;
 import cn.apecode.common.utils.ResponseCode;
+import cn.apecode.crypto.annotation.Decrypt;
+import cn.apecode.crypto.annotation.Encrypt;
 import cn.apecode.dto.MessageBackDto;
 import cn.apecode.dto.MessageFrontDto;
 import cn.apecode.service.MessageService;
@@ -34,6 +36,7 @@ public class MessageController {
 
     @ApiOperation(value = "获取后台留言列表", httpMethod = "GET")
     @GetMapping("/admin/messages")
+    @Encrypt
     public ResponseCode<PageResult<MessageBackDto>> listMessageBack(ConditionVo condition) {
         return ResponseCode.ok(messageService.listMessageBack(condition));
     }
@@ -41,7 +44,8 @@ public class MessageController {
     @AccessLimit(seconds = 60, maxCount = 1)
     @ApiOperation(value = "添加留言", httpMethod = "POST")
     @PostMapping("/message")
-    public ResponseCode<?> saveMessage(@Validated MessageVo message) {
+    @Decrypt
+    public ResponseCode<?> saveMessage(@Validated @RequestBody MessageVo message) {
         messageService.saveMessage(message);
         return ResponseCode.ok("谢谢你的留言哦~");
     }
@@ -49,6 +53,7 @@ public class MessageController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "删除留言", httpMethod = "DELETE")
     @DeleteMapping("/admin/message")
+    @Decrypt
     public ResponseCode<?> deleteMessage(@RequestBody List<String> ids) {
         messageService.deleteMessage(ids);
         return ResponseCode.ok("删除成功");
@@ -57,6 +62,7 @@ public class MessageController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "审核留言", httpMethod = "PUT")
     @PutMapping("/admin/message")
+    @Decrypt
     public ResponseCode<?> updateMessageReview(@Validated @RequestBody ReviewVo review) {
         messageService.updateMessageReview(review);
         return ResponseCode.ok("修改成功");
@@ -64,6 +70,7 @@ public class MessageController {
 
     @ApiOperation(value = "获取留言列表", httpMethod = "GET")
     @GetMapping("/messages")
+    @Encrypt
     public ResponseCode<PageResult<MessageFrontDto>> listMessageFront(ConditionVo condition) {
         return ResponseCode.ok(messageService.listMessageFront(condition));
     }

@@ -5,6 +5,7 @@ import {request} from "@/api/services"
  */
 export function getCategories(): Promise<ResultObject<CategoryFrontEntity>> {
     return request.get({
-        url: '/categories'
+        url: '/categories',
+        isDecrypt: true
     })
 }

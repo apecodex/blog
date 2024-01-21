@@ -7,6 +7,7 @@ import {request} from "@/api/services"
 export function getAlbums(condition: ConditionParams): Promise<PageResult<Array<AlbumEntity>>> {
     return request.get({
         url: "/albums",
-        params: condition
+        params: condition,
+        isDecrypt: true
     })
 }
